@@ -1,0 +1,62 @@
+/* Example: Change the background color of the navbar */
+.navbar {
+    background-color: #703232;
+  }
+
+.nav-link {
+    color: #FFFFFF;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #BABABA;
+}
+
+.bg-primary {
+    background-color: #703232 !important;
+}
+
+.text-primary {
+    color: #703232 !important;
+}
+
+.text-secondary {
+    color: #BABABA;
+}
+
+.main {
+    background-color: #F6F6F6;
+    padding: 20px 50px;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler-icon {
+    color: #F6F6F6;
+}
+
+h1 {
+    font-weight: bold;
+    font-size: 70px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+h2 {
+    font-size: 70px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.fs-1 {
+    font-size: 60px !important;
+}
+
+.card {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border: none;
+}
+
+.card-header{
+    background-color: #703232;
+}

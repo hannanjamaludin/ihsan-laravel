@@ -17,19 +17,22 @@
     <link rel="apple-touch-icon" sizes="180x180" href="assets/img/ihsan-logo-apple-touch-icon.png">
         <link rel="icon" type="image/png" sizes="32x32" href="assets/img/ihsan-logo-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="assets/img/ihsan-logo-16x16.png">
-        <link rel="manifest" href="assets/img/site.webmanifest">
+        {{-- <link rel="manifest" href="assets/img/site.webmanifest"> --}}
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    {{-- <link href="/assets/css/app.css" rel="stylesheet" /> --}}
+    <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet" />
+
+    {{-- <link href="resources/sass/app.scss" rel="stylesheet"> --}}
 
     <!-- Scripts -->
-    {{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+                <a class="navbar-brand text-light" href="{{ url('/') }}">
                     {{-- {{ config('app.name', 'Laravel') }} --}}
                     Ihsan
                 </a>
@@ -44,7 +47,7 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
+                    <ul class="navbar-nav ms-10">
                         <!-- Authentication Links -->
                         @guest
                             @if (Route::has('login'))
@@ -82,7 +85,7 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="main">
             @yield('content')
         </main>
     </div>
