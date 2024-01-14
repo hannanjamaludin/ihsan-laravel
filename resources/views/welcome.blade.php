@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div style="width: 100%; box-sizing: border-box;">
+<div class="py-4 px-5" style="width: 100%; box-sizing: border-box;">
     <div style="position: relative; width: 100%; text-align: center; background-image: url('assets/img/welcome-background.jpeg'); background-size: cover; background-position: center; padding: 50px; border: none; box-sizing: border-box; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
 
         <!-- Overlay with transparency -->
@@ -13,7 +13,7 @@
     
     </div>
         
-    <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+    <div style="display: flex; justify-content: space-between; margin: 20px 0; padding-bottom: 10px;">
 
         <div class="card col-md-6">
             <div class="card-header text-light fw-bold py-3">Nota untuk Ibu Bapa</div>
@@ -44,7 +44,7 @@
 
             </div>
 
-            <div style="display: flex; justify-content: space-between;">
+            <div class="" style="display: flex; justify-content: space-between;">
 
                 <div class="text-primary fw-bold w-auto text-wrap">
                     <h3>Tadika Ihsan</h3>

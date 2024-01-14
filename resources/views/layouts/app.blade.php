@@ -20,15 +20,16 @@
         {{-- <link rel="manifest" href="assets/img/site.webmanifest"> --}}
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    {{-- <link href="/assets/css/app.css" rel="stylesheet" /> --}}
     <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet" />
 
     {{-- <link href="resources/sass/app.scss" rel="stylesheet"> --}}
 
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://kit.fontawesome.com/3c8bffa6d2.js" crossorigin="anonymous"></script>
+    
 </head>
-<body>
+<body class="m-0">
     <div id="app">
         <nav class="navbar navbar-expand-md shadow-sm">
             <div class="container">
@@ -52,13 +53,13 @@
                         @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Log Masuk') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Daftar') }}</a>
                                 </li>
                             @endif
                         @else

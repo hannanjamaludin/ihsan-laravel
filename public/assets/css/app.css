@@ -26,7 +26,6 @@
 
 .main {
     background-color: #F6F6F6;
-    padding: 20px 50px;
 }
 
 .navbar-toggler {
@@ -59,4 +58,36 @@ h2 {
 
 .card-header{
     background-color: #703232;
+    color: #FFFFFF;
+}
+
+.btn-primary {
+    background-color: #703232 !important;
+    color: #FFFFFF;
+    border: none;
+}
+
+.btn-link {
+    color: #703232 !important;
+    text-decoration: none;
+}
+
+.form-check-input:checked {
+    background-color: #703232 !important; 
+    border-color: #703232;
+    color: #FFFFFF; 
+}
+
+.input-group {
+    height: 50px;
+}
+
+.input-group-text {
+    background-color: #FFFFFF !important;
+    color: #9b9a9a;
+    border-right: none !important;
+}
+
+.input-group .form-control {
+    border-left: none !important;
 }
