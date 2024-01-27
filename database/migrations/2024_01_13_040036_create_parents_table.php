@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('parents', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->string('full_name', 200);
             $table->string('ic_no', 50);
             $table->string('phone_no', 50);
@@ -22,6 +23,7 @@ return new class extends Migration
             $table->string('staff_no', 30)->nullable(); 
             $table->string('student_no', 30)->nullable(); 
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
