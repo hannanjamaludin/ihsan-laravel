@@ -9,4 +9,12 @@ class Parents extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'full_name',
+        'phone_no',
+        'staff_no',
+    ];
+
+
 }

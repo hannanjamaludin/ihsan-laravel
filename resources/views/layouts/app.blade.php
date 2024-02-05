@@ -25,6 +25,10 @@
     {{-- <link href="resources/sass/app.scss" rel="stylesheet"> --}}
 
     <!-- Scripts -->
+    {{-- <script src="{{ asset('assets/jquery/jquery.min.js') }}"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    {{-- <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+        crossorigin="anonymous"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/3c8bffa6d2.js" crossorigin="anonymous"></script>
     
@@ -88,6 +92,7 @@
 
         <main class="main">
             @yield('content')
+            @yield('js')
         </main>
     </div>
 </body>

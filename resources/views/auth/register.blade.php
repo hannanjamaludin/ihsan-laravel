@@ -113,12 +113,12 @@
                     <div class="mb-3 me-5">
                         <div class="row mb-4 me-2">
                             <div class="col-md-6">
-                                <button type="button" class="btn btn-outline-secondary w-100" style="height: 50px;" onclick="setUserType(3)">
+                                <button type="button" class="btn btn-outline-secondary w-100" style="height: 50px;" onclick="setUserType(3)" data-type="3">
                                     <i class="fa fa-user-tie me-2"></i> Ibu/bapa
                                 </button>
                             </div>
                             <div class="col-md-6">
-                                <button type="button" class="btn btn-outline-secondary w-100" style="height: 50px;" onclick="setUserType(2)">
+                                <button type="button" class="btn btn-outline-secondary w-100" style="height: 50px;" onclick="setUserType(2)" data-type="2">
                                     <i class="fa fa-user-graduate me-2"></i>Guru
                                 </button>
                             </div>
@@ -142,38 +142,40 @@
 @endsection
 
 @section('js')
-
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+crossorigin="anonymous"></script> --}}
+{{-- <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> --}}
 
 <script>
 
     // 27/01/2024 error setUserType is not defined & console.log('js ok') is not executed
-
-    function setUserType(type) {
-        console.log('masuk setUserType');
-        // reset the styles of all buttons
-        // document.querySelectorAll('.btn-outline-secondary').forEach(function (button) {
-        //     button.classList.remove('btn-selected');
-        // });
-
-        // document.getElementById('user_type').value = type;
-        // document.getElementById('user_button_' + type).classList.add('btn-selected');
-    }
-
     $(document).ready(function() {
         console.log('js ok');
+        
     });
+
+    function setUserType(type) {
+
+        console.log('type: ' + type);
+        // reset the styles of all buttons
+        document.querySelectorAll('.btn-outline-secondary').forEach(function (button) {
+            button.classList.remove('btn-selected');
+        });
+
+        var buttons = document.querySelectorAll('.btn-outline-secondary[data-type="' + type + '"]');
+
+        if (buttons.length > 0) {
+            buttons.forEach(function (button) {
+                button.classList.add('btn-selected');
+            });
+        }
+
+        document.getElementById('user_type').value = type;
+    }
+
+    
+
+
 </script>
 
 @endsection
-
-{{-- @section('css')
-
-<style>
-    .btn-selected {
-        background-color: #BABABA;;
-        color: #fff;
-    }
-</style>
-
-@endsection --}}
