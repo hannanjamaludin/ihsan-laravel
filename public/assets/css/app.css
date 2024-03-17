@@ -1,7 +1,9 @@
 /* Example: Change the background color of the navbar */
-.navbar {
+
+/* .navbar {
     background-color: #703232;
-  }
+    background-color: #FFFFFF !important;
+} */
 
 .nav-link {
     color: #FFFFFF;
@@ -12,8 +14,16 @@
     color: #BABABA;
 }
 
+/* #sidenav-main {
+    border-radius: 10px;
+} */
+
 .bg-primary {
     background-color: #703232 !important;
+}
+
+.bg-secondary {
+    background-color: #F6F6F6 !important;
 }
 
 .text-primary {
@@ -56,7 +66,7 @@ h2 {
     border: none;
 }
 
-.card-header{
+.card-header {
     background-color: #703232;
     color: #FFFFFF;
 }
@@ -73,9 +83,9 @@ h2 {
 }
 
 .form-check-input:checked {
-    background-color: #703232 !important; 
+    background-color: #703232 !important;
     border-color: #703232;
-    color: #FFFFFF; 
+    color: #FFFFFF;
 }
 
 .input-group {

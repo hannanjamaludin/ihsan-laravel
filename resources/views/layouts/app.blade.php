@@ -34,66 +34,46 @@
     
 </head>
 <body class="m-0">
-    <div id="app">
-        <nav class="navbar navbar-expand-md shadow-sm">
-            <div class="container">
-                <a class="navbar-brand text-light" href="{{ url('/') }}">
-                    {{-- {{ config('app.name', 'Laravel') }} --}}
-                    Ihsan
+    <div id="app"> 
+        @auth
+            @yield('auth')
+        @endauth
+
+        @guest
+            @yield('guest')
+            {{-- @php
+                dd("masuk");
+            @endphp --}}
+        @endguest      
+        
+        
+        {{-- @include('layouts.sidebar') --}}
+
+
+        {{-- <!-- Sidebar -->
+        <aside class="page-sidebar">
+            <div class="page-logo">
+                <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative"
+                    data-toggle="modal" data-target="#modal-shortcut">
+                    <img src="{{ url('assets/img/ihsan-logo-32x32.png') }}" class="d-inline-flex" alt="" aria-roledescription="logo">
+                    <span class="page-logo-text mr-1">Ihsan</span>
+                    <span class="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-10">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Log Masuk') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Daftar') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
             </div>
-        </nav>
+            
+            <nav id="js-primary-nav" class="primary-nav" role="navigation">
+                <ul class="nav-menu">
+                    <li class="list-group-item">Sidebar Item 1</li>
+                    <li class="list-group-item">Sidebar Item 2</li>
+                    <!-- Add more sidebar items as needed -->
+                </ul>
+            </nav>
+        </aside> --}}
 
-        <main class="main">
-            @yield('content')
-            @yield('js')
-        </main>
+        {{-- <main class="main"> --}}
+            {{-- @yield('content') --}}
+        @yield('js')
+        {{-- </main> --}}
     </div>
 </body>
 </html>

@@ -44,4 +44,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function staffs(){
+        return $this->hasOne(Staffs::class, 'user_id', 'id');
+    }
+
+    public function parents(){
+        return $this->hasOne(Parents::class, 'user_id', 'id');
+    }
+
 }
