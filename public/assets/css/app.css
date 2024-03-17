@@ -14,9 +14,15 @@
     color: #BABABA;
 }
 
-/* #sidenav-main {
+.nav-pills .nav-link:hover {
+    background-color: #703232;
+    color: #BABABA !important;
+}
+
+#sidebar-main {
     border-radius: 10px;
-} */
+    background-color: #F6F6F6;
+}
 
 .bg-primary {
     background-color: #703232 !important;
