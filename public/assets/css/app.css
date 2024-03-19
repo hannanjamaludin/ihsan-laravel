@@ -107,3 +107,12 @@ h2 {
 .input-group .form-control {
     border-left: none !important;
 }
+
+.card {
+    background-color: #F6F6F6;
+}
+
+.card-header {
+    background-color: #F6F6F6;
+    color: #703232;
+}

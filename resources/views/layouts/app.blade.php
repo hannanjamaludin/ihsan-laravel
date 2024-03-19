@@ -14,21 +14,19 @@
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/ihsan-logo-apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="assets/img/ihsan-logo-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="assets/img/ihsan-logo-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/ihsan-logo-apple-touch-icon.png') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/ihsan-logo-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/img/ihsan-logo-16x16.png') }}">
         {{-- <link rel="manifest" href="assets/img/site.webmanifest"> --}}
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet" />
+    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.min.css" rel="stylesheet"> --}}
 
     {{-- <link href="resources/sass/app.scss" rel="stylesheet"> --}}
 
     <!-- Scripts -->
-    {{-- <script src="{{ asset('assets/jquery/jquery.min.js') }}"></script> --}}
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
-    {{-- <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
-        crossorigin="anonymous"></script> --}}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>  
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/3c8bffa6d2.js" crossorigin="anonymous"></script>
     

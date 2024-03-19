@@ -14,7 +14,7 @@
         <!-- Right Section (Login Card) -->
         <div class="col-md-5 px-5">
             <div class="card mx-5">
-                <div class="card-header text-light">{{ __('Log Masuk') }}</div>
+                <div class="card-header bg-primary text-light">{{ __('Log Masuk') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">

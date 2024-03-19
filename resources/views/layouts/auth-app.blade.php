@@ -11,7 +11,9 @@
             </div>
             <div class="col-lg-9">
                 @include('layouts.navbar-app')
-                @yield('content')
+                <div class="container-fluid py-3 min-vh-100">
+                    @yield('content')
+                </div>
             </div>
         </div>
     </div>

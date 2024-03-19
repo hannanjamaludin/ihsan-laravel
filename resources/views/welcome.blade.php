@@ -16,7 +16,7 @@
     <div style="display: flex; justify-content: space-between; margin: 20px 0; padding-bottom: 10px;">
 
         <div class="card col-md-6">
-            <div class="card-header text-light fw-bold py-3">Nota untuk Ibu Bapa</div>
+            <div class="card-header bg-primary text-light fw-bold py-3">Nota untuk Ibu Bapa</div>
             <div class="card-body mt-2 mx-4 fw-bold">Ibu bapa yang dihormati, <br/><br/>
                 Jika anda adalah ibu bapa yang telah mendaftar di dalam sistem Ihsan, 
                 sila klik ‘Log masuk’ untuk meneruskan perkhidmatan. Sekiranya anda adalah pengguna baharu, 
