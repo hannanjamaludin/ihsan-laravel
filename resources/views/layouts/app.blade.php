@@ -31,7 +31,7 @@
     <script src="https://kit.fontawesome.com/3c8bffa6d2.js" crossorigin="anonymous"></script>
     
 </head>
-<body class="m-0 p-0">
+<body class="m-0 p-0 body-main">
     <div id="app"> 
         @auth
             @yield('auth')

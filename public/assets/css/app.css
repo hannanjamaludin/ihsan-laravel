@@ -5,6 +5,17 @@
     background-color: #FFFFFF !important;
 } */
 
+:root {
+    --custom-info-color: #2C5784;
+    --custom-success-color: #377771; 
+    --custom-danger-color: #c44247; 
+    --custom-warning-color: #B66D0D; 
+}
+
+.body-main {
+    background-color: #F6F6F6;
+}
+
 .nav-link {
     color: #FFFFFF;
     transition: color 0.3s ease;
@@ -21,7 +32,9 @@
 
 #sidebar-main {
     border-radius: 10px;
-    background-color: #F6F6F6;
+    /* background-color: #F6F6F6; */
+    background-color: #FFFFFF;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .bg-primary {
@@ -29,7 +42,7 @@
 }
 
 .bg-secondary {
-    background-color: #F6F6F6 !important;
+    background-color: #BABABA !important;
 }
 
 .text-primary {
@@ -69,6 +82,7 @@ h2 {
 
 .card {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #FFFFFF;
     border: none;
 }
 
@@ -108,11 +122,16 @@ h2 {
     border-left: none !important;
 }
 
-.card {
-    background-color: #F6F6F6;
+.card-header {
+    background-color: #FFFFFF;
+    color: #703232;
 }
 
-.card-header {
-    background-color: #F6F6F6;
-    color: #703232;
+.btn-kembali,
+.btn-hantar {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-students {
+    border: 1px solid #70323240;
 }

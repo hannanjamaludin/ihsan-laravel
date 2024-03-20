@@ -16,7 +16,9 @@ Route::middleware('auth')->group(function () {
 
     // Application routes
     Route::prefix('pendaftaran')->as('pendaftaran.')->group(function (){
-        Route::get('/pendaftaran', [ApplicationController::class, 'index'])->name('pendaftaran');
+        Route::get('/', [ApplicationController::class, 'index'])->name('index');
+        Route::get('/pendaftaran-baru', [ApplicationController::class, 'createApplication'])->name('pendaftaranBaru');
+        Route::get('/permohonan', [ApplicationController::class, 'updateApplication'])->name('permohonan');
     });
 
 });
