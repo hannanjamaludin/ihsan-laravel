@@ -13,8 +13,11 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'password' => 'The provided password is incorrect.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    // 'failed' => 'These credentials do not match our records.',
+    'failed' => 'Alamat e-mel ini tiada dalam rekod.',
+    // 'password' => 'The provided password is incorrect.',
+    'password' => 'Kata laluan tidak sah.',
+    // 'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'throttle' => 'Terlalu banyak cubaan log masuk. Sila cuba sekali lagi dalam :seconds saat.',
 
 ];
