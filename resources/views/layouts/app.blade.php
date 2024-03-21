@@ -25,10 +25,17 @@
 
     {{-- <link href="resources/sass/app.scss" rel="stylesheet"> --}}
 
+    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css" />
+  
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script> --}}
+
+    <link href="/DataTables/datatables.min.css" rel="stylesheet">
+
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>  
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/3c8bffa6d2.js" crossorigin="anonymous"></script>
+    <script src="/DataTables/datatables.min.js"></script>
     
 </head>
 <body class="m-0 p-0 body-main">

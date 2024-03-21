@@ -21,12 +21,6 @@
                         </a>
                     </li>
                     <li class="nav-item py-2 py-sm-0">
-                        <a href="{{ route('pendaftaran.index') }}" class="nav-link text-primary">
-                            <i class="fs-6 fa fa-user-check"></i>
-                            <span class="fs-5 ms-3 d-none d-sm-inline">Status Pendaftaran</span>
-                        </a>
-                    </li>
-                    <li class="nav-item py-2 py-sm-0">
                         <a href="{{ route('pendaftaran.permohonan') }}" class="nav-link text-primary">
                             <i class="fs-5 fa fa-list-check"></i>
                             <span class="fs-5 ms-3 d-none d-sm-inline">Permohonan Pendaftaran</span>

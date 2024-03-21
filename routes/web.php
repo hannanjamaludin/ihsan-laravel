@@ -19,6 +19,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [ApplicationController::class, 'index'])->name('index');
         Route::get('/pendaftaran-baru', [ApplicationController::class, 'createApplication'])->name('pendaftaranBaru');
         Route::get('/permohonan', [ApplicationController::class, 'updateApplication'])->name('permohonan');
+        Route::get('/status', [ApplicationController::class, 'viewApplicationParent'])->name('status');
+        Route::get('/datatable_application_list', [ApplicationController::class, 'datatable_application_list'])->name('datatable_application_list');
     });
 
 });

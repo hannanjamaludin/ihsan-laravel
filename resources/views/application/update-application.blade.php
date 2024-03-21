@@ -14,13 +14,19 @@
                     Tiada Pendaftaran Baharu
                 </div>
             </div> --}}
+            
+            <div class="card-body px-3 pt-2 pb-4 w-auto">
+                <div class="mt-3 text-center text-primary">
+                    <livewire:application.view-application />
+                </div>
+            </div>
 
-            <div class="row mt-3">
+            {{-- <div class="row mt-3">
                 <div class="col-4">
                     <div class="card mb-4 mx-3 card-students">
             
                         <div class="card-body px-3 py-4 w-auto">
-                            {{-- <div class="mt-3 text-center text-primary">                                
+                            <div class="mt-3 text-center text-primary">                                
                                 <div class="rounded-circle mx-auto mb-3 bg-secondary shadow-lg" style="width: 100px; height: 100px; display: flex; justify-content: center; align-items: center;">
                                     <i class="fas fa-user" style="font-size: 50px;"></i>
                                 </div>
@@ -39,52 +45,12 @@
                                         <button type="button" class="btn btn-danger rounded-circle" style="background-color: var(--custom-danger-color); border:none" title="Tolak permohonan"><i class="fas fa-times"></i></button>
                                     </li>
                                 </ul>
-                            </div> --}}
-                            <livewire:application.view-application />
-                        </div>
-
-            
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div class="card mb-4 mx-3 card-students">
-            
-                        <div class="card-body px-3 pt-2 pb-4 w-auto">
-                            <div class="text-center text-primary">
-                                <!-- Profile Picture -->
-                                {{-- <img src="" class="rounded-circle mb-3" style="width: 100px; height: 100px;" alt="Profile Picture"> --}}
-                                <div class="rounded-circle mx-auto mb-3 bg-secondary shadow-lg" style="width: 100px; height: 100px; display: flex; justify-content: center; align-items: center;">
-                                    <i class="fas fa-user" style="font-size: 50px;"></i>
-                                </div>
-                                <h5 class="card-title text-primary">Zayn bin Farhan Nubli</h5>
-                                <div class="card-text">2 Tahun</div>
-                                <div class="card-text">Taska Ihsan</div>
-                                {{-- <div class="badge bg-warning mt-3" style="background-color: var(--custom-warning-color);">UTM Staff</div> --}}
-                                <div class="m-3"></div>
-                                <ul class="nav nav-pills justify-content-center mt-3">
-                                    <li class="nav-item">
-                                        <button type="button" class="btn btn-info rounded-circle me-3 px-3" style="background-color: var(--custom-info-color); border:none;" 
-                                         title="Maklumat murid" data-bs-toggle="modal" data-bs-target="#modalStudentDetails">
-                                            <i class="fas fa-info text-light"></i>
-                                        </button>
-                                    </li>
-                                    <li class="nav-item">
-                                        <button type="button" class="btn btn-success rounded-circle me-3" style="background-color: var(--custom-success-color); border:none" title="Terima Permohonan">
-                                            <i class="fas fa-check"></i>
-                                        </button>
-                                    </li>
-                                    <li class="nav-item">
-                                        <button type="button" class="btn btn-danger rounded-circle" style="background-color: var(--custom-danger-color); border:none" title="Tolak permohonan">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </li>
-                                </ul>
                             </div>
                         </div>
             
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
         </div>
 

@@ -1,7 +1,5 @@
 <div>
-    <div class="text-center text-primary">
-        <!-- Profile Picture -->
-        {{-- <img src="" class="rounded-circle mb-3" style="width: 100px; height: 100px;" alt="Profile Picture"> --}}
+    {{-- <div class="text-center text-primary">
         <div class="rounded-circle mx-auto mb-3 bg-secondary shadow-lg" style="width: 100px; height: 100px; display: flex; justify-content: center; align-items: center;">
             <i class="fas fa-user" style="font-size: 50px;"></i>
         </div>
@@ -27,7 +25,22 @@
                 </button>
             </li>
         </ul>
-    </div>
+    </div> --}}
+
+    <table id="application_list" class="table table-bordered table-hover table-striped w-100">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Nama</th>
+                <th>Umur</th>
+                <th>Cawangan</th>
+                <th>Ibu / Bapa</th>
+                <th>Tindakan</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
 
     {{-- Modal Student's Details --}}
     <div class="modal fade" id="modalStudentDetails" tabindex="-1" role="dialog" aria-hidden="true">
@@ -431,3 +444,62 @@
 
     </div>
 </div>
+
+
+<script type="text/javascript">
+
+    $(document).ready( function () {
+        var table = $('#application_list').DataTable({
+            'processing': true,
+                'scrollX': true,
+                'scrollable': true,
+                'ajax': {
+                    'url': "{{ route('pendaftaran.datatable_application_list') }}",
+                    'dataType': 'json',
+                    'type': 'GET'
+                },
+                'columnDefs': [{
+                    className: 'dt-left'
+                }],
+                'columns': [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                    },
+                    {
+                        data: 'name'
+                    },
+                    {
+                        data: 'age'
+                    },
+                    {
+                        data: 'branch'
+                    },
+                    {
+                        data: 'staff_student',
+                        render: function(data, type, row) {
+                            return type === 'display' ? $('<div/>').html(data).text() : data;
+                        }
+                    },
+                    {
+                        data: 'action',
+                        render: function(data, type, row) {
+                            return type === 'display' ? $('<div/>').html(data).text() : data;
+                        }
+                    },
+                ],
+
+        });
+    });
+
+</script>
+
+<style>
+    .active>.page-link, .page-link.active {
+        background-color: #703232;
+        border-color: #703232;
+    }
+
+    .text-center {
+        text-align: left !important;
+    }
+</style>
