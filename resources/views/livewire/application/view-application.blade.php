@@ -453,6 +453,7 @@
             'processing': true,
                 'scrollX': true,
                 'scrollable': true,
+                'searchable': true,
                 'ajax': {
                     'url': "{{ route('pendaftaran.datatable_application_list') }}",
                     'dataType': 'json',

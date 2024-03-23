@@ -24,5 +24,6 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersDummySeeder::class);
         $this->call(StateSeeder::class);
         $this->call(DistrictSeeder::class);
+        $this->call(BranchSeeder::class);
     }
 }
