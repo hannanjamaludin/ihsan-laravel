@@ -15,6 +15,11 @@ class Application extends Model
         'branch_id',
         'user_id',
         'student_id',
-        'status'
+        'status',
+        'verification'
     ];
+
+    public function studentsApplication(){
+        return $this->belongsTo(Students::class, 'student_id', 'id');
+    }
 }

@@ -179,7 +179,7 @@
                             pihak pengurusan berhak untuk <b>MENOLAK</b> permohonan ini.
                         </div>
                         <div class="form-check ms-3 mt-3">
-                            <input class="form-check-input" type="checkbox" value="" id="pengakuan">
+                            <input class="form-check-input" type="checkbox" value="1" id="pengakuan" name="pengakuan" required>
                             <label class="form-check-label" for="pengakuan">Ya/Setuju</label>
                         </div>
                         {{-- </div> --}}

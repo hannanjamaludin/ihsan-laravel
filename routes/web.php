@@ -24,6 +24,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/datatable_application_list', [ApplicationController::class, 'datatable_application_list'])->name('datatable_application_list');
         Route::post('/simpan_permohonan', [ApplicationController::class, 'storeSession'])->name('store_application_session');
         Route::post('/simpan_permohonan_final', [ApplicationController::class, 'store'])->name('simpan_permohonan');
+        Route::post('/daerah', 'ApplicationController@getDistrict')->name('daerah');
+        Route::post('/buang_permohonan', [ApplicationController::class, 'deleteApplication'])->name('buang_permohonan');
     });
 
 });

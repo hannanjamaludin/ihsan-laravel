@@ -28,5 +28,12 @@ class Students extends Model
         'is_active'
     ];
 
+    public function applicationStatus(){
+        return $this->hasOne(Application::class, 'student_id', 'id');
+    }
+
+    public function parents(){
+        return $this->belongsTo(Parents::class, 'parent_id', 'user_id');
+    }
 
 }

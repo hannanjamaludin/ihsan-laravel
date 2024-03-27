@@ -14,21 +14,31 @@ use Illuminate\Support\Facades\Auth;
 class ApplicationController extends Controller
 {
     public function index(){
-        return view('application.index');
+
+        $student_status = Students::where('parent_id', Auth::user()->id)
+                                ->with('applicationStatus', 'parents')
+                                ->get();
+
+        // dd($student_status);
+
+        return view('application.index', ['student' => $student_status]);
     }
 
     public function createApplication(){
 
-        $states = State::get();
-        $district = District::get();
+        // $states = State::get();
+        // $district = District::get();
         $branch = Branch::get();
+
+        $form_data = session('form_data');
 
         // dd($district);
 
         return view('application.create-application', [
-            'states' => $states,
-            'districts' => $district,
-            'branch' => $branch
+            // 'states' => $states,
+            // 'districts' => $district,
+            'branch' => $branch,
+            'form_data' => $form_data,
         ]);
     }
 
@@ -50,12 +60,12 @@ class ApplicationController extends Controller
         return redirect()->route('pendaftaran.pendaftaranBaruFinal');
     }
 
-    public function store(){
+    public function store(Request $request){
 
         $form_data = session('form_data');
 
         $student = Students::create([
-            'full_name' => $form_data['full_name'],
+            'full_name' => $form_data['child_full_name'],
             'ic_no' => $form_data['ic_no'],
             'dob' => $form_data['dob'],
             'gender' => $form_data['gender'],
@@ -78,10 +88,12 @@ class ApplicationController extends Controller
             'user_id' => Auth::user()->id,
             'student_id' => $student['id'],
             'status' => 0,
+            'verification' => $request->pengakuan
         ]);
     
         $mom = Parents::create([
             'full_name' => $form_data['mom_full_name'],
+            'user_id' => Auth::user()->id,
             'email' => $form_data['mom_email'],
             'phone_no' => $form_data['mom_phone_no'],
             'job' => $form_data['mom_job'],
@@ -96,6 +108,7 @@ class ApplicationController extends Controller
     
         $dad = Parents::create([
             'full_name' => $form_data['dad_full_name'],
+            'user_id' => Auth::user()->id,
             'email' => $form_data['dad_email'],
             'phone_no' => $form_data['dad_phone_no'],
             'job' => $form_data['dad_job'],
@@ -110,10 +123,32 @@ class ApplicationController extends Controller
 
         session()->forget('form_data');
 
+        return redirect()->route('pendaftaran.index');
+
     }
 
     public function updateApplication(){
         return view('application.update-application');
+    }
+
+    public function deleteApplication(Request $request){
+
+        try{
+            $student = Students::findOrFail($request->id);
+            $application = Application::where('student_id', $request->id)->first();
+    
+            if ($application && $student){
+
+                $application->delete();
+                $student->delete();
+        
+                return response()->json(['success' => true, 'message' => 'Pendaftaran telah dibuang']);
+            } else {
+                return response()->json(['success' => false, 'message' => 'Pendaftaran telah dibuang']);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'Ralat: ' . $e->getMessage()], 500);
+        }
     }
 
     public function datatable_application_list(){
@@ -131,5 +166,16 @@ class ApplicationController extends Controller
         ];
 
         return datatables()->of($al_data)->addIndexColumn()->make();
+    }
+
+    public function getDistrict(Request $request){
+        $state = State::where('id', $request->id)->first();
+        $district = District::whereIn('state_id', $state->id)->pluck('id', 'district');
+
+        // dd($district);
+        
+        return response()->json([
+            'listDistricts' => $district
+        ]);
     }
 }
