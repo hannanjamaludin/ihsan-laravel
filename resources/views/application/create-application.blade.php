@@ -157,8 +157,12 @@
                         <div class="form-group row mt-3">
                             <div class="col-6 pl-1">
                                 <div class="form-group">
-                                    <label class="form-label">Nama Ibu</label>                            
-                                    <input type="text" id="mom_full_name" class="form-control" placeholder="" value="{{ old('mom_full_name', isset($form_data['mom_full_name']) ? $form_data['mom_full_name'] : '' ) }}" name = "mom_full_name" required>
+                                    <label class="form-label">Nama Ibu</label>       
+                                    @if ($parent->role_id == 2)
+                                        <input type="text" id="mom_full_name" class="form-control" placeholder="" value="{{ old('mom_full_name', isset($form_data['mom_full_name']) ? $form_data['mom_full_name'] : $parent->full_name ) }}" name = "mom_full_name" required>
+                                    @else
+                                        <input type="text" id="mom_full_name" class="form-control" placeholder="" value="{{ old('mom_full_name', isset($form_data['mom_full_name']) ? $form_data['mom_full_name'] : '' ) }}" name = "mom_full_name" required>
+                                    @endif                     
                                 </div>
                             </div>
                             <div class="col-6 pl-1">
@@ -172,14 +176,22 @@
                         <div class="form-group row mt-3">
                             <div class="col-6 pl-1">
                                 <div class="form-group">
-                                    <label class="form-label">Alamat E-mel</label>                            
-                                    <input type="text" id="mom_email" class="form-control" placeholder="" value="{{ old('mom_email', isset($form_data['mom_email']) ? $form_data['mom_email'] : '' ) }}" name = "mom_email" required>
+                                    <label class="form-label">Alamat E-mel</label>   
+                                    @if ($parent->role_id == 2)
+                                        <input type="text" id="mom_email" class="form-control" placeholder="" value="{{ old('mom_email', isset($form_data['mom_email']) ? $form_data['mom_email'] : $parent->email ) }}" name = "mom_email" required>
+                                    @else
+                                        <input type="text" id="mom_email" class="form-control" placeholder="" value="{{ old('mom_email', isset($form_data['mom_email']) ? $form_data['mom_email'] : '' ) }}" name = "mom_email" required>
+                                    @endif                         
                                 </div>
                             </div>
                             <div class="col-6 pl-1">
                                 <div class="form-group">
-                                    <label class="form-label">No. Telefon</label>                            
-                                    <input type="text" id="mom_phone_no" class="form-control" placeholder="" value="{{ old('mom_phone_no', isset($form_data['mom_phone_no']) ? $form_data['mom_phone_no'] : '' ) }}" name = "mom_phone_no" required>
+                                    <label class="form-label">No. Telefon</label>   
+                                    @if ($parent->role_id == 2)
+                                        <input type="text" id="mom_phone_no" class="form-control" placeholder="" value="{{ old('mom_phone_no', isset($form_data['mom_phone_no']) ? $form_data['mom_phone_no'] : $parent->phone_no ) }}" name = "mom_phone_no" required>
+                                    @else                                        
+                                        <input type="text" id="mom_phone_no" class="form-control" placeholder="" value="{{ old('mom_phone_no', isset($form_data['mom_phone_no']) ? $form_data['mom_phone_no'] : '' ) }}" name = "mom_phone_no" required>
+                                    @endif                         
                                 </div>
                             </div>
                         </div>

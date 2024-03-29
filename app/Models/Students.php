@@ -24,7 +24,9 @@ class Students extends Model
         'district',
         'state', 
         'branch_id',
-        'parent_id',
+        'dad_id',
+        'mom_id',
+        'user_id',
         'is_active'
     ];
 
@@ -32,8 +34,20 @@ class Students extends Model
         return $this->hasOne(Application::class, 'student_id', 'id');
     }
 
-    public function parents(){
-        return $this->belongsTo(Parents::class, 'parent_id', 'user_id');
+    // public function user(){
+    //     return $this->belongsTo(User::class, 'user_id', );
+    // }
+
+    public function mom(){
+        return $this->hasOne(Parents::class, 'id', 'mom_id');
+    }
+    
+    public function dad(){
+        return $this->hasOne(Parents::class, 'id', 'dad_id');
+    }
+
+    public function branch(){
+        return $this->hasOne(Branch::class, 'id', 'branch_id');
     }
 
 }

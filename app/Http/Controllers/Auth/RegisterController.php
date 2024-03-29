@@ -92,6 +92,19 @@ class RegisterController extends Controller
                 'full_name' => $data['name'],
                 'phone_no' => $data['phoneNo'],
                 'staff_no' => $data['staffID'],
+                'email' => $data['email'],
+                'role_id' => 2
+            ]);
+        }
+        
+        if ($userType == 4) {
+            Parents::create([
+                'user_id' => $user->id,
+                'full_name' => $data['name'],
+                'phone_no' => $data['phoneNo'],
+                'staff_no' => $data['staffID'],
+                'email' => $data['email'],
+                'role_id' => 1
             ]);
         }
 

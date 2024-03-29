@@ -78,6 +78,7 @@
         {{-- <main class="main"> --}}
             {{-- @yield('content') --}}
         @yield('js')
+        @yield('css')
         {{-- </main> --}}
     </div>
 </body>

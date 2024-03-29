@@ -112,12 +112,17 @@
 
                     <div class="mb-3 me-5">
                         <div class="row mb-4 me-2">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <button type="button" class="btn btn-outline-secondary w-100" style="height: 50px;" onclick="setUserType(3)" data-type="3">
-                                    <i class="fa fa-user-tie me-2"></i> Ibu/bapa
+                                    <i class="fa fa-user-ninja me-2"></i> Ibu
                                 </button>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                                <button type="button" class="btn btn-outline-secondary w-100" style="height: 50px;" onclick="setUserType(4)" data-type="4">
+                                    <i class="fa fa-user-tie me-2"></i> bapa
+                                </button>
+                            </div>
+                            <div class="col-md-4">
                                 <button type="button" class="btn btn-outline-secondary w-100" style="height: 50px;" onclick="setUserType(2)" data-type="2">
                                     <i class="fa fa-user-graduate me-2"></i>Guru
                                 </button>

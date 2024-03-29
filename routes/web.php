@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\ApplicationController;
+use App\Http\Livewire\Application\ViewApplication;
+use App\Models\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -26,6 +28,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/simpan_permohonan_final', [ApplicationController::class, 'store'])->name('simpan_permohonan');
         Route::post('/daerah', 'ApplicationController@getDistrict')->name('daerah');
         Route::post('/buang_permohonan', [ApplicationController::class, 'deleteApplication'])->name('buang_permohonan');
+        Route::get('/info-pelajar', [ViewApplication::class, 'getStudentDetails'])->name('info_pelajar');
     });
 
 });
