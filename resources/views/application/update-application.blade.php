@@ -32,7 +32,36 @@
             </div>
             <livewire:application.view-application />
         </div>
+    </div>
 
+    <div class="card mt-4 mb-4 mx-3">
+        <div class="card-header bg-primary">
+            <div class="card-title text-light">Pendaftaran yang Telah Dikemas Kini</div>
+        </div>
+        
+        <div class="card-body px-3 pt-2 pb-4 w-auto">
+            <div class="mt-3 text-center text-primary">
+                <div>
+                    <table id="updated_application" class="table table-bordered table-hover table-striped w-100">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Nama</th>
+                                <th>Umur</th>
+                                <th>Cawangan</th>
+                                <th>Ibu / Bapa</th>
+                                <th>Tarikh Kemas Kini</th>
+                                <th>Tindakan</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+        {{-- <livewire:application.view-application /> --}}
     </div>
 </div>
 
@@ -40,7 +69,47 @@
 
 @section('js')
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
+
+    function update_application(id, status) {
+        $.ajax({
+            type: "POST",
+            url: "{{ route('pendaftaran.status_permohonan') }}",
+            data: {
+                "_token": "{{ csrf_token() }}",
+                "student_id": id,
+                "status": status
+            },
+            success: function(response) {
+                if (response.success) {
+                    Swal.fire({
+                        // title: "Pendaftaran Dibuang",
+                        text: response.message,
+                        icon: "success",
+                        confirmButtonColor: '#703232'
+                    }).then(() => {
+                        location.reload();
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Ralat",
+                        text: "Pendaftaran gagal dikemaskini",
+                        icon: "error",
+                        confirmButtonColor: '#703232'
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'An error occurred while communicating with the server.',
+                });
+            }
+
+        })
+    }
 
     // add a function to open modal (get id from passed variable)
     function display_modal(id) {
@@ -123,6 +192,10 @@
         });
     }
 
+    // function display_modal(id) {
+    //     Livewire.emit('displayModal', id);
+    // }
+
     $(document).ready( function () {
         var table = $('#application_list').DataTable({
             'processing': true,
@@ -163,6 +236,79 @@
                         // }
                     },
                 ],
+                "language": {
+                    "search": "Carian:",
+                    // "searchPlaceholder": "Custom Search Placeholder",
+                    "lengthMenu": "Menunjukkan _MENU_ kemasukan",
+                    "info": "Menunjukkan _START_ ke _END_ daripada _TOTAL_ kemasukan",
+                    "infoEmpty": "Menunjukkan 0 ke 0 daripada 0 kemasukan",
+                    "infoFiltered": "(filtered from _MAX_ total kemasukan)",
+                    "paginate": {
+                        "first": "Pertama",
+                        "last": "Terakhir",
+                        "next": "Seterusnya",
+                        "previous": "Sebelumnya"
+                    },
+                    "emptyTable": "Tiada pendaftaran baharu"
+                }
+
+
+        });
+
+        var table = $('#updated_application').DataTable({
+            'processing': true,
+            'scrollX': true,
+            'scrollable': true,
+            'searchable': true,
+            'ajax': {
+                'url': "{{ route('pendaftaran.datatable_updated_application') }}",
+                'dataType': 'json',
+                'type': 'GET'
+            },
+            'columnDefs': [{
+                className: 'dt-left'
+            }],
+            'columns': [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex',
+                },
+                {
+                    data: 'name'
+                },
+                {
+                    data: 'age'
+                },
+                {
+                    data: 'branch'
+                },
+                {
+                    data: 'staff_student',
+                    render: function(data, type, row) {
+                        return type === 'display' ? $('<div/>').html(data).text() : data;
+                    }
+                },
+                {
+                    data: 'updated_at',
+                },
+                {
+                    data: 'action',
+                },
+            ],
+            "language": {
+                "search": "Carian:",
+                // "searchPlaceholder": "Custom Search Placeholder",
+                "lengthMenu": "Menunjukkan _MENU_ kemasukan",
+                "info": "Menunjukkan _START_ ke _END_ daripada _TOTAL_ kemasukan",
+                "infoEmpty": "Menunjukkan 0 ke 0 daripada 0 kemasukan",
+                "infoFiltered": "(filtered from _MAX_ total kemasukan)",
+                "paginate": {
+                    "first": "Pertama",
+                    "last": "Terakhir",
+                    "next": "Seterusnya",
+                    "previous": "Sebelumnya"
+                },
+                "emptyTable": "Tiada data"
+            }
 
         });
 
@@ -186,5 +332,14 @@
     .text-center {
         text-align: left !important;
     }
+
+    div.dataTables_wrapper div.dataTables_paginate ul.pagination{
+        margin: 15px 0 0 !important;
+    }
+
+    div.dataTables_wrapper div.dataTables_filter {
+        margin: 0 0 10px !important;
+    }
+
 </style>
 @endsection

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('branch_id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('student_id');
-            $table->boolean('status')->default(0)->comment('1: accepted', '0: rejected');
+            $table->boolean('status')->comment('1: accepted', '0: rejected');
             $table->timestamps();
             $table->foreign('branch_id')->references('id')->on('branch');
             $table->foreign('user_id')->references('id')->on('users');

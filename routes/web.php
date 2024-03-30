@@ -24,11 +24,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/permohonan', [ApplicationController::class, 'updateApplication'])->name('permohonan');
         Route::get('/status', [ApplicationController::class, 'viewApplicationParent'])->name('status');
         Route::get('/datatable_application_list', [ApplicationController::class, 'datatable_application_list'])->name('datatable_application_list');
-        Route::post('/simpan_permohonan', [ApplicationController::class, 'storeSession'])->name('store_application_session');
-        Route::post('/simpan_permohonan_final', [ApplicationController::class, 'store'])->name('simpan_permohonan');
+        Route::post('/simpan-permohonan', [ApplicationController::class, 'storeSession'])->name('store_application_session');
+        Route::post('/simpan-permohonan_final', [ApplicationController::class, 'store'])->name('simpan_permohonan');
         Route::post('/daerah', 'ApplicationController@getDistrict')->name('daerah');
-        Route::post('/buang_permohonan', [ApplicationController::class, 'deleteApplication'])->name('buang_permohonan');
+        Route::post('/buang-permohonan', [ApplicationController::class, 'deleteApplication'])->name('buang_permohonan');
         Route::get('/info-pelajar', [ViewApplication::class, 'getStudentDetails'])->name('info_pelajar');
+        Route::post('/status-permohonan', [ViewApplication::class, 'updateApplication'])->name('status_permohonan');
+        Route::get('/datatable_updated_application', [ApplicationController::class, 'datatable_updated_application'])->name('datatable_updated_application');
     });
 
 });

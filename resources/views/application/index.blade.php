@@ -43,11 +43,13 @@
                                                         <button id="remove_application" type="button" class="btn-close" aria-label="Tutup" data-student-id="{{ $s->id }}"></button>   
                                                     </div>
                                                     <div class="container d-flex align-items-center justify-content-start m-0 p-0">
-                                                        <div class="card-subtitle text-muted">{{ $s->created_at }}</div>   
-                                                        @if ($s->applicationStatus->status == 0)
-                                                            <div class="badge bg-warning ms-3" style="background-color: var(--custom-warning-color);">Dihantar</div>
-                                                        @else
+                                                        <div class="card-subtitle text-muted">{{ $s->applicationStatus->updated_at }}</div>   
+                                                        @if ($s->applicationStatus->status === 0)
+                                                            <div class="badge bg-danger ms-3" style="background-color: var(--custom-danger-color);">Ditolak</div>
+                                                        @elseif ($s->applicationStatus->status === 1)
                                                             <div class="badge bg-success ms-3" style="background-color: var(--custom-success-color);">Diterima</div>
+                                                        @elseif ($s->applicationStatus->status === null)
+                                                            <div class="badge bg-secondary ms-3" style="background-color: var(--custom-secondary-color);">Dihantar</div>
                                                         @endif                                                 
                                                     </div>                                             
                                                 </div>

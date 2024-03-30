@@ -2,6 +2,8 @@
 
 namespace App\Http\Livewire\Application;
 
+use App\Models\Application;
+use App\Models\Branch;
 use App\Models\Parents;
 use App\Models\Students;
 use DateTime;
@@ -11,96 +13,54 @@ use Livewire\Component;
 
 class ViewApplication extends Component
 {
+    // public $studentId;
+
+    // protected $listeners = ['displayModal'];
+    
     public function render()
     {
-        // $student = Students::where('');
-
         return view('livewire.application.view-application');
     }
 
-    // public function datatable_application_list(){
-
-    //     $student = Students::whereHas('applicationStatus', function($query){
-    //                             $query->where('status', 0);
-    //                         })->with('mom', 'dad', 'branch')->get();
-
-    //     // dd($student);
-
-    //     $al_data = [];
-
-    //     foreach ($student as $s){
-
-    //         // calculate age
-    //         $today = new DateTime();
-    //         $dob = new DateTime($s->dob);
-    //         $age = $dob->diff($today)->y;
-
-    //         $staff_student = null;
-
-    //         if($s->mom->staff_no || $s->dad->staff_no){
-    //             $staff_student = htmlspecialchars_decode('
-    //                                 <div class="badge bg-warning me-3" style="background-color: var(--custom-warning-color);">
-    //                                     Staff UTM
-    //                                 </div>'
-    //                             );
-    //         }
-            
-    //         if($s->mom->student_no || $s->dad->student_no){
-    //             $staff_student = htmlspecialchars_decode('
-    //                                 <div class="badge bg-warning me-3" style="background-color: var(--custom-warning-color);">
-    //                                     Pelajar UTM
-    //                                 </div>'
-    //                             );
-    //         }
-
-    //         // add onclick to a function in js
-    //         $info_btn = '<button type="button" class="btn btn-info me-3 px-2 pb-1 pt-0" style="background-color: var(--custom-info-color); border:none;" 
-    //                         title="Maklumat murid" onclick="display_modal('.  $s->id . ');">
-    //                         <i class="fas fa-info text-light mx-1" style="font-size: 10px;"></i>
-    //                     </button>';
-
-    //         $accept_btn = '<button type="button" class="btn btn-success me-3 px-2 pb-1 pt-0" style="background-color: var(--custom-success-color); border:none;" 
-    //                             title="Terima Permohonan">
-    //                             <i class="fas fa-check mx-1" style="font-size: 10px;"></i>
-    //                         </button>';
-
-    //         $reject_btn = '<button type="button" class="btn btn-danger me-3 px-2 pb-1 pt-0" style="background-color: var(--custom-danger-color); border:none;" 
-    //                             title="Tolak permohonan">
-    //                             <i class="fas fa-times mx-1" style="font-size: 10px;"></i>
-    //                         </button>';
-
-    //         // dd($today, $dob, $age);
-
-    //         $al_data[] = [
-    //             'name' => $s->full_name,
-    //             'age' => $age . ' Tahun',
-    //             'branch' => $s->branch->branch_name,
-    //             'staff_student' => $staff_student,
-    //             'action' => $info_btn . $accept_btn . $reject_btn,
-    //         ];
-    //     }
-
-    //     return datatables()->of($al_data)->addIndexColumn()->make();
-    // }
-
-    // public function getStudentDetails($student_id){
-    //     $student = Students::where('id', $student_id);
-
-    //     return $student;
+    // public function displayModal($id)
+    // {
+    //     $this->studentId = $id;
+    //     // Other logic you want to perform
+    //     $student = Students::with(['mom', 'dad', 'branch'])
+    //                         ->find($this->studentId);
     // }
 
     public function getStudentDetails(Request $request){
-        // $student = Students::find($request->student_id);
 
         $student = Students::with(['mom', 'dad', 'branch'])
                             ->find($request->student_id);
-
-        // $student = Students::where('id', $request->student_id)
-        //                     ->whereHas('applicationStatus', function($query){
-        //                         $query->where('status', 0);
-        //                     })->with('mom', 'dad', 'branch')->get();
                             
         return response()->json($student);
+    }
+
+    public function updateApplication(Request $request) {
+        $student = Students::find($request->student_id);
+        $application = Application::where('student_id', $request->student_id)->first();
+        $branch = Branch::find($student->branch_id);
+
+        if ($request->status == 1) {
+            $student->update(['is_active' => 1]);
+            $application->update(['status' => 1]);
+            $branch->update([
+                'active_students' => $branch->active_students + 1,
+                'total_students' => $branch->total_students + 1,
+            ]);
+        }
+
+        if ($request->status == 0) {
+            $student->update(['is_active' => 0]);
+            $application->update(['status' => 0]);
+            $branch->update([
+                'rejected_students' => $branch->rejected_students + 1,
+            ]);
+        }
+
+        return response()->json(['success' => true, 'message' => 'Pendaftaran telah dikemas kini']);
     }
 
 }

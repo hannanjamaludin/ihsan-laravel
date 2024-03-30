@@ -158,8 +158,8 @@
                             <div class="col-6 pl-1">
                                 <div class="form-group">
                                     <label class="form-label">Nama Ibu</label>       
-                                    @if ($parent->role_id == 2)
-                                        <input type="text" id="mom_full_name" class="form-control" placeholder="" value="{{ old('mom_full_name', isset($form_data['mom_full_name']) ? $form_data['mom_full_name'] : $parent->full_name ) }}" name = "mom_full_name" required>
+                                    @if ($mom !== null)
+                                        <input type="text" id="mom_full_name" class="form-control" placeholder="" value="{{ old('mom_full_name', isset($form_data['mom_full_name']) ? $form_data['mom_full_name'] : $mom->full_name ) }}" name = "mom_full_name" required>
                                     @else
                                         <input type="text" id="mom_full_name" class="form-control" placeholder="" value="{{ old('mom_full_name', isset($form_data['mom_full_name']) ? $form_data['mom_full_name'] : '' ) }}" name = "mom_full_name" required>
                                     @endif                     
@@ -167,8 +167,12 @@
                             </div>
                             <div class="col-6 pl-1">
                                 <div class="form-group">
-                                    <label class="form-label">Pekerjaan</label>                            
-                                    <input type="text" id="mom_job" class="form-control" placeholder="" value="{{ old('mom_job', isset($form_data['mom_job']) ? $form_data['mom_job'] : '' ) }}" name = "mom_job" required>
+                                    <label class="form-label">Pekerjaan</label>    
+                                    @if ($mom !== null)
+                                        <input type="text" id="mom_job" class="form-control" placeholder="" value="{{ old('mom_job', isset($form_data['mom_job']) ? $form_data['mom_job'] : $mom->job ) }}" name = "mom_job" required>
+                                    @else
+                                        <input type="text" id="mom_job" class="form-control" placeholder="" value="{{ old('mom_job', isset($form_data['mom_job']) ? $form_data['mom_job'] : '' ) }}" name = "mom_job" required>
+                                    @endif                     
                                 </div>
                             </div>
                         </div>
@@ -177,8 +181,8 @@
                             <div class="col-6 pl-1">
                                 <div class="form-group">
                                     <label class="form-label">Alamat E-mel</label>   
-                                    @if ($parent->role_id == 2)
-                                        <input type="text" id="mom_email" class="form-control" placeholder="" value="{{ old('mom_email', isset($form_data['mom_email']) ? $form_data['mom_email'] : $parent->email ) }}" name = "mom_email" required>
+                                    @if ($mom !== null)
+                                        <input type="text" id="mom_email" class="form-control" placeholder="" value="{{ old('mom_email', isset($form_data['mom_email']) ? $form_data['mom_email'] : $mom->email ) }}" name = "mom_email" required>
                                     @else
                                         <input type="text" id="mom_email" class="form-control" placeholder="" value="{{ old('mom_email', isset($form_data['mom_email']) ? $form_data['mom_email'] : '' ) }}" name = "mom_email" required>
                                     @endif                         
@@ -187,8 +191,8 @@
                             <div class="col-6 pl-1">
                                 <div class="form-group">
                                     <label class="form-label">No. Telefon</label>   
-                                    @if ($parent->role_id == 2)
-                                        <input type="text" id="mom_phone_no" class="form-control" placeholder="" value="{{ old('mom_phone_no', isset($form_data['mom_phone_no']) ? $form_data['mom_phone_no'] : $parent->phone_no ) }}" name = "mom_phone_no" required>
+                                    @if ($mom !== null)
+                                        <input type="text" id="mom_phone_no" class="form-control" placeholder="" value="{{ old('mom_phone_no', isset($form_data['mom_phone_no']) ? $form_data['mom_phone_no'] : $mom->phone_no ) }}" name = "mom_phone_no" required>
                                     @else                                        
                                         <input type="text" id="mom_phone_no" class="form-control" placeholder="" value="{{ old('mom_phone_no', isset($form_data['mom_phone_no']) ? $form_data['mom_phone_no'] : '' ) }}" name = "mom_phone_no" required>
                                     @endif                         
@@ -200,7 +204,11 @@
                             <div class="col-12 pl-1">
                                 <div class="form-group">
                                     <label class="form-label">Alamat Pejabat</label>
-                                    <input type="text" id="m_office_address" class="form-control" placeholder="" value="{{ old('m_office_address', isset($form_data['m_office_address']) ? $form_data['m_office_address'] : '' ) }}" name = "m_office_address" required>
+                                    @if ($mom !== null)
+                                        <input type="text" id="m_office_address" class="form-control" placeholder="" value="{{ old('m_office_address', isset($form_data['m_office_address']) ? $form_data['m_office_address'] : $mom->address ) }}" name = "m_office_address" required>
+                                    @else                                        
+                                        <input type="text" id="m_office_address" class="form-control" placeholder="" value="{{ old('m_office_address', isset($form_data['m_office_address']) ? $form_data['m_office_address'] : '' ) }}" name = "m_office_address" required>
+                                    @endif                         
                                 </div>
                             </div>
                         </div>
@@ -208,7 +216,11 @@
                         <div class="form-group row mt-1">
                             <div class="col-4 pl-1">
                                 <div class="form-group">
-                                    <input type="text" id="m_office_state" class="form-control" placeholder="Negeri" value="{{ old('m_office_state', isset($form_data['m_office_state']) ? $form_data['m_office_state'] : '' ) }}" name = "m_office_state" required>
+                                    @if ($mom !== null)
+                                        <input type="text" id="m_office_state" class="form-control" placeholder="" value="{{ old('m_office_state', isset($form_data['m_office_state']) ? $form_data['m_office_state'] : $mom->state ) }}" name = "m_office_state" required>
+                                    @else                                        
+                                        <input type="text" id="m_office_state" class="form-control" placeholder="" value="{{ old('m_office_state', isset($form_data['m_office_state']) ? $form_data['m_office_state'] : '' ) }}" name = "m_office_state" required>
+                                    @endif                         
                                     {{-- <select class="form-select" id="m_office_state" name="m_office_state" required>
                                         <option selected="" disabled>Sila pilih negeri</option>
                                         @foreach ($states as $state)
@@ -219,7 +231,11 @@
                             </div>
                             <div class="col-4 pl-1">
                                 <div class="form-group">
-                                    <input type="text" id="m_office_district" class="form-control" placeholder="Daerah" value="{{ old('m_office_district', isset($form_data['m_office_district']) ? $form_data['m_office_district'] : '' ) }}" name = "m_office_district" required>
+                                    @if ($mom !== null)
+                                        <input type="text" id="m_office_district" class="form-control" placeholder="" value="{{ old('m_office_district', isset($form_data['m_office_district']) ? $form_data['m_office_district'] : $mom->district ) }}" name = "m_office_district" required>
+                                    @else                                        
+                                        <input type="text" id="m_office_district" class="form-control" placeholder="" value="{{ old('m_office_district', isset($form_data['m_office_district']) ? $form_data['m_office_district'] : '' ) }}" name = "m_office_district" required>
+                                    @endif                         
                                     {{-- <select class="form-select" id="m_office_district" name="m_office_district" required>
                                         <option selected="" disabled>Sila pilih daerah</option>
                                         @foreach ($districts as $district)
@@ -230,7 +246,11 @@
                             </div>
                             <div class="col-4 pl-1">
                                 <div class="form-group">
-                                    <input type="text" id="m_office_postcode" class="form-control" placeholder="Poskod" value="{{ old('m_office_postcode', isset($form_data['m_office_postcode']) ? $form_data['m_office_postcode'] : '' ) }}" name = "m_office_postcode" required>
+                                    @if ($mom !== null)
+                                        <input type="text" id="m_office_postcode" class="form-control" placeholder="" value="{{ old('m_office_postcode', isset($form_data['m_office_postcode']) ? $form_data['m_office_postcode'] : $mom->postcode ) }}" name = "m_office_postcode" required>
+                                    @else                                        
+                                        <input type="text" id="m_office_postcode" class="form-control" placeholder="" value="{{ old('m_office_postcode', isset($form_data['m_office_postcode']) ? $form_data['m_office_postcode'] : '' ) }}" name = "m_office_postcode" required>
+                                    @endif                         
                                 </div>
                             </div>
                         </div>
@@ -287,13 +307,21 @@
                             <div class="col-6 pl-1">
                                 <div class="form-group">
                                     <label class="form-label">Nama Bapa</label>                            
-                                    <input type="text" id="dad_full_name" class="form-control" placeholder="" value="{{ old('dad_full_name', isset($form_data['dad_full_name']) ? $form_data['dad_full_name'] : '' ) }}" name = "dad_full_name" required>
+                                    @if ($dad !== null)
+                                        <input type="text" id="dad_full_name" class="form-control" placeholder="" value="{{ old('dad_full_name', isset($form_data['dad_full_name']) ? $form_data['dad_full_name'] : $dad->full_name ) }}" name = "dad_full_name" required>
+                                    @else
+                                        <input type="text" id="dad_full_name" class="form-control" placeholder="" value="{{ old('dad_full_name', isset($form_data['dad_full_name']) ? $form_data['dad_full_name'] : '' ) }}" name = "dad_full_name" required>
+                                    @endif                     
                                 </div>
                             </div>
                             <div class="col-6 pl-1">
                                 <div class="form-group">
-                                    <label class="form-label">Pekerjaan</label>                            
-                                    <input type="text" id="dad_job" class="form-control" placeholder="" value="{{ old('dad_job', isset($form_data['dad_job']) ? $form_data['dad_job'] : '' ) }}" name = "dad_job" required>
+                                    <label class="form-label">Pekerjaan</label>     
+                                    @if ($dad !== null)
+                                        <input type="text" id="dad_job" class="form-control" placeholder="" value="{{ old('dad_job', isset($form_data['dad_job']) ? $form_data['dad_job'] : $dad->job ) }}" name = "dad_job" required>
+                                    @else
+                                        <input type="text" id="dad_job" class="form-control" placeholder="" value="{{ old('dad_job', isset($form_data['dad_job']) ? $form_data['dad_job'] : '' ) }}" name = "dad_job" required>
+                                    @endif                                        
                                 </div>
                             </div>
                         </div>
@@ -301,14 +329,22 @@
                         <div class="form-group row mt-3">
                             <div class="col-6 pl-1">
                                 <div class="form-group">
-                                    <label class="form-label">Alamat E-mel</label>                            
-                                    <input type="text" id="dad_email" class="form-control" placeholder="" value="{{ old('dad_email', isset($form_data['dad_email']) ? $form_data['dad_email'] : '' ) }}" name = "dad_email" required>
+                                    <label class="form-label">Alamat E-mel</label>      
+                                    @if ($dad !== null)
+                                        <input type="text" id="dad_email" class="form-control" placeholder="" value="{{ old('dad_email', isset($form_data['dad_email']) ? $form_data['dad_email'] : $dad->email ) }}" name = "dad_email" required>
+                                    @else
+                                        <input type="text" id="dad_email" class="form-control" placeholder="" value="{{ old('dad_email', isset($form_data['dad_email']) ? $form_data['dad_email'] : '' ) }}" name = "dad_email" required>
+                                    @endif                                       
                                 </div>
                             </div>
                             <div class="col-6 pl-1">
                                 <div class="form-group">
-                                    <label class="form-label">No. Telefon</label>                            
-                                    <input type="text" id="dad_phone_no" class="form-control" placeholder="" value="{{ old('dad_phone_no', isset($form_data['dad_phone_no']) ? $form_data['dad_phone_no'] : '' ) }}" name = "dad_phone_no" required>
+                                    <label class="form-label">No. Telefon</label>           
+                                    @if ($dad !== null)
+                                        <input type="text" id="dad_phone_no" class="form-control" placeholder="" value="{{ old('dad_phone_no', isset($form_data['dad_phone_no']) ? $form_data['dad_phone_no'] : $dad->phone_no ) }}" name = "dad_phone_no" required>
+                                    @else
+                                        <input type="text" id="dad_phone_no" class="form-control" placeholder="" value="{{ old('dad_phone_no', isset($form_data['dad_phone_no']) ? $form_data['dad_phone_no'] : '' ) }}" name = "dad_phone_no" required>
+                                    @endif                     
                                 </div>
                             </div>
                         </div>
@@ -317,7 +353,11 @@
                             <div class="col-12 pl-1">
                                 <div class="form-group">
                                     <label class="form-label">Alamat Pejabat</label>
-                                    <input type="text" id="d_office_address" class="form-control" placeholder="" value="{{ old('d_office_address', isset($form_data['d_office_address']) ? $form_data['d_office_address'] : '' ) }}" name = "d_office_address" required>
+                                    @if ($dad !== null)
+                                        <input type="text" id="d_office_address" class="form-control" placeholder="" value="{{ old('d_office_address', isset($form_data['d_office_address']) ? $form_data['d_office_address'] : $dad->address ) }}" name = "d_office_address" required>
+                                    @else
+                                        <input type="text" id="d_office_address" class="form-control" placeholder="" value="{{ old('d_office_address', isset($form_data['d_office_address']) ? $form_data['d_office_address'] : '' ) }}" name = "d_office_address" required>
+                                    @endif                     
                                 </div>
                             </div>
                         </div>
@@ -325,7 +365,11 @@
                         <div class="form-group row mt-1">
                             <div class="col-4 pl-1">
                                 <div class="form-group">
-                                    <input type="text" id="d_office_state" class="form-control" placeholder="Negeri" value="{{ old('d_office_state', isset($form_data['d_office_state']) ? $form_data['d_office_state'] : '' ) }}" name = "d_office_state" required>
+                                    @if ($dad !== null)
+                                        <input type="text" id="d_office_state" class="form-control" placeholder="" value="{{ old('d_office_state', isset($form_data['d_office_state']) ? $form_data['d_office_state'] : $dad->state ) }}" name = "d_office_state" required>
+                                    @else
+                                        <input type="text" id="d_office_state" class="form-control" placeholder="" value="{{ old('d_office_state', isset($form_data['d_office_state']) ? $form_data['d_office_state'] : '' ) }}" name = "d_office_state" required>
+                                    @endif                     
                                     {{-- <select class="form-select" id="d_office_state" name="d_office_state" required>
                                         <option selected="" disabled>Sila pilih negeri</option>
                                         @foreach ($states as $state)
@@ -336,7 +380,11 @@
                             </div>
                             <div class="col-4 pl-1">
                                 <div class="form-group">
-                                    <input type="text" id="d_office_district" class="form-control" placeholder="Daerah" value="{{ old('d_office_district', isset($form_data['d_office_district']) ? $form_data['d_office_district'] : '' ) }}" name = "d_office_district" required>
+                                    @if ($dad !== null)
+                                        <input type="text" id="d_office_district" class="form-control" placeholder="" value="{{ old('d_office_district', isset($form_data['d_office_district']) ? $form_data['d_office_district'] : $dad->district ) }}" name = "d_office_district" required>
+                                    @else
+                                        <input type="text" id="d_office_district" class="form-control" placeholder="" value="{{ old('d_office_district', isset($form_data['d_office_district']) ? $form_data['d_office_district'] : '' ) }}" name = "d_office_district" required>
+                                    @endif                     
                                     {{-- <select class="form-select" id="d_office_district" name="d_office_district" required>
                                         <option selected="" disabled>Sila pilih daerah</option>
                                         @foreach ($districts as $district)
@@ -347,7 +395,11 @@
                             </div>
                             <div class="col-4 pl-1">
                                 <div class="form-group">
-                                    <input type="text" id="d_office_postcode" class="form-control" placeholder="Poskod" value="{{ old('d_office_postcode', isset($form_data['d_office_postcode']) ? $form_data['d_office_postcode'] : '' ) }}" name = "d_office_postcode" required>
+                                    @if ($dad !== null)
+                                        <input type="text" id="d_office_postcode" class="form-control" placeholder="" value="{{ old('d_office_postcode', isset($form_data['d_office_postcode']) ? $form_data['d_office_postcode'] : $dad->postcode ) }}" name = "d_office_postcode" required>
+                                    @else
+                                        <input type="text" id="d_office_postcode" class="form-control" placeholder="" value="{{ old('d_office_postcode', isset($form_data['d_office_postcode']) ? $form_data['d_office_postcode'] : '' ) }}" name = "d_office_postcode" required>
+                                    @endif                     
                                 </div>
                             </div>
                         </div>
