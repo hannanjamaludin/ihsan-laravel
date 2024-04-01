@@ -105,6 +105,7 @@
                     icon: 'error',
                     title: 'Error',
                     text: 'An error occurred while communicating with the server.',
+                    confirmButtonColor: '#703232'
                 });
             }
 

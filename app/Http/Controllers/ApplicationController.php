@@ -69,10 +69,15 @@ class ApplicationController extends Controller
 
     public function createApplicationNext(){
 
+        $branch = Branch::get();
+
         $form_data = session('form_data');
         // dd($form_data);
 
-        return view('application.create-application-next', ['form_data' => $form_data]);
+        return view('application.create-application-next', [
+            'form_data' => $form_data,
+            'branch' => $branch,
+        ]);
     }
     
     public function storeSession(Request $request){

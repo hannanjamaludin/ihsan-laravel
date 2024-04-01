@@ -56,18 +56,18 @@
                         <div class="form-group row">
                             <div class="col-12 pl-1">
                                 <label class="form-label" for="full_name">Nama Penuh</label>
-                                <input type="text" id="full_name" class="form-control" placeholder="Sila isikan nama penuh anak" required name="full_name">
+                                <input type="text" id="full_name" class="form-control" placeholder="Sila isikan nama penuh anak" name="full_name">
                             </div>
                         </div>
 
                         <div class="form-group row mt-3">
                             <div class="col-4 pl-1">
                                 <label class="form-label" for="ic_no">No. MyKid</label>                        
-                                <input type="text" id="ic_no" class="form-control" placeholder="XXXXXX-XX-XXXX" required name="ic_no">
+                                <input type="text" id="ic_no" class="form-control" placeholder="XXXXXX-XX-XXXX" name="ic_no">
                             </div>
                             <div class="col-4 pl-1">
                                 <label class="form-label" for="dob">Tarikh Lahir</label>                        
-                                <input type="date" id="dob" class="form-control" placeholder="" required name = "dob">
+                                <input type="date" id="dob" class="form-control" placeholder="" name = "dob">
                             </div>
                             <div class="col-4 pl-1">
                                 <label class="form-label" for="gender">Jantina</label>                        
@@ -83,13 +83,13 @@
                             <div class="col-6 pl-1">
                                 <div class="form-group">
                                     <label class="form-label">Adik-beradik (Anak ke Berapa)</label>                            
-                                    <input type="text" id="siblings" class="form-control" placeholder="Contoh: 1/3" required name = "siblings">
+                                    <input type="text" id="siblings" class="form-control" placeholder="Contoh: 1/3" name = "siblings">
                                 </div>
                             </div>
                             <div class="col-6 pl-1">
                                 <div class="form-group">
                                     <label class="form-label">Alahan</label>                            
-                                    <input type="text" id="allergy" class="form-control" placeholder="Nyatakan jika ada" required name = "allergy">
+                                    <input type="text" id="allergy" class="form-control" placeholder="Nyatakan jika ada" name = "allergy">
                                 </div>
                             </div>
                         </div>
@@ -98,13 +98,13 @@
                             <div class="col-6 pl-1">
                                 <div class="form-group">
                                     <label class="form-label">Kelainan Upaya</label>                            
-                                    <input type="text" id="disability" class="form-control" placeholder="Nyatakan jika ada" required name = "disability">
+                                    <input type="text" id="disability" class="form-control" placeholder="Nyatakan jika ada" name = "disability">
                                 </div>
                             </div>
                             <div class="col-6 pl-1">
                                 <div class="form-group">
                                     <label class="form-label">Penyakit Kronik</label>                            
-                                    <input type="text" id="illness" class="form-control" placeholder="Nyatakan jika ada" required name = "illness">                                
+                                    <input type="text" id="illness" class="form-control" placeholder="Nyatakan jika ada" name = "illness">                                
                                 </div>
                             </div>
                         </div>
@@ -113,7 +113,7 @@
                             <div class="col-12 pl-1">
                                 <div class="form-group">
                                     <label class="form-label">Masalah Kesihatan & Pembelajaran</label>                            
-                                    <input type="text" id="study" class="form-control" placeholder="Nyatakan jika ada" required name = "study">
+                                    <input type="text" id="study" class="form-control" placeholder="Nyatakan jika ada" name = "study">
                                 </div>
                             </div>
                         </div>
@@ -122,7 +122,7 @@
                             <div class="col-12 pl-1">
                                 <div class="form-group">
                                     <label class="form-label">Alamat Rumah</label>
-                                    <input type="text" id="address1" class="form-control" placeholder="" required name = "address1">
+                                    <input type="text" id="address1" class="form-control" placeholder="" name = "address1">
                                 </div>
                             </div>
                         </div>
@@ -130,23 +130,17 @@
                         <div class="form-group row mt-1">
                             <div class="col-4 pl-1">
                                 <div class="form-group">
-                                    <select class="form-select" id="state">
-                                        <option selected="" disabled>Sila pilih negeri</option>
-                                        <option value="1">Johor</option>
-                                    </select>    
+                                    <input type="text" id="state" class="form-control" placeholder="Negeri" value="{{ old('state', isset($form_data['state']) ? $form_data['state'] : '' ) }}" name = "state">
                                 </div>
                             </div>
                             <div class="col-4 pl-1">
                                 <div class="form-group">
-                                    <select class="form-select" id="district">
-                                        <option selected="" disabled>Sila pilih daerah</option>
-                                        <option value="2">Johor Bahru</option>
-                                    </select>    
+                                    <input type="text" id="district" class="form-control" placeholder="Daerah" value="{{ old('district', isset($form_data['district']) ? $form_data['district'] : '' ) }}" name = "district">
                                 </div>
                             </div>
                             <div class="col-4 pl-1">
                                 <div class="form-group">
-                                    <input type="text" id="postcode" class="form-control" placeholder="Poskod" required name = "postcode">
+                                    <input type="text" id="postcode" class="form-control" placeholder="Poskod" name = "postcode">
                                 </div>
                             </div>
                         </div>
@@ -154,9 +148,11 @@
                         <div class="form-group row mt-3">
                             <div class="col-4 pl-1">
                                 <label class="form-label" for="branch_id">Pakej</label>
-                                <select class="form-select" id="branch_id" name="branch_id">
-                                    <option selected="">Sila pilih pakej</option>
-                                    <option value="1">Tadika Ihsan</option>
+                                <select class="form-select" id="branch_id" name="branch_id" required>
+                                    <option selected="" {{ empty($form_data['branch_id']) ? 'selected' : '' }}>Sila pilih pakej</option>
+                                    @foreach($branch as $br)
+                                        <option value="{{ $br->id }}" {{ isset($form_data['branch_id']) && $form_data['branch_id'] == $br->id ? 'selected' : '' }}>{{ $br->branch_name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -206,12 +202,15 @@
 
 // add or remove input box when radio button is clicked for mom's section
 $('input[name="inlineRadioOptions"]').on('change', function() {
-        var selectedValue = $('input[name="inlineRadioOptions"]:checked').val();
+        // var selectedValue = $('input[name="inlineRadioOptions"]:checked').val();
+        var selectedValue = $(this).val();
 
-        if (selectedValue === 'no') {
-            $('#child_card').addClass('d-none');
-        } else {
+        if (selectedValue === 'yes') {
             $('#child_card').removeClass('d-none');
+            $('#child_card input, #child_card select').attr('required', 'required');
+        } else {
+            $('#child_card').addClass('d-none');
+            $('#child_card input, #child_card select').removeAttr('required');
         }
     });   
 

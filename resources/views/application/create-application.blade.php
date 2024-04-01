@@ -258,15 +258,27 @@
                         <div class="form-group row mt-3">
                             <div class="col-md-12 pl-1">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions_mom" id="staffRadioButton_mom" value="staff_mom">
+                                    @if ($mom !== null)
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions_mom" id="staffRadioButton_mom" value="staff_mom" checked>
+                                    @else
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions_mom" id="staffRadioButton_mom" value="staff_mom">
+                                    @endif
                                     <label class="form-check-label" for="staffRadioButton_mom">Staff UTM</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions_mom" id="studentRadioButton_mom" value="student_mom">
+                                    @if ($mom !== null)
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions_mom" id="studentRadioButton_mom" value="student_mom" checked>
+                                    @else
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions_mom" id="studentRadioButton_mom" value="student_mom">
+                                    @endif
                                     <label class="form-check-label" for="studentRadioButton_mom">Pelajar UTM</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions_mom" id="none_mom" value="none_mom" checked>
+                                    {{-- @if ($mom->staff_no === null && $mom->student_no === null) --}}
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions_mom" id="none_mom" value="none_mom" checked>
+                                    {{-- @else
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions_mom" id="none_mom" value="none_mom">
+                                    @endif --}}
                                     <label class="form-check-label" for="none_mom">Tidak Berkaitan</label>
                                 </div>
                             </div>
@@ -274,13 +286,21 @@
                         
                         <div class="form-group row mt-1 d-none" id="utmStaff_mom">
                             <div class="col-md-4 pl-1">
-                                <input type="text" id="mom_staff_no" class="form-control" placeholder="ID Staff" value="{{ old('mom_staff_no', isset($form_data['mom_staff_no']) ? $form_data['mom_staff_no'] : '' ) }}" name = "mom_staff_no">
+                                @if ($mom !== null)
+                                    <input type="text" id="mom_staff_no" class="form-control" placeholder="No. Staff UTM" value="{{ old('mom_staff_no', isset($form_data['mom_staff_no']) ? $form_data['mom_staff_no'] : $mom->staff_no ) }}" name = "mom_staff_no" required>
+                                @else
+                                    <input type="text" id="mom_staff_no" class="form-control" placeholder="No. Staff UTM" value="{{ old('mom_staff_no', isset($form_data['mom_staff_no']) ? $form_data['mom_staff_no'] : '' ) }}" name = "mom_staff_no" required>
+                                @endif                     
                             </div>
                         </div>
     
                         <div class="form-group row mt-1 d-none" id="utmStudent_mom">
                             <div class="col-md-4 pl-1">
-                                <input type="text" id="mom_student_no" class="form-control" placeholder="No. Matrik" value="{{ old('mom_student_no', isset($form_data['mom_student_no']) ? $form_data['mom_student_no'] : '' ) }}" name = "mom_student_no">
+                                @if ($mom !== null)
+                                    <input type="text" id="mom_student_no" class="form-control" placeholder="No. Matrik" value="{{ old('mom_student_no', isset($form_data['mom_student_no']) ? $form_data['mom_student_no'] : $mom->student_no ) }}" name = "mom_student_no" required>
+                                @else
+                                    <input type="text" id="mom_student_no" class="form-control" placeholder="No. Matrik" value="{{ old('mom_student_no', isset($form_data['mom_student_no']) ? $form_data['mom_student_no'] : '' ) }}" name = "mom_student_no" required>
+                                @endif                     
                             </div>
                         </div>
     
@@ -407,15 +427,27 @@
                         <div class="form-group row mt-3">
                             <div class="col-md-12 pl-1">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions_dad" id="staffRadioButton_dad" value="staff_dad">
+                                    @if ($dad !== null)
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions_dad" id="staffRadioButton_dad" value="staff_dad" checked>
+                                    @else
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions_dad" id="staffRadioButton_dad" value="staff_dad">
+                                    @endif
                                     <label class="form-check-label" for="staffRadioButton_dad">Staff UTM</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions_dad" id="studentRadioButton_dad" value="student_dad">
+                                    @if ($dad !== null)
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions_dad" id="studentRadioButton_dad" value="student_dad" checked>
+                                    @else
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions_dad" id="studentRadioButton_dad" value="student_dad">
+                                    @endif
                                     <label class="form-check-label" for="studentRadioButton_dad">Pelajar UTM</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions_dad" id="none_dad" value="none_dad" checked>
+                                    {{-- @if ($dad->staff_no === null && $dad->student_no === null) --}}
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions_dad" id="none_dad" value="none_dad" checked>
+                                    {{-- @else
+                                        <input class="form-check-input" type="radio" name="inlineRadioOptions_dad" id="none_dad" value="none_dad">
+                                    @endif --}}
                                     <label class="form-check-label" for="none_dad">Tidak Berkaitan</label>
                                 </div>
                             </div>
@@ -423,13 +455,21 @@
                         
                         <div class="form-group row mt-1 d-none" id="utmStaff_dad">
                             <div class="col-md-4 pl-1">
-                                <input type="text" id="dad_staff_no" class="form-control" placeholder="ID Staff" value="{{ old('dad_staff_no', isset($form_data['dad_staff_no']) ? $form_data['dad_staff_no'] : '' ) }}" name = "dad_staff_no">
+                                @if ($dad !== null)
+                                    <input type="text" id="dad_staff_no" class="form-control" placeholder="No. Staff UTM" value="{{ old('dad_staff_no', isset($form_data['dad_staff_no']) ? $form_data['dad_staff_no'] : $dad->staff_no ) }}" name = "dad_staff_no" required>
+                                @else
+                                    <input type="text" id="dad_staff_no" class="form-control" placeholder="No. Staff UTM" value="{{ old('dad_staff_no', isset($form_data['dad_staff_no']) ? $form_data['dad_staff_no'] : '' ) }}" name = "dad_staff_no" required>
+                                @endif                     
                             </div>
                         </div>
     
                         <div class="form-group row mt-1 d-none" id="utmStudent_dad">
                             <div class="col-md-4 pl-1">
-                                <input type="text" id="dad_student_no" class="form-control" placeholder="No. Matrik" value="{{ old('dad_student_no', isset($form_data['dad_student_no']) ? $form_data['dad_student_no'] : '' ) }}" name = "dad_student_no">
+                                @if ($dad !== null)
+                                    <input type="text" id="dad_student_no" class="form-control" placeholder="No. Matrik" value="{{ old('dad_student_no', isset($form_data['dad_student_no']) ? $form_data['dad_student_no'] : $dad->student_no ) }}" name = "dad_student_no" required>
+                                @else
+                                    <input type="text" id="dad_student_no" class="form-control" placeholder="No. Matrik" value="{{ old('dad_student_no', isset($form_data['dad_student_no']) ? $form_data['dad_student_no'] : '' ) }}" name = "dad_student_no" required>
+                                @endif                     
                             </div>
                         </div>
     

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\UsersManagement\UsersController;
 use App\Http\Livewire\Application\ViewApplication;
 use App\Models\Application;
 use Illuminate\Support\Facades\Auth;
@@ -32,5 +33,15 @@ Route::middleware('auth')->group(function () {
         Route::post('/status-permohonan', [ViewApplication::class, 'updateApplication'])->name('status_permohonan');
         Route::get('/datatable_updated_application', [ApplicationController::class, 'datatable_updated_application'])->name('datatable_updated_application');
     });
+
+    // Users routes
+    Route::prefix('pengguna')->as('pengguna.')->group(function (){
+        Route::get('/', [UsersController::class, 'index'])->name('index');
+        Route::get('/admin', [UsersController::class, 'indexAdmin'])->name('index_admin');
+        Route::post('/kemaskini-profil', [UsersController::class, 'updateProfile'])->name('kemaskini_profil');
+        Route::get('/datatable_user_list', [UsersController::class, 'datatable_user_list'])->name('datatable_user_list');
+
+    });
+    
 
 });

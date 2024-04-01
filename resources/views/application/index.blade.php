@@ -29,7 +29,7 @@
                     <div class="card-body px-3 py-4 w-auto">
                         <div class="mt-3 text-start">
                             @foreach ($student as $s)
-                                    <div class="card mb-2 mx-3 card-students">
+                                    <div class="card mb-4 mx-3 card-students">
                                         <div class="card-body px-3 py-2 w-auto">
                                             <div class="row">
                                                 <div class="col-2 text-center">
