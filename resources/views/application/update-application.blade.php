@@ -301,7 +301,7 @@
                 "lengthMenu": "Menunjukkan _MENU_ kemasukan",
                 "info": "Menunjukkan _START_ ke _END_ daripada _TOTAL_ kemasukan",
                 "infoEmpty": "Menunjukkan 0 ke 0 daripada 0 kemasukan",
-                "infoFiltered": "(filtered from _MAX_ total kemasukan)",
+                "infoFiltered": "(ditapis daripada _MAX_ total kemasukan)",
                 "paginate": {
                     "first": "Pertama",
                     "last": "Terakhir",

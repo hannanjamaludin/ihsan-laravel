@@ -16,7 +16,7 @@
                 <input type="hidden" name="{{ $key }}" value="{{ $value }}">
             @endforeach
         
-            <div class="card mb-4 mx-3">
+            {{-- <div class="card mb-4 mx-3">
                 <div class="card-header py-1 d-flex flex-row justify-content-between card-header-divider">
                     <div class="col">
                         <h5 class="card-title mt-2">Adakah anda ingin mendaftar untuk anak yang lain?</h5>
@@ -37,7 +37,7 @@
                     </div>
 
                 </div>
-            </div>
+            </div> --}}
 
             {{-- <div class="card mb-4 mx-3 d-none" id="child_card">
                 <div class="card-header py-1 d-flex flex-row justify-content-between card-header-divider">

@@ -115,11 +115,11 @@ h2 {
 .input-group-text {
     background-color: #FFFFFF !important;
     color: #9b9a9a;
-    border-right: none !important;
+    border-right: none;
 }
 
 .input-group .form-control {
-    border-left: none !important;
+    border-left: none;
 }
 
 .card-header {

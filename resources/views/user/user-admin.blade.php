@@ -3,6 +3,11 @@
 
 <div class="row">
     <div class="col-12">
+        <div class="col-12 d-flex justify-content-end mb-4">
+            <a href="{{ route('pengguna.penggunaBaru') }}" class="btn btn-primary me-3">
+                <i class="fa fa-plus"></i> Pengguna Baharu
+            </a>
+        </div>
 
         <div class="card mb-4 mx-3">
             <div class="card-header bg-primary">
@@ -29,7 +34,6 @@
                     
                 </div>
             </div>
-            {{-- <livewire:application.view-application /> --}}
         </div>
     </div>
 </div>
@@ -43,59 +47,109 @@
     $(document).ready(function () {
         var table = $('#user_list').DataTable({
             'processing': true,
-                'scrollX': true,
-                'scrollable': true,
-                'searchable': true,
-                'ajax': {
-                    'url': "{{ route('pengguna.datatable_user_list') }}",
-                    'dataType': 'json',
-                    'type': 'GET'
+            'scrollX': true,
+            'scrollable': true,
+            'searchable': true,
+            'ajax': {
+                'url': "{{ route('pengguna.datatable_user_list') }}",
+                'dataType': 'json',
+                'type': 'GET'
+            },
+            'columnDefs': [{
+                className: 'dt-left'
+            }],
+            'columns': [{
+                    data: 'DT_RowIndex',
+                    name: 'DT_RowIndex',
                 },
-                'columnDefs': [{
-                    className: 'dt-left'
-                }],
-                'columns': [{
-                        data: 'DT_RowIndex',
-                        name: 'DT_RowIndex',
+                {
+                    data: 'name'
+                },
+                {
+                    data: 'email'
+                },
+                {
+                    data: 'user_type',
+                    render: function(data, type, row) {
+                        return type === 'display' ? $('<div/>').html(data).text() : data;
+                    }
+                },
+                {
+                    data: 'action',
+                },
+            ],
+            "language": {
+                "search": "Carian:",
+                // "searchPlaceholder": "Custom Search Placeholder",
+                "lengthMenu": "Menunjukkan _MENU_ kemasukan",
+                "info": "Menunjukkan _START_ ke _END_ daripada _TOTAL_ kemasukan",
+                "infoEmpty": "Menunjukkan 0 ke 0 daripada 0 kemasukan",
+                "infoFiltered": "(ditapis daripada _MAX_ total kemasukan)",
+                "paginate": {
+                    "first": "Pertama",
+                    "last": "Terakhir",
+                    "next": "Seterusnya",
+                    "previous": "Sebelumnya"
+                },
+                "emptyTable": "Tiada pendaftaran baharu"
+            }
+        });
+
+    });
+
+    function delete_user(id) {
+        Swal.fire({
+            title: "Buang Pengguna?",
+            text: "Adakah anda pasti untuk membuang pengguna?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#703232",
+            cancelButtonColor: "#BABABA",
+            confirmButtonText: "Ya, saya pasti",
+            cancelButtonText: "Batal"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('pengguna.buang_pengguna') }}",
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "user_id": id,
                     },
-                    {
-                        data: 'name'
-                    },
-                    {
-                        data: 'email'
-                    },
-                    {
-                        data: 'user_type',
-                        render: function(data, type, row) {
-                            return type === 'display' ? $('<div/>').html(data).text() : data;
+                    success: function(response){
+                        if(response.success){
+                            Swal.fire({
+                                title: "Pengguna Dibuang",
+                                text: "Pengguna telah dibuang",
+                                icon: "success",
+                                confirmButtonColor: '#703232'
+                            }).then(() => {
+                                location.reload();
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "Ralat",
+                                text: "Pengguna gagal dibuang",
+                                icon: "error",
+                                confirmButtonColor: '#703232'
+                            });           
                         }
                     },
-                    {
-                        data: 'action',
-                        // render: function(data, type, row) {
-                        //     return type === 'display' ? $('<div/>').html(data).text() : data;
-                        // }
-                    },
-                ],
-                "language": {
-                    "search": "Carian:",
-                    // "searchPlaceholder": "Custom Search Placeholder",
-                    "lengthMenu": "Menunjukkan _MENU_ kemasukan",
-                    "info": "Menunjukkan _START_ ke _END_ daripada _TOTAL_ kemasukan",
-                    "infoEmpty": "Menunjukkan 0 ke 0 daripada 0 kemasukan",
-                    "infoFiltered": "(filtered from _MAX_ total kemasukan)",
-                    "paginate": {
-                        "first": "Pertama",
-                        "last": "Terakhir",
-                        "next": "Seterusnya",
-                        "previous": "Sebelumnya"
-                    },
-                    "emptyTable": "Tiada pendaftaran baharu"
-                }
+                    error: function(xhr, status, error) {
+                        console.log("userid: " + id);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error',
+                            text: 'An error occurred while communicating with the server.',
+                        });
+                    }
+                })
+            }
+        })
+
+    }
 
 
-        });
-    })
 </script>
 
 @endsection

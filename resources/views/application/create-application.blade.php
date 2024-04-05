@@ -42,7 +42,8 @@
                                 <select class="form-select" id="gender" name="gender">
                                     <option selected="" disabled {{ empty($form_data['gender']) ? 'selected' : '' }}>Sila pilih jantina</option>
                                     <option value="lelaki" {{ isset($form_data['gender']) && $form_data['gender'] == 'lelaki' ? 'selected' : '' }}>Lelaki</option>
-                                    <option value="perempuan" {{ isset($form_data['gender']) && $form_data['gender'] == 'perempuan' ? 'selected' : '' }}>Perempuan</option>                                </select>
+                                    <option value="perempuan" {{ isset($form_data['gender']) && $form_data['gender'] == 'perempuan' ? 'selected' : '' }}>Perempuan</option>                                
+                                </select>
                             </div>
                         </div>
 
@@ -287,9 +288,9 @@
                         <div class="form-group row mt-1 d-none" id="utmStaff_mom">
                             <div class="col-md-4 pl-1">
                                 @if ($mom !== null)
-                                    <input type="text" id="mom_staff_no" class="form-control" placeholder="No. Staff UTM" value="{{ old('mom_staff_no', isset($form_data['mom_staff_no']) ? $form_data['mom_staff_no'] : $mom->staff_no ) }}" name = "mom_staff_no" required>
+                                    <input type="text" id="mom_staff_no" class="form-control" placeholder="No. Staff UTM" value="{{ old('mom_staff_no', isset($form_data['mom_staff_no']) ? $form_data['mom_staff_no'] : $mom->staff_no ) }}" name = "mom_staff_no" >
                                 @else
-                                    <input type="text" id="mom_staff_no" class="form-control" placeholder="No. Staff UTM" value="{{ old('mom_staff_no', isset($form_data['mom_staff_no']) ? $form_data['mom_staff_no'] : '' ) }}" name = "mom_staff_no" required>
+                                    <input type="text" id="mom_staff_no" class="form-control" placeholder="No. Staff UTM" value="{{ old('mom_staff_no', isset($form_data['mom_staff_no']) ? $form_data['mom_staff_no'] : '' ) }}" name = "mom_staff_no" >
                                 @endif                     
                             </div>
                         </div>
@@ -297,9 +298,9 @@
                         <div class="form-group row mt-1 d-none" id="utmStudent_mom">
                             <div class="col-md-4 pl-1">
                                 @if ($mom !== null)
-                                    <input type="text" id="mom_student_no" class="form-control" placeholder="No. Matrik" value="{{ old('mom_student_no', isset($form_data['mom_student_no']) ? $form_data['mom_student_no'] : $mom->student_no ) }}" name = "mom_student_no" required>
+                                    <input type="text" id="mom_student_no" class="form-control" placeholder="No. Matrik" value="{{ old('mom_student_no', isset($form_data['mom_student_no']) ? $form_data['mom_student_no'] : $mom->student_no ) }}" name = "mom_student_no" >
                                 @else
-                                    <input type="text" id="mom_student_no" class="form-control" placeholder="No. Matrik" value="{{ old('mom_student_no', isset($form_data['mom_student_no']) ? $form_data['mom_student_no'] : '' ) }}" name = "mom_student_no" required>
+                                    <input type="text" id="mom_student_no" class="form-control" placeholder="No. Matrik" value="{{ old('mom_student_no', isset($form_data['mom_student_no']) ? $form_data['mom_student_no'] : '' ) }}" name = "mom_student_no" >
                                 @endif                     
                             </div>
                         </div>
@@ -456,9 +457,9 @@
                         <div class="form-group row mt-1 d-none" id="utmStaff_dad">
                             <div class="col-md-4 pl-1">
                                 @if ($dad !== null)
-                                    <input type="text" id="dad_staff_no" class="form-control" placeholder="No. Staff UTM" value="{{ old('dad_staff_no', isset($form_data['dad_staff_no']) ? $form_data['dad_staff_no'] : $dad->staff_no ) }}" name = "dad_staff_no" required>
+                                    <input type="text" id="dad_staff_no" class="form-control" placeholder="No. Staff UTM" value="{{ old('dad_staff_no', isset($form_data['dad_staff_no']) ? $form_data['dad_staff_no'] : $dad->staff_no ) }}" name = "dad_staff_no" >
                                 @else
-                                    <input type="text" id="dad_staff_no" class="form-control" placeholder="No. Staff UTM" value="{{ old('dad_staff_no', isset($form_data['dad_staff_no']) ? $form_data['dad_staff_no'] : '' ) }}" name = "dad_staff_no" required>
+                                    <input type="text" id="dad_staff_no" class="form-control" placeholder="No. Staff UTM" value="{{ old('dad_staff_no', isset($form_data['dad_staff_no']) ? $form_data['dad_staff_no'] : '' ) }}" name = "dad_staff_no" >
                                 @endif                     
                             </div>
                         </div>
@@ -466,9 +467,9 @@
                         <div class="form-group row mt-1 d-none" id="utmStudent_dad">
                             <div class="col-md-4 pl-1">
                                 @if ($dad !== null)
-                                    <input type="text" id="dad_student_no" class="form-control" placeholder="No. Matrik" value="{{ old('dad_student_no', isset($form_data['dad_student_no']) ? $form_data['dad_student_no'] : $dad->student_no ) }}" name = "dad_student_no" required>
+                                    <input type="text" id="dad_student_no" class="form-control" placeholder="No. Matrik" value="{{ old('dad_student_no', isset($form_data['dad_student_no']) ? $form_data['dad_student_no'] : $dad->student_no ) }}" name = "dad_student_no" >
                                 @else
-                                    <input type="text" id="dad_student_no" class="form-control" placeholder="No. Matrik" value="{{ old('dad_student_no', isset($form_data['dad_student_no']) ? $form_data['dad_student_no'] : '' ) }}" name = "dad_student_no" required>
+                                    <input type="text" id="dad_student_no" class="form-control" placeholder="No. Matrik" value="{{ old('dad_student_no', isset($form_data['dad_student_no']) ? $form_data['dad_student_no'] : '' ) }}" name = "dad_student_no" >
                                 @endif                     
                             </div>
                         </div>

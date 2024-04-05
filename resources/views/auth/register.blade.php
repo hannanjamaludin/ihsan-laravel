@@ -69,7 +69,7 @@
 
                         <div class="input-group">
                             <div class="input-group-text">
-                                <i class="fa fa-user"></i>
+                                <i class="fa fa-user-tie"></i>
                             </div>    
                             <input id="staffID" type="staffID" class="form-control @error('staffID') is-invalid @enderror" name="staffID" placeholder="{{ __('ID Pekerja/Pelajar UTM') }}" value="{{ old('staffID') }}" required autocomplete="staffID">
 

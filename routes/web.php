@@ -40,7 +40,9 @@ Route::middleware('auth')->group(function () {
         Route::get('/admin', [UsersController::class, 'indexAdmin'])->name('index_admin');
         Route::post('/kemaskini-profil', [UsersController::class, 'updateProfile'])->name('kemaskini_profil');
         Route::get('/datatable_user_list', [UsersController::class, 'datatable_user_list'])->name('datatable_user_list');
-
+        Route::get('/kemaskini-pengguna/{userId}', [UsersController::class, 'updateUser'])->name('kemaskini_pengguna');
+        Route::post('/buang-pengguna', [UsersController::class, 'deleteUser'])->name('buang_pengguna');
+        Route::get('/pengguna-baru', [UsersController::class, 'createUser'])->name('penggunaBaru');
     });
     
 

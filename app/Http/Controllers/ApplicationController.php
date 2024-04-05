@@ -296,7 +296,7 @@ class ApplicationController extends Controller
         
                 return response()->json(['success' => true, 'message' => 'Pendaftaran telah dibuang']);
             } else {
-                return response()->json(['success' => false, 'message' => 'Pendaftaran telah dibuang']);
+                return response()->json(['success' => false, 'message' => 'Pendaftaran gagal dibuang']);
             }
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => 'Ralat: ' . $e->getMessage()], 500);
