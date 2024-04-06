@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/kemaskini-pengguna/{userId}', [UsersController::class, 'updateUser'])->name('kemaskini_pengguna');
         Route::post('/buang-pengguna', [UsersController::class, 'deleteUser'])->name('buang_pengguna');
         Route::get('/pengguna-baru', [UsersController::class, 'createUser'])->name('penggunaBaru');
+        Route::post('/simpan', [UsersController::class, 'saveNewUser'])->name('simpan');
     });
     
 

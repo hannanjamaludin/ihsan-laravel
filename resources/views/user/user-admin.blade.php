@@ -95,6 +95,20 @@
             }
         });
 
+
+        console.log("dalam js");
+
+        var successMessage = "{{ session('success_message') }}";
+
+        if (successMessage){
+            Swal.fire({
+                title: "Berjaya",
+                text: successMessage,
+                icon: "success",
+                timer: 2000,
+            });
+        }
+
     });
 
     function delete_user(id) {

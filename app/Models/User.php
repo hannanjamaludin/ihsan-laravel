@@ -52,4 +52,9 @@ class User extends Authenticatable
         return $this->hasOne(Parents::class, 'user_id', 'id');
     }
 
+    public function isAdmin()
+    {
+        return $this->user_type === 1;
+    }
+
 }

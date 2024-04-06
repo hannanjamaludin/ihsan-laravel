@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
@@ -44,11 +45,19 @@ class UsersController extends Controller
         ]);
     }
 
-    protected function validator(array $data){
-        return Validator::make($data, [
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-    }
+    // protected function validator(Request $request){
+    //     return $request->validate([
+    //         'name' => 'required|string|max:255',
+    //         'email' => 'required|string|email|max:255|unique:users',
+    //         'password' => 'required|string|min:8|confirmed', 
+    //         'staffID' => 'required|string|min:8',
+    //         'user_type' => 'required|integer',
+    //     ],[
+    //         'password.required' => 'Kata laluan perlu diisi.',
+    //         'password.min' => 'Kata laluan mestilah sekurang-kurangnya :min karakter.',
+    //         'password.confirmed' => 'Pengesahan kata laluan tidak serasi.',
+    //     ]);    
+    // }
 
     public function updateProfile(Request $request){
     // public function updateProfile(Request $request){
@@ -242,7 +251,7 @@ class UsersController extends Controller
                                 );
             }
 
-            $edit_btn = '<a href="'. route('pengguna.kemaskini_pengguna', ['userId' => $user->id]) .'" class="btn btn-warning me-3 px-2 pb-1 pt-0" style="background-color: var(--custom-warning-color); border:none;"
+            $edit_btn = '<a href="'. route('pengguna.kemaskini_pengguna', ['userId' => $user->id]) .'" class="btn btn-info me-3 px-2 pb-1 pt-0" style="background-color: var(--custom-info-color); border:none;"
                                 title="Kemaskini pengguna">
                                 <i class="fas fa-pen-to-square text-light mx-1" style="font-size: 10px;"></i>
                             </a>';
@@ -269,6 +278,69 @@ class UsersController extends Controller
     }
 
     public function createUser() {
+
+        // session()->flash('success_message', 'Pengguna berjaya ditambah!');
+
         return view('user.create-user');
+    }
+
+    public function saveNewUser(Request $request){
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8|confirmed', 
+            'staffID' => 'required|string|min:8',
+            'user_type' => 'required|integer',
+        ],[
+            'password.required' => 'Kata laluan perlu diisi.',
+            'password.min' => 'Kata laluan mestilah sekurang-kurangnya :min karakter.',
+            'password.confirmed' => 'Pengesahan kata laluan tidak serasi.',
+            'email.unique' => 'E-mel telah berdaftar di dalam sistem',
+        ]);    
+
+        $user = User::create([
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'staff_no' => $request->staffID,
+            'user_type' => (int)$request->user_type,
+        ]);
+
+        $user_type = (int)$request->user_type;
+
+        if ($user_type == 2){
+            Staffs::create([
+                'user_id' => $user->id,
+                'full_name' => $request->name,
+                'phone_no' => $request->phoneNo,
+                'staff_no' => $request->staffID,
+            ]);
+        }
+
+        if ($user_type == 3){
+            Parents::create([
+                'user_id' => $user->id,
+                'full_name' => $request->name,
+                'phone_no' => $request->phoneNo,
+                'staff_no' => $request->staffID,
+                'email' => $request->email,
+                'role_id' => 2
+            ]);
+        }
+
+        if ($user_type == 4){
+            Parents::create([
+                'user_id' => $user->id,
+                'full_name' => $request->name,
+                'phone_no' => $request->phoneNo,
+                'staff_no' => $request->staffID,
+                'email' => $request->email,
+                'role_id' => 1
+            ]);
+        }
+
+        session()->flash('success_message', 'Pengguna berjaya ditambah!');
+
+        return redirect()->route('pengguna.index_admin');
+
     }
 }
