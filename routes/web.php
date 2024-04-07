@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\RazorpayController;
 use App\Http\Controllers\UsersManagement\UsersController;
 use App\Http\Livewire\Application\ViewApplication;
 use App\Models\Application;
@@ -14,6 +15,9 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('product',[RazorpayController::class,'index']);
+Route::post('razorpay-payment',[RazorpayController::class,'store'])->name('razorpay.payment.store');
 
 Route::middleware('auth')->group(function () {
 
