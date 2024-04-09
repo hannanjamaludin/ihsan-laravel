@@ -17,6 +17,7 @@ class RazorpayController extends Controller
         if(count($input) && !empty($input['razorpay_payment_id'])) {
             try {
                 $response = $api->payment->fetch($input['razorpay_payment_id'])->capture(array('amount' => $payment['amount']));
+                // dd($response);
                 $payment = Payment::create([
                     'r_payment_id' => $response['id'],
                     'method' => $response['method'],

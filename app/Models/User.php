@@ -57,4 +57,8 @@ class User extends Authenticatable
         return $this->user_type === 1;
     }
 
+    public function children(){
+        return $this->hasMany(Students::class, 'user_id', 'id');
+    }
+
 }
