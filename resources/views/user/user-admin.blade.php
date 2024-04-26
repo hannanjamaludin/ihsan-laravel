@@ -96,7 +96,7 @@
         });
 
 
-        console.log("dalam js");
+        // console.log("dalam js");
 
         var successMessage = "{{ session('success_message') }}";
 
@@ -153,8 +153,8 @@
                         console.log("userid: " + id);
                         Swal.fire({
                             icon: 'error',
-                            title: 'Error',
-                            text: 'An error occurred while communicating with the server.',
+                            title: 'Ralat',
+                            text: 'Ralat berlaku semasa berkomunikasi dengan server.',
                         });
                     }
                 })
