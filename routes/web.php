@@ -3,6 +3,7 @@
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RazorpayController;
+use App\Http\Controllers\StripeController;
 use App\Http\Controllers\UsersManagement\UsersController;
 use App\Http\Livewire\Application\ViewApplication;
 use App\Models\Application;
@@ -51,12 +52,14 @@ Route::middleware('auth')->group(function () {
         Route::post('/simpan', [UsersController::class, 'saveNewUser'])->name('simpan');
     });
     
-
     // Payment routes
     Route::prefix('pembayaran')->as('pembayaran.')->group(function () {
         Route::get('/', [PaymentController::class, 'index'])->name('index');
         Route::get('/yuran/{studentId}', [PaymentController::class, 'paymentByStudent'])->name('yuran_student');
         Route::get('/transaksi', [PaymentController::class, 'makePayment'])->name('buat_pembarayan');
+
+        Route::post('/session', [StripeController::class, 'session'])->name('session');
+        Route::get('/status/{studentId}/{monthId}/{session_id}', [StripeController::class, 'status'])->name('status');
     });
 
 });

@@ -3,6 +3,14 @@
 
 <div class="row">
     <div class="col-12">
+        <div class="col-12 pl-1">
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="ps-4 py-1">
+                    <h5>Bulan</h5>
+                </div>
+                <div class="me-5 pe-5"><h5>Status</h5></div>
+            </div>
+        </div>
         @foreach ($months as $key => $month)
             <div class="card mb-1 mx-3">
                 <div class="card-header py-1 d-flex flex-row justify-content-between card-header-divider bg-secondary">
@@ -18,67 +26,52 @@
 
                 
                 <div class="collapse multi-collapse" id="payment{{ $key }}">
-                    <div class="card-body px-3 pt-2 pb-2 w-auto" style="background-color: #EAEAEA">
-                        @php
-                            $hasPayment = false;
-                        @endphp
-                        @foreach ($paymentMonths as $paymentMonth)
-                            @if ($paymentMonth == $month->id)
-                                @php
-                                    $hasPayment = true;
-                                @endphp
-                                <div class="col-12 pl-1">Buat table payment history {{ $month->month }}</div>
-                            @endif
-
-                            @if (!$hasPayment) 
-                            <form action="{{ route('razorpay.payment.store') }}" method="POST" >
-                                @csrf              
-                                {{-- <button id="rzp-button1" class="btn btn-primary"><i class="fa fa-credit-card"></i>
-                                    Bayar
-                                </button> --}}
-                                <script src="https://checkout.razorpay.com/v1/checkout.js"
-                                    data-key="{{ env('RAZORPAY_KEY') }}"
-                                    data-amount="5000"
-                                    data-currency="MYR"
-                                    data-buttontext="Bayar"
-                                    data-name="Tadika Ihsan"
-                                    data-description="Pembayaran yuran bulan {{ $month->month }}"
-                                    data-image="{{ asset('assets/img/ihsan-logo-16x16.png') }}"
-                                    data-prefill.name="ABC"
-                                    data-prefill.email="abc@gmail.com"
-                                    data-theme.color="#703232">
-                                </script>
-                            </form>
-                            @endif
-                        @endforeach
+                    <div class="card-body py-2 px-0 w-auto" style="background-color: #EAEAEA">
+                        @if(isset($paymentMonths[$month->id]))
+                            <div class="col-12 pl-1">
+                                <table id="paid_table" class="table">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 60%">Rujukan</th>
+                                            <th style="width: 10%">Amaun</th>
+                                            <th style="width: 17%">Tarikh</th>
+                                            <th style="width: 13%">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($payments as $payment)
+                                            @if ($payment->month_id == $month->id)
+                                                <tr>
+                                                    <td><a href="">{{ $payment->payment_intent_id }}</a></td>
+                                                    <td>RM{{ $payment->amount }}</td>
+                                                    <td>{{ $payment->created_at }}</td>
+                                                    <td><i class="fa fa-circle-check ps-3"></i></td>
+                                                </tr>
+                                            @endif
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @else
+                            <div class="col-12 pl-1">
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <div class="ps-4 py-1">
+                                        <form id="payment-form-{{ $month->id }}" action="{{ route('pembayaran.session') }}" method="POST" >
+                                            @csrf
+                                            <input type="hidden" name="month_id" value="{{ $month->id }}">
+                                            <input type="hidden" name="student_id" value="{{ $student_id }}">
+                                            <button class="btn btn-primary" type="submit"><i class="fa fa-money-bill"></i> Bayar</button>
+                                        </form>
+                                    </div>
+                                    <div><i class="fa fa-times-circle me-5 pe-5"></i></div>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
         @endforeach
     </div>
 </div>
-
-@endsection
-
-@section('css')
-
-<style>
-    /* Customize the Razorpay checkout button */
-    .razorpay-payment-button {
-        background-color: #703232; 
-        color: #fff; 
-        border-radius: 5px; 
-        padding: 5px 20px; 
-        font-size: 16px; 
-        border: none; 
-        cursor: pointer;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Hover effect */
-    .razorpay-payment-button:hover {
-        background-color: #703232; /* Change background color on hover */
-    }
-</style>
 
 @endsection

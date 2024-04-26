@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('payments', function (Blueprint $table) {
+        Schema::create('payment_stripe', function (Blueprint $table) {
             $table->id();
-            $table->string('r_payment_id');
+            $table->string('payment_intent_id');
             $table->unsignedBigInteger('month_id');
             $table->unsignedBigInteger('student_id');
             $table->string('method');
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('payments');
+        Schema::dropIfExists('payment_stripe');
     }
 };

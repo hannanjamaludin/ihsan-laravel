@@ -27,7 +27,8 @@
                             </a>
                         @endif
                     </li>
-                    @if ($role->user_type == 1 || $role->user_type == 2)
+                    {{-- @if ($role->user_type == 1 || $role->user_type == 2) --}}
+                    @if ($role->user_type == 2)
                         <li class="nav-item py-2 py-sm-0">
                             <a href="{{ route('pendaftaran.permohonan') }}" class="nav-link text-primary">
                                 <i class="fs-5 fa fa-list-check"></i>
