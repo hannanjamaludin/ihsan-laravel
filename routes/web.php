@@ -59,7 +59,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/transaksi', [PaymentController::class, 'makePayment'])->name('buat_pembarayan');
 
         Route::post('/session', [StripeController::class, 'session'])->name('session');
-        Route::get('/status/{studentId}/{monthId}/{session_id}', [StripeController::class, 'status'])->name('status');
+        // Route::get('/status/{studentId}/{monthId}/{session_id}', [StripeController::class, 'status'])->name('status');
+        Route::get('/status/{studentId}/{monthId}', [StripeController::class, 'status'])->name('status');
     });
 
 });
