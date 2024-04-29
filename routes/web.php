@@ -60,7 +60,7 @@ Route::middleware('auth')->group(function () {
 
         Route::post('/session', [StripeController::class, 'session'])->name('session');
         // Route::get('/status/{studentId}/{monthId}/{session_id}', [StripeController::class, 'status'])->name('status');
-        Route::get('/status/{studentId}/{monthId}', [StripeController::class, 'status'])->name('status');
+        Route::get('/status/{studentId}/{year}/{monthId}', [StripeController::class, 'status'])->name('status');
     });
 
 });

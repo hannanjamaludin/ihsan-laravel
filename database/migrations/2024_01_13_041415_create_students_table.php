@@ -31,6 +31,8 @@ return new class extends Migration
             $table->integer('branch_id');
             $table->integer('parent_id');
             $table->boolean('is_active');
+            $table->Date('enroll_date');
+            $table->Date('end_date');
             $table->timestamps();
         });
     }

@@ -252,6 +252,7 @@ class ApplicationController extends Controller
             'mom_id' => $mom->id,
             'user_id' => Auth::user()->id,
             'is_active' => 0,
+            'enroll_date' => $form_data['enroll_date'],
         ]);
 
         // dd($mom->id);    

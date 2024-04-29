@@ -84,10 +84,11 @@ class StripeController extends Controller
 
         $stripe = new StripeClient(env('STRIPE_SECRET'));
     
+        $year = $request->year;
         $month_id = $request->month_id;
         $student_id = $request->student_id;
         
-        $success_url = route('pembayaran.status', ['studentId' => $student_id, 'monthId' => $month_id]);
+        $success_url = route('pembayaran.status', ['studentId' => $student_id, 'year' => $year, 'monthId' => $month_id]);
         
         // Debug: Log the success URL to verify it includes the session ID placeholder
         // logger()->info('Success URL:', ['url' => $success_url]);
@@ -98,7 +99,7 @@ class StripeController extends Controller
                 'price_data' => [
                     'currency' => 'MYR',
                     'product_data' => [
-                        'name' => 'Yuran Bulan ' . $month_id,
+                        'name' => 'Yuran Bulan ' . $month_id . ' Tahun ' . $year,
                     ],
                     'unit_amount' => 5000,
                 ],
@@ -119,7 +120,7 @@ class StripeController extends Controller
         return redirect()->away($session->url);
     }
     
-    public function status($id, $month, Request $request){
+    public function status($id, $year, $month, Request $request){
         
         // dd(session('stripe_session'));
         
@@ -132,6 +133,7 @@ class StripeController extends Controller
             // $session = $stripe->checkout->sessions->retrieve($passed_session->id);
     
             $requestData = [
+                'year' => $year,
                 'month_id' => $month,
                 'student_id' => $id,
                 'user_email' => Auth::user()->email,
@@ -143,6 +145,7 @@ class StripeController extends Controller
                 'payment_intent_id' => $session->id,
                 'method' => 'card',
                 'currency' => $session->currency,
+                'year' => $year,
                 'month_id' => $month,
                 'student_id' => $id,
                 'user_email' => Auth::user()->email,

@@ -27,7 +27,9 @@ class Students extends Model
         'dad_id',
         'mom_id',
         'user_id',
-        'is_active'
+        'is_active',
+        'enroll_date',
+        'end_date'
     ];
 
     public function applicationStatus(){

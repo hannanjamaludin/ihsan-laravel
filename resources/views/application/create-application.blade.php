@@ -135,6 +135,10 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="col-4 pl-1">
+                                <label class="form-label" for="enroll_date">Tarikh Masuk</label>                        
+                                <input type="date" id="enroll_date" class="form-control" placeholder="" value="{{ old('enroll_date', isset($form_data['enroll_date']) ? $form_data['enroll_date'] : '' ) }}" name = "enroll_date" required>
+                            </div>
                         </div>
                     </div>
                 </div>

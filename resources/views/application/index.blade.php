@@ -40,7 +40,9 @@
                                                 <div class="col-10 pt-2">
                                                     <div class="container d-flex align-items-center justify-content-between m-0 p-0">
                                                         <h5 class="card-title text-primary">{{ $s->full_name }}</h5> 
-                                                        <button id="remove_application" type="button" class="btn-close" aria-label="Tutup" data-student-id="{{ $s->id }}"></button>   
+                                                        @if ($s->applicationStatus->status != 1)
+                                                            <button id="remove_application" type="button" class="btn-close" aria-label="Tutup" data-student-id="{{ $s->id }}"></button>   
+                                                        @endif
                                                     </div>
                                                     <div class="container d-flex align-items-center justify-content-start m-0 p-0">
                                                         <div class="card-subtitle text-muted">{{ $s->applicationStatus->updated_at }}</div>   
