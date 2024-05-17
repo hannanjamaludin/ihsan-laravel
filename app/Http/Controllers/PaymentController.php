@@ -44,11 +44,11 @@ class PaymentController extends Controller
                                     ->where('student_id', $id)->with('students')
                                     ->get();
     
-        $paymentMonths = [];
+        // $paymentMonths = [];
 
-        $paymentYears = [];
+        // $paymentYears = [];
 
-        // dd($payments, $students);
+        // dd($payments);
 
         $paymentMonthsYears = [];
 
