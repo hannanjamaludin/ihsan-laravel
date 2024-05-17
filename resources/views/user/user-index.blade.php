@@ -59,6 +59,32 @@
             </div>
         </div>
 
+        @if ($user->user_type == 2)
+            <div class="row mt-4 px-3">
+                <div class="col-6">
+                    <div class="form-group row">
+                        <div class="col-12 pl-1">
+                            <label class="form-label" for="branch_name">Cawangan</label>
+                            <input type="text" id="branch_name" class="form-control" placeholder="" value="{{ $user->staffs->branch->branch_name }}" name="branch_name" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group row">
+                        <div class="col-12 pl-1">
+                            @if ($user->staffs->branch->id == 1)
+                                <label class="form-label" for="assignedClass">Pengasuh</label>
+                                <input type="text" id="assignedClass" class="form-control" placeholder="" value="{{ $user->staffs->assignedClass->class_name }}" name="assignedClass" disabled>
+                            @else
+                                <label class="form-label" for="assignedClass">Guru Kelas</label>
+                                <input type="text" id="assignedClass" class="form-control" placeholder="" value="{{ $user->staffs->assignedClass->age }} {{ $user->staffs->assignedClass->class_name }}" name="assignedClass" disabled>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+
         <div class="row mt-4 px-3">
             <div class="col-6">
                 <div class="form-group row">

@@ -24,6 +24,7 @@ class Students extends Model
         'district',
         'state', 
         'branch_id',
+        'class_id',
         'dad_id',
         'mom_id',
         'user_id',
@@ -50,6 +51,10 @@ class Students extends Model
 
     public function branch(){
         return $this->hasOne(Branch::class, 'id', 'branch_id');
+    }
+
+    public function assignedClass(){
+        return $this->hasOne(TadikaClass::class, 'class_id', 'id');
     }
 
 }

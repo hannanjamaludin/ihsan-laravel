@@ -18,7 +18,9 @@
         <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/ihsan-logo-32x32.png') }}">
         <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/img/ihsan-logo-16x16.png') }}">
         {{-- <link rel="manifest" href="assets/img/site.webmanifest"> --}}
-
+    
+    @livewireStyles
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('assets/css/app.css') }}" rel="stylesheet" />
     {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/7.2.0/mdb.min.css" rel="stylesheet"> --}}
@@ -36,7 +38,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/3c8bffa6d2.js" crossorigin="anonymous"></script>
     <script src="/DataTables/datatables.min.js"></script>
-    
+
+    {{-- @livewireStyles --}}
+
 </head>
 <body class="m-0 p-0 body-main">
     <div id="app"> 
@@ -81,5 +85,6 @@
         @yield('css')
         {{-- </main> --}}
     </div>
+    @livewireScripts
 </body>
 </html>

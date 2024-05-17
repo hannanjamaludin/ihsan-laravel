@@ -23,22 +23,25 @@ class UsersController extends Controller
         $user_role = null;
 
         if ($user->user_type == 2){
-            $user_role = User::where('id', $user->id)->with('staffs')->first();
+            // $user_role = User::where('id', $user->id)->with('staffs')->first();
+            $user_role = User::where('id', $user->id)->with(['staffs.branch', 'staffs.assignedClass'])->first();
+
         } elseif ($user->user_type == 3){
             $user_role = User::where('id', $user->id)
                             ->whereHas('parents', function($query){
-                                $query->where('role_id', 2);
+                                $query->where('role_id', 2); // ibu
                             })->first();
-        } elseif ($user->user_type == 2){
+        } elseif ($user->user_type == 4){
             $user_role = User::where('id', $user->id)
                             ->whereHas('parents', function($query){
-                                $query->where('role_id', 1);
+                                $query->where('role_id', 1); // ayah
                             })->first();
         } else {
             $user_role = User::where('id', $user->id)->with('staffs')->first();
         }
 
         // dd($user, $user_role, $user_role->parents);
+        // dd($user_role->staffs->branch, $user_role->staffs->assignedClass);
 
         return view('user.user-index', [
             'user' => $user_role,
@@ -320,6 +323,7 @@ class UsersController extends Controller
                 'full_name' => $request->name,
                 'phone_no' => $request->phoneNo,
                 'staff_no' => $request->staffID,
+                'is_admin' => 0
             ]);
         }
 

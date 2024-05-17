@@ -405,12 +405,15 @@ class ApplicationController extends Controller
             }
 
             $updated_at = $s->applicationStatus->updated_at->format('Y-m-d H:i:s');
-
+            $assign_class = null;
             
             if ($s->applicationStatus->status == 1) {
                 $action_btn = '<div class="badge bg-primary me-3" style="background-color: var(--custom-primary-color);">
                                     Diterima
                                 </div>';
+                if ($age >= 4 || $s->class_id){
+                    
+                }
             } else {
                 $action_btn = '<div class="badge bg-secondary me-3" style="background-color: var(--custom-secondary-color);">
                                     Ditolak

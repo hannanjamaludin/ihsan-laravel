@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('district', 100);
             $table->string('state', 100);
             $table->integer('branch_id');
+            $table->unsignedBigInteger('class_id')->nullable();
             $table->integer('dad_id');
             $table->integer('mom_id');
             $table->boolean('is_active');

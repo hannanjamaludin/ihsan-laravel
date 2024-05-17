@@ -4,8 +4,10 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RazorpayController;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UsersManagement\UsersController;
 use App\Http\Livewire\Application\ViewApplication;
+use App\Http\Livewire\Payment\ViewPaymentDetails;
 use App\Models\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -61,6 +63,19 @@ Route::middleware('auth')->group(function () {
         Route::post('/session', [StripeController::class, 'session'])->name('session');
         // Route::get('/status/{studentId}/{monthId}/{session_id}', [StripeController::class, 'status'])->name('status');
         Route::get('/status/{studentId}/{year}/{monthId}', [StripeController::class, 'status'])->name('status');
+        // Route::get('/resit-pembayaran', [ViewPaymentDetails::class, 'getPaymentDetails'])->name('resit_pembayaran');
+    });
+
+    // Student's Activity routes
+    Route::prefix('pelajar')->as('pelajar.')->group(function () {
+        Route::get('/', [StudentController::class, 'index'])->name('index');
+        Route::get('/kelas', [StudentController::class, 'studentClass'])->name('kelas');
+        Route::get('/datatable_class_list', [StudentController::class, 'datatable_class_list'])->name('datatable_class_list');
+        Route::get('/kelas/{classId}', [StudentController::class, 'classDetails'])->name('kelas_detail');
+        Route::get('/datatable_student_list', [StudentController::class, 'datatable_student_list'])->name('datatable_student_list');
+        Route::get('/datatable_all_student_list', [StudentController::class, 'datatable_all_student_list'])->name('datatable_all_student_list');
+        Route::post('/add_student_to_class', [StudentController::class, 'addStudentToClass'])->name('add_student_to_class');
+        Route::post('/remove_student_from_class', [StudentController::class, 'removeStudentFromClass'])->name('remove_student_from_class');
     });
 
 });
