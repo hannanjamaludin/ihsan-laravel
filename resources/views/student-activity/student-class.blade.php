@@ -55,7 +55,7 @@
                                     <th>No.</th>
                                     <th>Kelas</th>
                                     <th>Kapasiti</th>
-                                    <th>Jumlah Pelajar</th>
+                                    <th>Jumlah Murid</th>
                                     <th>Tindakan</th>
                                 </tr>
                             </thead>
@@ -82,7 +82,7 @@
                 'scrollable': true,
                 'searchable': true,
                 'ajax': {
-                    'url': "{{ route('pelajar.datatable_class_list') }}",
+                    'url': "{{ route('murid.datatable_class_list') }}",
                     'dataType': 'json',
                     'type': 'GET'
                 },

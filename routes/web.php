@@ -37,7 +37,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/simpan-permohonan_final', [ApplicationController::class, 'store'])->name('simpan_permohonan');
         Route::post('/daerah', 'ApplicationController@getDistrict')->name('daerah');
         Route::post('/buang-permohonan', [ApplicationController::class, 'deleteApplication'])->name('buang_permohonan');
-        Route::get('/info-pelajar', [ViewApplication::class, 'getStudentDetails'])->name('info_pelajar');
+        Route::get('/info-murid', [ViewApplication::class, 'getStudentDetails'])->name('info_murid');
         Route::post('/status-permohonan', [ViewApplication::class, 'updateApplication'])->name('status_permohonan');
         Route::get('/datatable_updated_application', [ApplicationController::class, 'datatable_updated_application'])->name('datatable_updated_application');
     });
@@ -67,7 +67,7 @@ Route::middleware('auth')->group(function () {
     });
 
     // Student's Activity routes
-    Route::prefix('pelajar')->as('pelajar.')->group(function () {
+    Route::prefix('murid')->as('murid.')->group(function () {
         Route::get('/', [StudentController::class, 'index'])->name('index');
         Route::get('/kelas', [StudentController::class, 'studentClass'])->name('kelas');
         Route::get('/datatable_class_list', [StudentController::class, 'datatable_class_list'])->name('datatable_class_list');

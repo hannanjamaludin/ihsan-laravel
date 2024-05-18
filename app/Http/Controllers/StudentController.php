@@ -34,7 +34,7 @@ class StudentController extends Controller
                                 <div class="progress-bar-striped bg-primary text-light" role="progressbar" style="width: ' . $percentage . '%;" aria-valuenow="' . $percentage . '" aria-valuemin="0" aria-valuemax="100">' . $total_students . '/' . $capacity . '</div>
                             </div>';
 
-            $view_btn = '<a href="'. route('pelajar.kelas_detail', ['classId' => $cls->id]) .'" class="btn btn-info me-3 px-2 pb-1 pt-0" style="background-color: var(--custom-info-color); border:none;"
+            $view_btn = '<a href="'. route('murid.kelas_detail', ['classId' => $cls->id]) .'" class="btn btn-info me-3 px-2 pb-1 pt-0" style="background-color: var(--custom-info-color); border:none;"
                                 title="Maklumat lanjut">
                                 <i class="fas fa-eye text-light mx-1" style="font-size: 10px;"></i>
                             </a>';
@@ -70,7 +70,7 @@ class StudentController extends Controller
         foreach($students as $student){
 
             $delete_btn = '<button type="button" class="btn btn-primary me-3 px-2 pb-1 pt-0" 
-                                title="Buang pelajar daripada kelas" onclick="removeStudentFromClass('.  $student->id . ');">
+                                title="Buang Murid daripada kelas" onclick="removeStudentFromClass('.  $student->id . ');">
                                 <i class="fas fa-minus mx-1" style="font-size: 10px;"></i>
                             </button>';
 
@@ -127,7 +127,7 @@ class StudentController extends Controller
             'total_students' => $current_count
         ]);
 
-        return response()->json(['success' => 'Pelajar telah dimasukkan dalam senarai kelas']);
+        return response()->json(['success' => 'Murid telah dimasukkan dalam senarai kelas']);
     }
 
     public function removeStudentFromClass(Request $request){
@@ -147,6 +147,6 @@ class StudentController extends Controller
             'total_students' => $current_count
         ]);
 
-        return response()->json(['success' => 'Pelajar telah dikeluarkan dari senarai kelas']);
+        return response()->json(['success' => 'Murid telah dikeluarkan dari senarai kelas']);
     }
 }

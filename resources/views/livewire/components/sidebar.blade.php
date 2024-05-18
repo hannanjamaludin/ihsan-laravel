@@ -37,24 +37,24 @@
 
                         @if ($teacher->is_admin == true)
                             <li class="nav-item py-2 py-sm-0">
-                                <a href="{{ route('pelajar.kelas') }}" class="nav-link text-primary {{ request()->routeIs('pelajar.kelas') ? 'active' : '' }}">
+                                <a href="{{ route('murid.kelas') }}" class="nav-link text-primary {{ request()->routeIs('murid.kelas') ? 'active' : '' }}">
                                     <i class="fs-5 fa fa-graduation-cap"></i>
-                                    <span class="fs-5 ms-3 d-none d-sm-inline">Pengurusan Pelajar</span>
+                                    <span class="fs-5 ms-3 d-none d-sm-inline">Pengurusan Murid</span>
                                 </a>
                             </li>
                         @endif
 
                         <li class="nav-item py-2 py-sm-0">
-                            <a href="#rancanganKurikulumSubmenu" data-bs-toggle="collapse" class="nav-link text-primary d-flex justify-content-between align-items-center {{ request()->routeIs('pelajar.index') || request()->routeIs('aktiviti.index') ? '' : 'collapsed' }}" aria-expanded="{{ request()->routeIs('pelajar.index') || request()->routeIs('aktiviti.index') ? 'true' : 'false' }}">
+                            <a href="#rancanganKurikulumSubmenu" data-bs-toggle="collapse" class="nav-link text-primary d-flex justify-content-between align-items-center {{ request()->routeIs('murid.index') || request()->routeIs('aktiviti.index') ? '' : 'collapsed' }}" aria-expanded="{{ request()->routeIs('murid.index') || request()->routeIs('aktiviti.index') ? 'true' : 'false' }}">
                                 <span>
                                     <i class="fs-5 fa fa-school"></i>
                                     <span class="fs-5 ms-3 d-none d-sm-inline">Rancangan Kurikulum</span>
                                 </span>
-                                <i class="fs-6 fa fa-chevron-{{ request()->routeIs('pelajar.index') || request()->routeIs('aktiviti.index') ? 'up' : 'down' }}"></i>
+                                <i class="fs-6 fa fa-chevron-{{ request()->routeIs('murid.index') || request()->routeIs('aktiviti.index') ? 'up' : 'down' }}"></i>
                             </a>
-                            <ul class="collapse list-unstyled ms-4 {{ request()->routeIs('pelajar.index') || request()->routeIs('aktiviti.index') ? 'show' : '' }}" id="rancanganKurikulumSubmenu">
+                            <ul class="collapse list-unstyled ms-4 {{ request()->routeIs('murid.index') || request()->routeIs('aktiviti.index') ? 'show' : '' }}" id="rancanganKurikulumSubmenu">
                                 <li class="nav-item py-1">
-                                    <a href="{{ route('pelajar.index') }}" class="nav-link text-primary {{ request()->routeIs('pelajar.index') ? 'active' : '' }}">
+                                    <a href="{{ route('murid.index') }}" class="nav-link text-primary {{ request()->routeIs('murid.index') ? 'active' : '' }}">
                                         <i class="fs-5 fa fa-calendar-check"></i>
                                         <span class="fs-5 ms-3 d-none d-sm-inline">Kehadiran</span>
                                     </a>

@@ -6,14 +6,14 @@
         <!-- Breadcrumb Navigation -->
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mx-3">
-                <li class="breadcrumb-item text-primary"><a href="{{ route('pelajar.kelas') }}" class="text-primary" style="text-decoration: none">Pengurusan Pelajar</a></li>
+                <li class="breadcrumb-item text-primary"><a href="{{ route('murid.kelas') }}" class="text-primary" style="text-decoration: none">Pengurusan Murid</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{ $class->age }} {{ $class->class_name }}</li>
             </ol>
         </nav>
 
         <div class="col-12 d-flex justify-content-end mb-4">
             <a href="#" class="btn btn-primary me-3" data-bs-toggle="modal" data-bs-target="#addStudentModal">
-                <i class="fa fa-plus"></i> Tambah Pelajar
+                <i class="fa fa-plus"></i> Tambah Murid
             </a>
         </div>
 
@@ -52,7 +52,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-primary text-light">
-                <h5 class="modal-title" id="addStudentModalLabel">Tambah Pelajar {{ $class->age }} {{ $class->class_name }}</h5>
+                <h5 class="modal-title" id="addStudentModalLabel">Senarai nama murid</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
             </div>
             <div class="modal-body">
@@ -86,7 +86,7 @@
                 'scrollable': true,
                 'searchable': true,
                 'ajax': {
-                    'url': "{{ route('pelajar.datatable_student_list') }}",
+                    'url': "{{ route('murid.datatable_student_list') }}",
                     'dataType': 'json',
                     'type': 'GET',
                     'data': {
@@ -126,7 +126,7 @@
                         "next": "Seterusnya",
                         "previous": "Sebelumnya"
                     },
-                    "emptyTable": "Tiada pelajar"
+                    "emptyTable": "Tiada murid"
                 }
         });
 
@@ -137,7 +137,7 @@
                 'scrollable': true,
                 'searchable': true,
                 'ajax': {
-                    'url': "{{ route('pelajar.datatable_all_student_list') }}",
+                    'url': "{{ route('murid.datatable_all_student_list') }}",
                     'dataType': 'json',
                     'type': 'GET',
                     'data': {
@@ -183,7 +183,7 @@
                         "next": "Seterusnya",
                         "previous": "Sebelumnya"
                     },
-                    "emptyTable": "Tiada pelajar"
+                    "emptyTable": "Tiada murid"
                 }
             });
         });
@@ -191,7 +191,7 @@
 
     function addStudentToClass(studentId){
         $.ajax({
-            url: "{{ route('pelajar.add_student_to_class') }}",
+            url: "{{ route('murid.add_student_to_class') }}",
             type: "POST",
             data: {
                 _token: '{{ csrf_token() }}',
@@ -212,7 +212,7 @@
 
     function removeStudentFromClass(studentId){
         $.ajax({
-            url: "{{ route('pelajar.remove_student_from_class') }}",
+            url: "{{ route('murid.remove_student_from_class') }}",
             type: 'POST',
             data: {
                 _token: '{{ csrf_token() }}',

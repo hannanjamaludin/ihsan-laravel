@@ -116,7 +116,7 @@
     // add a function to open modal (get id from passed variable)
     function display_modal(id) {
         $.ajax({
-            'url': '{{ route('pendaftaran.info_pelajar') }}',
+            'url': '{{ route('pendaftaran.info_murid') }}',
             'type': 'GET',
             'data': {
                 _token: "{{ csrf_token() }}",
