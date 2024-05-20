@@ -40,20 +40,28 @@
 
 <div class="row mt-4">
     <div class="col-12">
-
+       
         <div class="card mb-4 mx-3">
             <div class="card-header bg-primary">
-                <div class="card-title text-light">Pengurusan Kelas Tadika Ihsan</div>
+                @if ($teacher->branch_id == 1)
+                    <div class="card-title text-light">Pengurusan Bilik Taska Ihsan</div>
+                @else
+                    <div class="card-title text-light">Pengurusan Kelas Tadika Ihsan</div>
+                @endif
             </div>
             
             <div class="card-body px-3 pt-2 pb-4 w-auto">
                 <div class="mt-3 text-center text-primary">
                     <div>
-                        <table id="class_list" class="table table-bordered table-hover table-striped w-100">
+                        @if ($teacher->branch_id == 1)
+                            <table id="room_list" class="table table-bordered table-hover table-striped w-100">
+                        @else
+                            <table id="class_list" class="table table-bordered table-hover table-striped w-100">
+                        @endif
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Kelas</th>
+                                    <th>Bilik</th>
                                     <th>Kapasiti</th>
                                     <th>Jumlah Murid</th>
                                     <th>Tindakan</th>
@@ -67,9 +75,62 @@
                 </div>
             </div>
         </div>
+    
     </div>
 
 </div>
+
+<livewire:staff.edit-class />
+{{-- Modal edit class --}}
+{{-- <div class="modal fade" id="modalClassDetails" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title text-primary">Maklumat Kelas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row ms-1">
+                    <div class="form-group row">
+                        <div class="col-6 pl-1">
+                            <div class="form-group">
+                                <label class="form-label">Nama Kelas</label>                            
+                                <input type="text" id="class_room" class="form-control" value="" placeholder="" required name = "class_room" disabled>
+                            </div>
+                        </div>
+                        <div class="col-6 pl-1">
+                            <div class="form-group">
+                                <label class="form-label">Nama Guru</label>                            
+                                <input type="text" id="teacher" class="form-control" value="" placeholder="" required name = "teacher" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row mt-1">
+                        <div class="col-6 pl-1">
+                            <div class="form-group">
+                                <label class="form-label">Kapasiti</label>                            
+                                <input type="text" id="capacity" class="form-control" value="" placeholder="" required name = "capacity">
+                            </div>
+                        </div>
+                        <div class="col-6 pl-1">
+                            <div class="form-group">
+                                <label class="form-label">Jumlah Murid</label>                            
+                                <input type="text" id="total_students" class="form-control" value="" placeholder="" required name = "total_students" disabled>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary text-light" aria-label="hantar">Hantar</button>
+            </div>
+
+        </div>
+    </div>
+</div> --}}
 
 @endsection
 
@@ -125,6 +186,57 @@
                     // "emptyTable": "Tiada pendaftaran baharu"
                 }
         });
+
+        var table2 = $('#room_list').DataTable({
+            'processing': true,
+                'scrollX': true,
+                'scrollable': true,
+                'searchable': true,
+                'ajax': {
+                    'url': "{{ route('murid.datatable_room_list') }}",
+                    'dataType': 'json',
+                    'type': 'GET'
+                },
+                'columnDefs': [{
+                    className: 'dt-left'
+                }],
+                'columns': [{
+                        data: 'DT_RowIndex',
+                        name: 'DT_RowIndex',
+                    },
+                    {
+                        data: 'room'
+                    },
+                    {
+                        data: 'capacity'
+                    },
+                    {
+                        data: 'total_student',
+                        render: function(data, type, row) {
+                            return type === 'display' ? $('<div/>').html(data).text() : data;
+                        }
+                    },
+                    {
+                        data: 'action',
+                    },
+                ],
+                "language": {
+                    "search": "Carian:",
+                    // "searchPlaceholder": "Custom Search Placeholder",
+                    "lengthMenu": "Menunjukkan _MENU_ kemasukan",
+                    "info": "Menunjukkan _START_ ke _END_ daripada _TOTAL_ kemasukan",
+                    "infoEmpty": "Menunjukkan 0 ke 0 daripada 0 kemasukan",
+                    "infoFiltered": "(Ditapis daripada _MAX_ total kemasukan)",
+                    "paginate": {
+                        "first": "Pertama",
+                        "last": "Terakhir",
+                        "next": "Seterusnya",
+                        "previous": "Sebelumnya"
+                    },
+                    // "emptyTable": "Tiada pendaftaran baharu"
+                }
+        });
+
     });
 </script>
 @endsection

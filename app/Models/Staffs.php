@@ -14,6 +14,9 @@ class Staffs extends Model
         'full_name',
         'phone_no',
         'staff_no',
+        'branch_id',
+        'class_room',
+        'is_admin'
     ];
 
     public function branch(){

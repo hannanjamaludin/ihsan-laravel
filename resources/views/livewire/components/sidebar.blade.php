@@ -42,6 +42,16 @@
                                     <span class="fs-5 ms-3 d-none d-sm-inline">Pengurusan Murid</span>
                                 </a>
                             </li>
+                            <li class="nav-item py-2 py-sm-0">
+                                <a href="{{ route('staff.index') }}" class="nav-link text-primary {{ request()->routeIs('staff.index') ? 'active' : '' }}">
+                                    <i class="fs-5 fa fa-chalkboard-user"></i>
+                                    @if ($teacher->branch_id == 1)
+                                        <span class="fs-5 ms-3 d-none d-sm-inline">Pengurusan Pengasuh</span>
+                                    @else
+                                        <span class="fs-5 ms-3 d-none d-sm-inline">Pengurusan Guru</span>
+                                    @endif
+                                </a>
+                            </li>
                         @endif
 
                         <li class="nav-item py-2 py-sm-0">

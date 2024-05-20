@@ -16,4 +16,8 @@ class TadikaClass extends Model
         'capacity',
         'total_students'
     ];
+
+    public function teacher(){
+        return $this->belongsTo(Staffs::class, 'id', 'class_room');
+    }
 }

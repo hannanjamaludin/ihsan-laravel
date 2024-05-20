@@ -31,6 +31,7 @@
                                     <th>No.</th>
                                     <th>Nama</th>
                                     <th>Jantina</th>
+                                    <th>Umur</th>
                                     <th>Tarikh Masuk</th>
                                     <th>Tindakan</th>
                                 </tr>
@@ -105,6 +106,9 @@
                     },
                     {
                         data: 'gender'
+                    },
+                    {
+                        data: 'age'
                     },
                     {
                         data: 'enroll_date'
