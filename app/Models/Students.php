@@ -57,4 +57,8 @@ class Students extends Model
         return $this->hasOne(TadikaClass::class, 'class_id', 'id');
     }
 
+    public function attendance(){
+        return $this->hasMany(Attendance::class, 'student_id', 'id');
+    }
+
 }

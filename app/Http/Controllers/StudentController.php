@@ -2,17 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Branch;
 use App\Models\Staffs;
 use App\Models\Students;
 use App\Models\TadikaClass;
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 
 class StudentController extends Controller
 {
     public function index(){
-        return view('student-activity.index');
+        $teacher = Staffs::where('user_id', Auth::user()->id)->first();
+
+        $branch = Branch::where('id', $teacher->branch_id)->first();
+
+        $class = TadikaClass::with('teacher')
+                            ->where('id', $teacher->class_room)
+                            ->first();
+
+        $today = Carbon::now()->format('d/m/Y');
+
+        return view('student-activity.index', [
+            'class' => $class,
+            'teacher' => $teacher,
+            'branch' => $branch,
+            'today' => $today,
+        ]);
     }
 
     public function studentClass(){

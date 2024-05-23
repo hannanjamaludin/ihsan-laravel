@@ -39,7 +39,11 @@
                             <li class="nav-item py-2 py-sm-0">
                                 <a href="{{ route('murid.kelas') }}" class="nav-link text-primary {{ request()->routeIs('murid.kelas') ? 'active' : '' }}">
                                     <i class="fs-5 fa fa-graduation-cap"></i>
-                                    <span class="fs-5 ms-3 d-none d-sm-inline">Pengurusan Murid</span>
+                                    @if ($teacher->branch_id == 1)
+                                        <span class="fs-5 ms-3 d-none d-sm-inline">Pengurusan Bilik</span>
+                                    @else
+                                        <span class="fs-5 ms-3 d-none d-sm-inline">Pengurusan Kelas</span>
+                                    @endif
                                 </a>
                             </li>
                             <li class="nav-item py-2 py-sm-0">
