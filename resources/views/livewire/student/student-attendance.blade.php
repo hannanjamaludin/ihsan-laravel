@@ -1,14 +1,41 @@
 <div>
-    {{-- TO BE UPDATED(UI) --}}
-    {{-- <p>{{ count($presentStudents) }}/{{ $class->total_students }} kehadiran</p> --}}
-    {{-- TO BE UPDATED(UI) --}}
+    @if ($branch->id == 1)
+        <h3 class="text-primary">{{ $class->class_name }}</h3>
+    @else
+        <h3 class="text-primary">{{ $class->age }} {{ $class->class_name }}</h3>
+    @endif
+
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                @if ($branch->id == 1)
+                    <th class="bg-secondary fst-italic">Bilik:</th>
+                @else
+                    <th class="bg-secondary fst-italic">Kelas:</th>
+                @endif
+                <td class="bg-light">{{ $branch->id == 1 ? '' : $class->age }} {{ $class->class_name }}</td>
+            </tr>
+            <tr>
+                <th class="bg-secondary fst-italic">Bilangan Murid:</th>
+                <td class="bg-light">{{ $class->total_students }}</td>
+            </tr>
+            <tr>
+                <th class="bg-secondary fst-italic">Tarikh:</th>
+                <td class="bg-light">{{ $formattedDate }}</td>
+            </tr>
+            <tr>
+                <th class="bg-secondary fst-italic">Kehadiran:</th>
+                <td class="bg-light">{{ count($presentStudents) }}/{{ $class->total_students }}</td>
+            </tr>
+        </tbody>
+    </table>
 
     <div class="row">
         <div class="col-12">
             @foreach ($students as $s)
                 <div class="card mb-2">
                     <div class="card-body px-3 py-2 d-flex justify-content-between align-items-center">
-                        <h5 class="">{{ $s->full_name }}</h5> 
+                        <h5 class="">{{ $s->full_name }}</h5>
                         <div>
                             <button class="btn btn-primary btn-circle me-2" wire:click="markPresent({{ $s->id }})">
                                 <i class="fas fa-check"></i>
@@ -34,9 +61,6 @@
                 </div>
                 <div class="card-body px-3 pt-2 pb-4 w-auto">
                     @if (count($presentStudents) > 0)
-                    {{-- @php
-                        dd($presentStudents);
-                    @endphp --}}
                         @foreach ($presentStudents as $key => $s)
                             <div class="d-flex align-items-center mb-1">
                                 <div class="text-primary me-2">{{ $key + 1 }}.</div>
@@ -68,9 +92,6 @@
                 </div>
                 <div class="card-body px-3 pt-2 pb-4 w-auto">
                     @if (count($absentStudents) > 0)
-                    {{-- @php
-                        dd($absentStudents);
-                    @endphp --}}
                         @foreach ($absentStudents as $key => $s)
                             <div class="d-flex align-items-center mb-1">
                                 <div class="text-secondary me-2">{{ $key + 1 }}.</div>

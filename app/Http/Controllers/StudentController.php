@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attendance;
 use App\Models\Branch;
 use App\Models\Staffs;
 use App\Models\Students;
@@ -16,20 +17,27 @@ class StudentController extends Controller
 {
     public function index(){
         $teacher = Staffs::where('user_id', Auth::user()->id)->first();
-
         $branch = Branch::where('id', $teacher->branch_id)->first();
-
         $class = TadikaClass::with('teacher')
                             ->where('id', $teacher->class_room)
                             ->first();
-
-        $today = Carbon::now()->format('d/m/Y');
-
+        $today = Carbon::now();
+    
+        // $formattedDate = Carbon::createFromFormat('d/m/Y', $today)->format('Y-m-d');
+        // $presentStudents = Attendance::where('class_id', $class->id)
+        //                              ->where('date', $formattedDate)
+        //                              ->where('status', 1)
+        //                              ->with('student')
+        //                              ->get();
+        // $totalStudents = Students::where('class_id', $class->id)->count();
+    
         return view('student-activity.index', [
             'class' => $class,
             'teacher' => $teacher,
             'branch' => $branch,
             'today' => $today,
+            // 'presentStudents' => $presentStudents,
+            // 'totalStudents' => $totalStudents,
         ]);
     }
 

@@ -3,8 +3,12 @@
 namespace App\Http\Livewire\Student;
 
 use App\Models\Attendance;
+use App\Models\Branch;
+use App\Models\Staffs;
 use App\Models\Students;
+use App\Models\TadikaClass;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class StudentAttendance extends Component
@@ -14,11 +18,15 @@ class StudentAttendance extends Component
     public $absentStudents = [];
     public $class;
     public $today;
+    public $formattedDate;
+    public $branch;
 
-    public function mount($class, $today)
+    public function mount($class, $today, $branch)
     {
+        // dd($this->today);
         $this->class = $class;
-        $this->today = Carbon::createFromFormat('d/m/Y', $this->today)->format('Y-m-d');
+        $this->formattedDate = $today->format('d/m/Y');
+        $this->today = Carbon::createFromFormat('d/m/Y', $this->formattedDate)->format('Y-m-d');
         // $this->students = Students::where('class_id', $this->class->id)->get();
     }
 
@@ -79,11 +87,13 @@ class StudentAttendance extends Component
 
             $this->presentStudents = Attendance::where('status', 1)
                                         ->where('date', $this->today)
+                                        ->where('class_id', $this->class->id)
                                         ->with('student')
                                         ->get();
                                         
             $this->absentStudents = Attendance::where('status', 0)
                                         ->where('date', $this->today)
+                                        ->where('class_id', $this->class->id)
                                         ->with('student')
                                         ->get();
                 
@@ -93,11 +103,14 @@ class StudentAttendance extends Component
 
         // dd($this->students, $this->presentStudents, $this->absentStudents);
 
+        // dd($this->branch);
+
         return view('livewire.student.student-attendance', [
             'students' => $this->students,
             'presentStudents' => $this->presentStudents,
             'absentStudents' => $this->absentStudents,
             'class' => $this->class,
+            'branch' => $this->branch,
         ]);
     }
 }
