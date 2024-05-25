@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Attendance;
 use App\Models\Branch;
+use App\Models\Month;
 use App\Models\Staffs;
 use App\Models\Students;
 use App\Models\TadikaClass;
@@ -11,7 +12,6 @@ use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Date;
 
 class StudentController extends Controller
 {
@@ -22,22 +22,12 @@ class StudentController extends Controller
                             ->where('id', $teacher->class_room)
                             ->first();
         $today = Carbon::now();
-    
-        // $formattedDate = Carbon::createFromFormat('d/m/Y', $today)->format('Y-m-d');
-        // $presentStudents = Attendance::where('class_id', $class->id)
-        //                              ->where('date', $formattedDate)
-        //                              ->where('status', 1)
-        //                              ->with('student')
-        //                              ->get();
-        // $totalStudents = Students::where('class_id', $class->id)->count();
-    
-        return view('student-activity.index', [
+        
+        return view('student.index', [
             'class' => $class,
             'teacher' => $teacher,
             'branch' => $branch,
             'today' => $today,
-            // 'presentStudents' => $presentStudents,
-            // 'totalStudents' => $totalStudents,
         ]);
     }
 
@@ -51,7 +41,7 @@ class StudentController extends Controller
         }
 
         // dd($class);
-        return view('student-activity.student-class', [
+        return view('student.student-class', [
             'classes' => $classes,
             'teacher' => $teacher
         ]);
@@ -136,7 +126,7 @@ class StudentController extends Controller
 
         $class = TadikaClass::find($id);
 
-        return view('student-activity.class-detail', ['class' => $class]);
+        return view('student.class-detail', ['class' => $class]);
     }
 
     public function datatable_student_list(Request $request){
@@ -230,5 +220,86 @@ class StudentController extends Controller
         ]);
 
         return response()->json(['success' => 'Murid telah dikeluarkan dari senarai kelas']);
+    }
+
+    public function attendanceReport(){
+        $teacher = Staffs::where('user_id', Auth::user()->id)
+                        ->where('is_Admin', true)
+                        ->first();
+
+        $branch = Branch::where('id', $teacher->branch_id)->first();
+
+        $class = TadikaClass::where('branch', $branch->id)->get();
+        $classIds = $class->pluck('id');
+
+        $today = Carbon::now();
+
+        // dd($class);
+        $attendancePercentages = [];
+        $classAttendance = [];
+
+        foreach ($class as $cls){
+            $attendance = Attendance::where('date', $today->format('Y-m-d'))
+                                    ->where('class_id', $cls->id)
+                                    ->get();
+            // dd($attendance);
+            $present = 0;
+            foreach ($attendance as $attend){
+                if ($attend->status == 1){
+                    $present++;
+                }
+            }
+
+            $attendance_percentage = $cls->total_students > 0 ? ($present / $cls->total_students) * 100 : 0;
+            $attendancePercentages[$cls->id] = $attendance_percentage;
+
+            $classAttendance[$cls->id] = [
+                'present' => $present,
+                'total' => $cls->total_students,
+            ];
+            // dd($attendance_percentage);
+        }
+
+        // dd($attendancePercentages);
+
+        return view('student.attendance-report', [
+            'branch' => $branch,
+            'teacher' => $teacher,
+            'classes' => $class,   
+            'today' => $today->format('d/m/Y'),
+            'attendancePercentages' => $attendancePercentages,
+            'classAttendance' => $classAttendance,
+        ]);
+    }
+
+    public function detailAttendanceReport($classId){
+
+        $class = TadikaClass::where('id', $classId)->first();
+        $today = $today = Carbon::now()->month;
+
+        $months = Month::where('id', '<=', $today)->get();
+
+        // $attendance = Attendance::where('class_id', $classId)
+        //                     ->with('student')
+        //                     ->get();
+
+        $attendanceRecords = Attendance::where('class_id', $classId)
+                                ->with('student')
+                                ->orderBy('date')
+                                ->get()
+                                ->groupBy(function ($date){
+                                    return Carbon::parse($date->date)->format('Y-m');
+                                });
+        
+        // dd($attendanceRecords);
+        $students = Students::where('class_id', $classId)->get();
+
+        return view('student.attendance-report-detail',[
+            'class' => $class,
+            'months' => $months,
+            // 'attendance' => $attendance
+            'attendanceRecords' => $attendanceRecords,
+            'students' => $students,
+        ]);
     }
 }

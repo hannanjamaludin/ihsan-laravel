@@ -20,4 +20,8 @@ class TadikaClass extends Model
     public function teacher(){
         return $this->belongsTo(Staffs::class, 'id', 'class_room');
     }
+
+    public function attendance(){
+        return $this->hasMany(Attendance::class, 'class_id', 'id');
+    }
 }

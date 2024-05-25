@@ -23,11 +23,9 @@ class StudentAttendance extends Component
 
     public function mount($class, $today, $branch)
     {
-        // dd($this->today);
         $this->class = $class;
         $this->formattedDate = $today->format('d/m/Y');
         $this->today = Carbon::createFromFormat('d/m/Y', $this->formattedDate)->format('Y-m-d');
-        // $this->students = Students::where('class_id', $this->class->id)->get();
     }
 
     public function markPresent($studentId)
@@ -62,12 +60,6 @@ class StudentAttendance extends Component
             $student = $this->students->where('id', $studentId)->first();
             $this->absentStudents[] = $student;
         }
-
-        // $student = $this->students->firstWhere('id', $studentId);
-        // if ($student) {
-        //     $this->absentStudents[] = $student;
-        //     $this->students = $this->students->filter(fn($s) => $s->id !== $studentId)->values();
-        // }
     }
 
     public function render()
@@ -100,10 +92,6 @@ class StudentAttendance extends Component
         } else {
             $this->students = Students::where('class_id', $this->class->id)->get();
         }
-
-        // dd($this->students, $this->presentStudents, $this->absentStudents);
-
-        // dd($this->branch);
 
         return view('livewire.student.student-attendance', [
             'students' => $this->students,

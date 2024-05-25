@@ -66,13 +66,21 @@
                                 </span>
                                 <i class="fs-6 fa fa-chevron-{{ request()->routeIs('murid.index') || request()->routeIs('aktiviti.index') ? 'up' : 'down' }}"></i>
                             </a>
-                            <ul class="collapse list-unstyled ms-4 {{ request()->routeIs('murid.index') || request()->routeIs('aktiviti.index') ? 'show' : '' }}" id="rancanganKurikulumSubmenu">
+                            <ul class="collapse list-unstyled ms-4 {{ request()->routeIs('murid.index') || request()->routeIs('aktiviti.index') || request()->routeIs('murid.rekod_kehadiran') || request()->routeIs('murid.rekod_kehadiran_detail') ? 'show' : '' }}" id="rancanganKurikulumSubmenu">
                                 <li class="nav-item py-1">
                                     <a href="{{ route('murid.index') }}" class="nav-link text-primary {{ request()->routeIs('murid.index') ? 'active' : '' }}">
                                         <i class="fs-5 fa fa-calendar-check"></i>
                                         <span class="fs-5 ms-3 d-none d-sm-inline">Kehadiran</span>
                                     </a>
                                 </li>
+                                @if ($teacher->is_admin == true)
+                                    <li class="nav-item py-1">
+                                        <a href="{{ route('murid.rekod_kehadiran') }}" class="nav-link text-primary {{ request()->routeIs('murid.rekod_kehadiran') || request()->routeIs('murid.rekod_kehadiran_detail') ? 'active' : '' }}"  id="rancanganKurikulumSubmenu">
+                                            <i class="fs-5 fa fa-chart-line"></i>
+                                            <span class="fs-5 ms-3 d-none d-sm-inline">Rekod Kehadiran</span>
+                                        </a>
+                                    </li>
+                                @endif
                                 <li class="nav-item py-1">
                                     <a href="#" class="nav-link text-primary {{ request()->routeIs('aktiviti.index') ? 'active' : '' }}">
                                         <i class="fs-5 fa fa-tasks"></i>

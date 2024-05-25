@@ -78,6 +78,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/datatable_all_student_list', [StudentController::class, 'datatable_all_student_list'])->name('datatable_all_student_list');
         Route::post('/add_student_to_class', [StudentController::class, 'addStudentToClass'])->name('add_student_to_class');
         Route::post('/remove_student_from_class', [StudentController::class, 'removeStudentFromClass'])->name('remove_student_from_class');
+        Route::get('/rekod-kehadiran', [StudentController::class, 'attendanceReport'])->name('rekod_kehadiran');
+        Route::get('/rekod-kehadiran/{classId}', [StudentController::class, 'detailAttendanceReport'])->name('rekod_kehadiran_detail');
     });
 
     // Staff management routes
