@@ -1,21 +1,19 @@
 @extends('layouts.guest-app')
 
 @section('content')
-<div class="container-fluid h-100 py-5 px-5">
+<div class="container-fluid h-100 py-5">
     <div class="row justify-content-center">
-        <div class="col-md-7 mb-0 pb-0" >
+        <div class="col-md-7 mb-0 pb-0">
             <div class="container-fluid position-relative p-0 m-0">
             </div>
         </div>
 
         <div class="col-md-5">
-            <div class="container-fluid px-5">
+            <div class="container-fluid px-3">
                 <form method="POST" action="{{ route('register') }}">
                     @csrf
 
-                    <div class="row mb-4 me-5">
-                        {{-- <label for="name" class="mb-2">{{ __('Nama Penuh') }}</label> --}}
-
+                    <div class="row mb-4">
                         <div class="input-group">
                             <div class="input-group-text">
                                 <i class="fa fa-user"></i>
@@ -30,9 +28,7 @@
                         </div>
                     </div>
 
-                    <div class="row mb-4 me-5">
-                        {{-- <label for="phoneNo" class="mb-2">{{ __('No. Telefon') }}</label> --}}
-
+                    <div class="row mb-4">
                         <div class="input-group">
                             <div class="input-group-text">
                                 <i class="fa fa-phone"></i>
@@ -47,10 +43,7 @@
                         </div>
                     </div>
 
-
-                    <div class="row mb-4 me-5">
-                        {{-- <label for="email" class="mb-2">{{ __('Alamat Emel') }}</label> --}}
-
+                    <div class="row mb-4">
                         <div class="input-group">
                             <div class="input-group-text">
                                 <i class="fa fa-envelope"></i>
@@ -65,8 +58,7 @@
                         </div>
                     </div>
 
-                    <div class="row mb-4 me-5">
-
+                    <div class="row mb-4">
                         <div class="input-group">
                             <div class="input-group-text">
                                 <i class="fa fa-user-tie"></i>
@@ -81,10 +73,7 @@
                         </div>
                     </div>
 
-
-                    <div class="row mb-4 me-5">
-                        {{-- <label for="password" class="mb-2">{{ __('Kata Laluan') }}</label> --}}
-
+                    <div class="row mb-4">
                         <div class="input-group">
                             <div class="input-group-text">
                                 <i class="fa fa-lock"></i>
@@ -99,9 +88,7 @@
                         </div>
                     </div>
 
-                    <div class="row mb-4 me-5">
-                        {{-- <label for="password-confirm" class="mb-2">{{ __('Sahkan Kata Laluan') }}</label> --}}
-
+                    <div class="row mb-4">
                         <div class="input-group">
                             <div class="input-group-text">
                                 <i class="fa fa-lock"></i>
@@ -110,22 +97,25 @@
                         </div>
                     </div>
 
-                    <div class="mb-3 me-5">
-                        <div class="row mb-4 me-2">
-                            <div class="col-md-4">
-                                <button type="button" class="btn btn-outline-secondary w-100" style="height: 50px;" onclick="setUserType(3)" data-type="3">
-                                    <i class="fa fa-user-ninja me-2"></i> Ibu
-                                </button>
+                    <div class="mb-3">
+                        <div class="row mb-2">
+                            <div class="col-md-6">
+                                <input type="checkbox" class="btn-check" id="btn_check_outlined_ibu" autocomplete="off" onclick="setUserType(3)" data-type="3">
+                                <label class="btn btn-outline-secondary d-flex align-items-center justify-content-center w-100" for="btn_check_outlined_ibu" style="height: 50px;"><i class="fa fa-user-ninja me-2"></i> Ibu</label>
                             </div>
-                            <div class="col-md-4">
-                                <button type="button" class="btn btn-outline-secondary w-100" style="height: 50px;" onclick="setUserType(4)" data-type="4">
-                                    <i class="fa fa-user-tie me-2"></i> bapa
-                                </button>
+                            <div class="col-md-6">
+                                <input type="checkbox" class="btn-check" id="btn_check_outlined_bapa" autocomplete="off" onclick="setUserType(4)" data-type="4">
+                                <label class="btn btn-outline-secondary d-flex align-items-center justify-content-center w-100" for="btn_check_outlined_bapa" style="height: 50px;"><i class="fa fa-user-tie me-2"></i> Bapa</label>    
                             </div>
-                            <div class="col-md-4">
-                                <button type="button" class="btn btn-outline-secondary w-100" style="height: 50px;" onclick="setUserType(2)" data-type="2">
-                                    <i class="fa fa-user-graduate me-2"></i>Guru
-                                </button>
+                        </div>
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <input type="checkbox" class="btn-check" id="btn_check_outlined_guru" autocomplete="off" onclick="setUserType(2)" data-type="2">
+                                <label class="btn btn-outline-secondary d-flex align-items-center justify-content-center w-100" for="btn_check_outlined_guru" style="height: 50px;"><i class="fa fa-chalkboard-user me-2"></i> Guru</label>    
+                            </div>
+                            <div class="col-md-6">
+                                <input type="checkbox" class="btn-check" id="btn_check_outlined_pengasuh" autocomplete="off" onclick="setUserType(5)" data-type="5">
+                                <label class="btn btn-outline-secondary d-flex align-items-center justify-content-center w-100" for="btn_check_outlined_pengasuh" style="height: 50px;"><i class="fa fa-chalkboard-user me-2"></i> Pengasuh</label>    
                             </div>
                         </div>
                     </div>
@@ -133,7 +123,7 @@
                     <input type="hidden" name="user_type" id="user_type" value="1">
 
                     <div class="row mb-0">
-                        <div class="col-md-8 offset-md-1">
+                        <div class="col-md-12">
                             <button type="submit" class="btn btn-primary w-100">
                                 {{ __('Daftar') }}
                             </button>
@@ -147,40 +137,43 @@
 @endsection
 
 @section('js')
-{{-- <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
-crossorigin="anonymous"></script> --}}
-{{-- <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> --}}
 
 <script>
-
-    // 27/01/2024 error setUserType is not defined & console.log('js ok') is not executed
     $(document).ready(function() {
         console.log('js ok');
-        
     });
 
     function setUserType(type) {
-
         console.log('type: ' + type);
-        // reset the styles of all buttons
-        document.querySelectorAll('.btn-outline-secondary').forEach(function (button) {
-            button.classList.remove('btn-selected');
-        });
-
-        var buttons = document.querySelectorAll('.btn-outline-secondary[data-type="' + type + '"]');
-
-        if (buttons.length > 0) {
-            buttons.forEach(function (button) {
-                button.classList.add('btn-selected');
-            });
-        }
-
         document.getElementById('user_type').value = type;
+
+        // Uncheck all buttons
+        const buttons = document.querySelectorAll('.btn-check');
+        buttons.forEach(button => button.checked = false);
+
+        // Check the clicked button
+        document.querySelector(`input[data-type="${type}"]`).checked = true;
     }
-
-    
-
-
 </script>
 
+@endsection
+
+@section('css')
+<style>
+    body {
+        overflow-x: hidden; /* Prevent horizontal scrolling */
+    }
+
+    .container-fluid {
+        padding: 0 15px; /* Reduce padding if necessary */
+    }
+
+    .row {
+        margin: 0; /* Reset margin if custom values are causing overflow */
+    }
+
+    .col-md-5 {
+        padding: 0; /* Remove padding if causing overflow */
+    }
+</style>
 @endsection

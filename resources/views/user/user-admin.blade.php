@@ -3,6 +3,12 @@
 
 <div class="row">
     <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mx-3">
+                <li class="breadcrumb-item active"><a href="{{ route('pengguna.index_admin') }}" class="text-primary" style="text-decoration: none">Profil Pengguna</a></li>
+            </ol>
+        </nav>
+        
         <div class="col-12 d-flex justify-content-end mb-4">
             <a href="{{ route('pengguna.penggunaBaru') }}" class="btn btn-primary me-3">
                 <i class="fa fa-plus"></i> Pengguna Baharu
@@ -173,6 +179,10 @@
     .active>.page-link, .page-link.active {
         background-color: #703232;
         border-color: #703232;
+    }
+
+    a.page-link{
+        color: #703232;
     }
 
     .text-center {

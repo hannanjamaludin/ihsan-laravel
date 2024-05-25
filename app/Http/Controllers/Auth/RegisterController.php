@@ -83,6 +83,23 @@ class RegisterController extends Controller
                 'full_name' => $data['name'],
                 'phone_no' => $data['phoneNo'],
                 'staff_no' => $data['staffID'],
+                'branch_id' => 2,
+                'is_admin' => 0
+            ]);
+        }
+
+        if ($userType == 5) {
+            Staffs::create([
+                'user_id' => $user->id,
+                'full_name' => $data['name'],
+                'phone_no' => $data['phoneNo'],
+                'staff_no' => $data['staffID'],
+                'branch_id' => 1,
+                'is_admin' => 0
+            ]);
+
+            $user->update([
+                'user_type' => 2,
             ]);
         }
         

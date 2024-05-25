@@ -91,6 +91,7 @@
                             <select class="form-select" id="user_type" name="user_type" style="height: 40px">
                                 <option selected="" disabled>Sila pilih jenis pengguna</option>
                                 <option value="2">Guru</option>
+                                <option value="5">Pengasuh</option>
                                 <option value="3">Ibu</option>                                
                                 <option value="4">Ayah</option>                                
                             </select>

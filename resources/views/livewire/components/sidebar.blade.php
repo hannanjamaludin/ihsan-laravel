@@ -16,7 +16,7 @@
                     </li>
                     <li class="nav-item py-2 py-sm-0">
                         @if ($role->user_type == 1)
-                            <a href="{{ route('pengguna.index_admin') }}" class="nav-link text-primary {{ request()->routeIs('pengguna.index_admin') ? 'active' : '' }}">
+                            <a href="{{ route('pengguna.index_admin') }}" class="nav-link text-primary {{ request()->routeIs('pengguna.index_admin') || request()->routeIs('pengguna.kemaskini_pengguna') ? 'active' : '' }}">
                                 <i class="fs-5 fa fa-user-secret"></i>
                                 <span class="fs-5 ms-3 d-none d-sm-inline">Profil Pengguna</span>
                             </a>

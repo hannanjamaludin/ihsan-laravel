@@ -1,6 +1,17 @@
 @extends('layouts.auth-app')
 @section('content')
 
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb mx-3">
+        <li class="breadcrumb-item"><a href="{{ route('pengguna.index_admin') }}" class="text-primary" style="text-decoration: none">Profil Pengguna</a></li>
+        @if ($user->user_type == 2)
+            <li class="breadcrumb-item active" aria-current="page">{{ $user->staffs->full_name }}</li>
+        @else
+            <li class="breadcrumb-item active" aria-current="page">{{ $user->parents->full_name }}</li>
+        @endif
+    </ol>
+</nav>
+
 <div class="card mb-4 mx-3">
     <div class="card-header py-1 d-flex flex-row justify-content-between card-header-divider">
         <div class="col">
@@ -19,9 +30,9 @@
                     <div class="col-12 pl-1">
                         <label class="form-label" for="full_name">Nama Penuh</label>
                         @if ($user->user_type == 2)
-                            <input type="text" id="full_name" class="form-control" placeholder="" value="{{ $user->staffs->full_name }}" name="full_name" disabled>
+                            <input type="text" id="full_name" class="form-control" placeholder="" value="{{ $user->staffs->full_name }}" name="full_name">
                         @else
-                            <input type="text" id="full_name" class="form-control" placeholder="" value="{{ $user->parents->full_name }}" name="full_name" disabled>
+                            <input type="text" id="full_name" class="form-control" placeholder="" value="{{ $user->parents->full_name }}" name="full_name">
                         @endif
                     </div>
                 </div>
@@ -30,7 +41,7 @@
                 <div class="form-group row">
                     <div class="col-12 pl-1">
                         <label class="form-label" for="utm_id">ID Staff / Pelajar</label>
-                        <input type="text" id="staff_no" class="form-control" placeholder="" value="{{ $user->staff_no }}" name="staff_no" disabled>
+                        <input type="text" id="staff_no" class="form-control" placeholder="" value="{{ $user->staff_no }}" name="staff_no">
                     </div>
                 </div>
             </div>
@@ -41,7 +52,7 @@
                 <div class="form-group row">
                     <div class="col-12 pl-1">
                         <label class="form-label" for="email">Alamat E-mel</label>
-                        <input type="text" id="email" class="form-control" placeholder="" value="{{ $user->email }}" name="email" disabled>
+                        <input type="text" id="email" class="form-control" placeholder="" value="{{ $user->email }}" name="email">
                     </div>
                 </div>
             </div>
@@ -85,18 +96,50 @@
             </div>
         </div>
         <div class="row mt-4 px-3">
-            <div class="col-12">
-                <div class="form-group row">
-                    <div class="col-12 pl-1 text-center">
-                        {{-- <button type="submit" class="btn btn-primary me-3 px-2 py-2" title="Terima Permohonan"> 
-                            Kemaskini Profil
-                        </button> --}}
-                        <button type="button" class="btn btn-primary me-3 px-2 py-2" title="Terima Permohonan" onclick="update_profile({{ $user->id }})"> 
-                            Kemaskini Profil
-                        </button>
+            @if ($user->user_type == 2)
+                <div class="col-6">
+                    <div class="form-group row">
+                        <div class="col-12 pl-1 pt-2">
+                            <div class="form-check form-switch">
+                                @if ($user->staffs->branch_id == 1)
+                                    @if ($user->staffs->is_admin == true)
+                                        <input class="form-check-input" type="checkbox" id="isAdminSwitch" checked>
+                                    @else
+                                        <input class="form-check-input" type="checkbox" id="isAdminSwitch">
+                                    @endif
+                                    <label class="form-check-label" for="isAdminSwitch">Ketua Pengasuh</label>
+                                @else
+                                    @if ($user->staffs->is_admin == true)
+                                        <input class="form-check-input" type="checkbox" id="isAdminSwitch" checked>
+                                    @else
+                                        <input class="form-check-input" type="checkbox" id="isAdminSwitch">
+                                    @endif
+                                    <label class="form-check-label" for="isAdminSwitch">Guru Besar</label>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <div class="col-6">
+                    <div class="form-group row">
+                        <div class="col-12 pl-1 text-end">
+                            <button type="button" class="btn btn-primary me-3 px-2 py-2" onclick="update_profile({{ $user->id }})"> 
+                                Kemaskini Profil
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            @else
+                <div class="col-12">
+                    <div class="form-group row">
+                        <div class="col-12 pl-1 text-center">
+                            <button type="button" class="btn btn-primary me-3 px-2 py-2" onclick="update_profile({{ $user->id }})"> 
+                                Kemaskini Profil
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            @endif
         </div>
         {{-- </form> --}}
     </div>
@@ -111,11 +154,16 @@
 
     function update_profile(id){
 
+        var fullName = $('#full_name').val();
+        var staffNo = $('#staff_no').val();
+        var email = $('#email').val();
         var phoneNo = $('#phone_no').val();
         var password = $('#password').val();
+        var isAdmin = $('#isAdminSwitch').is(':checked') ? 1 : 0;
 
         console.log(phoneNo);
         console.log(id);
+        console.log(isAdmin);
 
         $.ajax({
             type: "POST",
@@ -123,8 +171,12 @@
             data: {
                 "_token": "{{ csrf_token() }}",
                 "user_id": id,
+                "full_name" : fullName,
+                "staff_no" : staffNo,
+                "email" : email,
                 "phone_no": phoneNo,
                 "password": password,
+                "is_admin": isAdmin,
             },
             success: function(response){
                 if (response.success) {

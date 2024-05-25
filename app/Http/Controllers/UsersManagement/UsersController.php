@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -63,23 +64,33 @@ class UsersController extends Controller
     // }
 
     public function updateProfile(Request $request){
-    // public function updateProfile(Request $request){
-        $user = User::find($request->user_id);
 
-        // dd($request->all());
+        // Log::info('Request method: ' . $request->method());
+        $user = User::find($request->user_id);
+        $user->update([
+            'email' => $request->email,
+            'staff_no' => $request->staff_no,
+        ]);
 
         if ($request->password){
-            // dd('masuk password');
             $user->update([
                 'password' => Hash::make($request->password),
-                // 'password' => $request->password,
             ]);
         }
 
         if ($user->user_type == 2){
+            
+            $staff_admin = $request->is_admin == 1 ? 1 : 0;
+
+            Log::info('Staff Admin: ' . $staff_admin);
+            Log::info('Request Admin: ' . $request->is_admin);
+
             $teacher = Staffs::where('user_id', $user->id)->first();
             $teacher->update([
+                'full_name' => $request->full_name,
+                'staff_no' => $request->staff_no,
                 'phone_no' => $request->phone_no,
+                'is_admin' => $staff_admin,
             ]);
         }
 
@@ -88,6 +99,8 @@ class UsersController extends Controller
                             ->where('role_id', 2)
                             ->first();
             $mom->update([
+                'full_name' => $request->full_name,
+                'staff_no' => $request->staff_no,
                 'phone_no' => $request->phone_no,
             ]);
         }
@@ -97,6 +110,8 @@ class UsersController extends Controller
                             ->where('role_id', 1)
                             ->first();
             $dad->update([
+                'full_name' => $request->full_name,
+                'staff_no' => $request->staff_no,
                 'phone_no' => $request->phone_no,
             ]);
         }
@@ -230,11 +245,34 @@ class UsersController extends Controller
         foreach ($users as $user) {
             if ($user->user_type == 2){
                 $name = Staffs::where('user_id', $user->id)->first();
-                $user_type = htmlspecialchars_decode('
-                                    <div class="badge bg-warning me-3" style="background-color: var(--custom-warning-color);">
-                                        Guru
-                                    </div>'
-                                );
+                if ($name->branch_id == 1){
+                    $user_type = htmlspecialchars_decode('
+                                        <div class="badge bg-warning me-3" style="background-color: var(--custom-warning-color);">
+                                            Pengasuh
+                                        </div>'
+                                    );
+                    if ($name->is_admin == 1) {
+                        $user_type = htmlspecialchars_decode('
+                                            <div class="badge bg-warning me-3" style="background-color: var(--custom-warning-color);">
+                                                Ketua Pengasuh
+                                            </div>'
+                                        );
+                    }
+                } else {
+                    $user_type = htmlspecialchars_decode('
+                                        <div class="badge bg-warning me-3" style="background-color: var(--custom-warning-color);">
+                                            Guru
+                                        </div>'
+                                    );
+                    if ($name->is_admin == 1) {
+                        $user_type = htmlspecialchars_decode('
+                                            <div class="badge bg-warning me-3" style="background-color: var(--custom-warning-color);">
+                                                Guru Besar
+                                            </div>'
+                                        );
+                    }
+                
+                }
                 
                 // dd($name);
             }
@@ -323,6 +361,18 @@ class UsersController extends Controller
                 'full_name' => $request->name,
                 'phone_no' => $request->phoneNo,
                 'staff_no' => $request->staffID,
+                'branch_id' => 2,
+                'is_admin' => 0
+            ]);
+        }
+
+        if ($user_type == 5){
+            Staffs::create([
+                'user_id' => $user->id,
+                'full_name' => $request->name,
+                'phone_no' => $request->phoneNo,
+                'staff_no' => $request->staffID,
+                'branch_id' => 1,
                 'is_admin' => 0
             ]);
         }

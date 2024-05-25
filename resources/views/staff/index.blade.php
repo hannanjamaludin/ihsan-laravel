@@ -208,6 +208,10 @@ $(document).ready(function () {
         border-color: #703232;
     }
 
+    a.page-link{
+        color: #703232;
+    }
+
     .text-center {
         text-align: left !important;
     }
