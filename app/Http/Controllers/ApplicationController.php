@@ -6,8 +6,10 @@ use App\Models\Application;
 use App\Models\Branch;
 use App\Models\District;
 use App\Models\Parents;
+use App\Models\Staffs;
 use App\Models\State;
 use App\Models\Students;
+use App\Models\User;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -306,9 +308,27 @@ class ApplicationController extends Controller
 
     public function datatable_application_list(){
 
-        $student = Students::whereHas('applicationStatus', function($query){
+        $user = User::where('id', Auth::user()->id)->first();
+        $studentQuery = Students::whereHas('applicationStatus', function($query){
                                 $query->where('status', NULL);
-                            })->with('mom', 'dad', 'branch')->get();
+                            })->with('mom', 'dad', 'branch');
+                            
+        if ($user->user_type == 2){
+            $teacher = Staffs::where('user_id', $user->id)->first();
+
+            if ($teacher){
+                $studentQuery = Students::whereHas('branch', function($query) use ($teacher) {
+                                        $query->where('id', $teacher->branch_id);
+                                    })->whereHas('applicationStatus', function($query){
+                                        $query->where('status', NULL);
+                                    })->with('mom', 'dad', 'branch');
+                // dd('masuk');
+            }
+        }
+        
+        $student = $studentQuery->get();
+
+        // dd($user, $student);  
 
         // dd($student);
 
@@ -371,10 +391,26 @@ class ApplicationController extends Controller
 
     public function datatable_updated_application(){
 
-        $student = Students::whereHas('applicationStatus', function($query){
-                                $query->whereIn('status', [0, 1]);
-                            })->with('mom', 'dad', 'branch')->get();
+        $user = User::where('id', Auth::user()->id)->first();
+        $studentQuery = Students::whereHas('applicationStatus', function($query){
+                                        $query->whereIn('status', [0, 1]);
+                                    })->with('mom', 'dad', 'branch');
+                            
+        if ($user->user_type == 2){
+            $teacher = Staffs::where('user_id', $user->id)->first();
 
+            if ($teacher){
+                $studentQuery = Students::whereHas('applicationStatus', function($query){
+                                                $query->whereIn('status', [0, 1]);
+                                            })->whereHas('branch', function($query) use ($teacher) {
+                                                $query->where('id', $teacher->branch_id);
+                                            })->with('mom', 'dad', 'branch');
+                // dd('masuk');
+            }
+        }
+        
+        $student = $studentQuery->get();
+        
         // dd($student);
 
         $updated_app = [];

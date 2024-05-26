@@ -102,6 +102,8 @@ class UsersController extends Controller
                 'full_name' => $request->full_name,
                 'staff_no' => $request->staff_no,
                 'phone_no' => $request->phone_no,
+                'email' => $request->email,
+                'staff_no' => $request->staff_no,
             ]);
         }
 
@@ -113,6 +115,8 @@ class UsersController extends Controller
                 'full_name' => $request->full_name,
                 'staff_no' => $request->staff_no,
                 'phone_no' => $request->phone_no,
+                'email' => $request->email,
+                'staff_no' => $request->staff_no,
             ]);
         }
 
@@ -374,6 +378,10 @@ class UsersController extends Controller
                 'staff_no' => $request->staffID,
                 'branch_id' => 1,
                 'is_admin' => 0
+            ]);
+
+            $user->update([
+                'user_type' => 2,
             ]);
         }
 

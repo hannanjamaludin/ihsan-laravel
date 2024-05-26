@@ -112,6 +112,7 @@
                 text: successMessage,
                 icon: "success",
                 timer: 2000,
+                confirmButtonColor: "#703232",
             });
         }
 
