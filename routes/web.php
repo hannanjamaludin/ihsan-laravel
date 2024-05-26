@@ -71,6 +71,8 @@ Route::middleware('auth')->group(function () {
     // Student's Activity routes
     Route::prefix('murid')->as('murid.')->group(function () {
         Route::get('/profil', [StudentController::class, 'studentProfile'])->name('profile');
+        Route::get('/profil/{studentId}', [StudentController::class, 'profileDetail'])->name('detail');
+        Route::post('/kemaskini-profil/{studentId}', [StudentController::class, 'updateStudent'])->name('kemaskini_profil');
         Route::get('/aktiviti-harian', [StudentController::class, 'studentActivity'])->name('aktiviti_harian');
     });
 

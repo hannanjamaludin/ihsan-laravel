@@ -97,7 +97,7 @@
                             </a>
                         </li>
                         <li class="nav-item py-2 py-sm-1">
-                            <a href="{{ route('murid.profile')}}" class="nav-link text-primary">
+                            <a href="{{ route('murid.profile') }}" class="nav-link text-primary {{ request()->routeIs('murid.profile') ? 'active' : '' }}">
                                 <i class="fs-5 fa fa-user-graduate"></i>
                                 <span class="fs-5 ms-3 d-none d-sm-inline">Profil Anak</span>
                             </a>
