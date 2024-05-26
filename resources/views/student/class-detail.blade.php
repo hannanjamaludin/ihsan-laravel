@@ -6,7 +6,7 @@
         <!-- Breadcrumb Navigation -->
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mx-3">
-                <li class="breadcrumb-item text-primary"><a href="{{ route('murid.kelas') }}" class="text-primary" style="text-decoration: none">Pengurusan Murid</a></li>
+                <li class="breadcrumb-item text-primary"><a href="{{ route('kelas.kelas') }}" class="text-primary" style="text-decoration: none">Pengurusan Murid</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{ $class->age }} {{ $class->class_name }}</li>
             </ol>
         </nav>
@@ -87,7 +87,7 @@
                 'scrollable': true,
                 'searchable': true,
                 'ajax': {
-                    'url': "{{ route('murid.datatable_student_list') }}",
+                    'url': "{{ route('kelas.datatable_student_list') }}",
                     'dataType': 'json',
                     'type': 'GET',
                     'data': {
@@ -141,7 +141,7 @@
                 'scrollable': true,
                 'searchable': true,
                 'ajax': {
-                    'url': "{{ route('murid.datatable_all_student_list') }}",
+                    'url': "{{ route('kelas.datatable_all_student_list') }}",
                     'dataType': 'json',
                     'type': 'GET',
                     'data': {
@@ -195,7 +195,7 @@
 
     function addStudentToClass(studentId){
         $.ajax({
-            url: "{{ route('murid.add_student_to_class') }}",
+            url: "{{ route('kelas.add_student_to_class') }}",
             type: "POST",
             data: {
                 _token: '{{ csrf_token() }}',
@@ -216,7 +216,7 @@
 
     function removeStudentFromClass(studentId){
         $.ajax({
-            url: "{{ route('murid.remove_student_from_class') }}",
+            url: "{{ route('kelas.remove_student_from_class') }}",
             type: 'POST',
             data: {
                 _token: '{{ csrf_token() }}',

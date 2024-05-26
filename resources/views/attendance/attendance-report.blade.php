@@ -5,7 +5,7 @@
     <div class="col-12">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mx-3">
-                <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('murid.rekod_kehadiran') }}" class="text-primary" style="text-decoration: none">Rekod Kehadiran</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('kehadiran.rekod_kehadiran') }}" class="text-primary" style="text-decoration: none">Rekod Kehadiran</a></li>
                 {{-- <li class="breadcrumb-item active" aria-current="page">{{ $class->age }} {{ $class->class_name }}</li> --}}
             </ol>
         </nav>
@@ -38,7 +38,7 @@
                                 $total = $classAttendance[$class->id]['total'] ?? 0;
                             @endphp 
                             <div class="card mb-4 mx-3 card-students clickable-card" style="cursor: pointer;"
-                                    data-href="{{ route('murid.rekod_kehadiran_detail', ['classId' => $class->id]) }}">
+                                    data-href="{{ route('kehadiran.rekod_kehadiran_detail', ['classId' => $class->id]) }}">
                                 <div class="card-body px-3 py-2 w-auto">
                                     <div class="row">
                                         <div class="col-1 d-flex align-items-center justify-content-end">

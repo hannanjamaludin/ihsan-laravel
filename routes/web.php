@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\ClassController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RazorpayController;
 use App\Http\Controllers\StaffController;
@@ -69,17 +70,26 @@ Route::middleware('auth')->group(function () {
 
     // Student's Activity routes
     Route::prefix('murid')->as('murid.')->group(function () {
-        Route::get('/', [StudentController::class, 'index'])->name('index');
-        Route::get('/kelas', [StudentController::class, 'studentClass'])->name('kelas');
-        Route::get('/datatable_class_list', [StudentController::class, 'datatable_class_list'])->name('datatable_class_list');
-        Route::get('/datatable_room_list', [StudentController::class, 'datatable_room_list'])->name('datatable_room_list');
-        Route::get('/kelas/{classId}', [StudentController::class, 'classDetails'])->name('kelas_detail');
-        Route::get('/datatable_student_list', [StudentController::class, 'datatable_student_list'])->name('datatable_student_list');
-        Route::get('/datatable_all_student_list', [StudentController::class, 'datatable_all_student_list'])->name('datatable_all_student_list');
-        Route::post('/add_student_to_class', [StudentController::class, 'addStudentToClass'])->name('add_student_to_class');
-        Route::post('/remove_student_from_class', [StudentController::class, 'removeStudentFromClass'])->name('remove_student_from_class');
-        Route::get('/rekod-kehadiran', [StudentController::class, 'attendanceReport'])->name('rekod_kehadiran');
-        Route::get('/rekod-kehadiran/{classId}', [StudentController::class, 'detailAttendanceReport'])->name('rekod_kehadiran_detail');
+        Route::get('/profil', [StudentController::class, 'studentProfile'])->name('profile');
+        Route::get('/aktiviti-harian', [StudentController::class, 'studentActivity'])->name('aktiviti_harian');
+    });
+
+    Route::prefix('kelas')->as('kelas.')->group(function () {
+        Route::get('/', [ClassController::class, 'studentClass'])->name('kelas');
+        Route::get('/datatable_class_list', [ClassController::class, 'datatable_class_list'])->name('datatable_class_list');
+        Route::get('/datatable_room_list', [ClassController::class, 'datatable_room_list'])->name('datatable_room_list');
+        Route::get('/kelas/{classId}', [ClassController::class, 'classDetails'])->name('kelas_detail');
+        Route::get('/datatable_student_list', [ClassController::class, 'datatable_student_list'])->name('datatable_student_list');
+        Route::get('/datatable_all_student_list', [ClassController::class, 'datatable_all_student_list'])->name('datatable_all_student_list');
+        Route::post('/add_student_to_class', [ClassController::class, 'addStudentToClass'])->name('add_student_to_class');
+        Route::post('/remove_student_from_class', [ClassController::class, 'removeStudentFromClass'])->name('remove_student_from_class');
+    });
+
+    // Attendance routes
+    Route::prefix('kehadiran')->as('kehadiran.')->group(function () {
+        Route::get('/', [ClassController::class, 'index'])->name('index');
+        Route::get('/rekod-kehadiran', [ClassController::class, 'attendanceReport'])->name('rekod_kehadiran');
+        Route::get('/rekod-kehadiran/{classId}', [ClassController::class, 'detailAttendanceReport'])->name('rekod_kehadiran_detail');
     });
 
     // Staff management routes

@@ -45,7 +45,7 @@
 
                         @if ($teacher->is_admin == true)
                             <li class="nav-item py-2 py-sm-1">
-                                <a href="{{ route('murid.kelas') }}" class="nav-link text-primary {{ request()->routeIs('murid.kelas') || request()->routeIs('murid.kelas_detail') ? 'active' : '' }}">
+                                <a href="{{ route('kelas.kelas') }}" class="nav-link text-primary {{ request()->routeIs('kelas.kelas') || request()->routeIs('kelas.kelas_detail') ? 'active' : '' }}">
                                     <i class="fs-5 fa fa-graduation-cap"></i>
                                     @if ($teacher->branch_id == 1)
                                         <span class="fs-5 ms-3 d-none d-sm-inline">Pengurusan Bilik</span>
@@ -67,36 +67,27 @@
                         @endif
 
                         <li class="nav-item py-2 py-sm-1">
-                            <a href="#rancanganKurikulumSubmenu" data-bs-toggle="collapse" class="nav-link text-primary d-flex justify-content-between align-items-center {{ request()->routeIs('murid.index') || request()->routeIs('aktiviti.index') ? '' : 'collapsed' }}" aria-expanded="{{ request()->routeIs('murid.index') || request()->routeIs('aktiviti.index') ? 'true' : 'false' }}">
-                                <span>
-                                    <i class="fs-5 fa fa-school"></i>
-                                    <span class="fs-5 ms-3 d-none d-sm-inline">Rancangan Kurikulum</span>
-                                </span>
-                                <i class="fs-6 fa fa-chevron-{{ request()->routeIs('murid.index') || request()->routeIs('aktiviti.index')  || request()->routeIs('murid.aktiviti_harian') ? 'up' : 'down' }}"></i>
+                            <a href="{{ route('murid.aktiviti_harian') }}" class="nav-link text-primary {{ request()->routeIs('murid.aktiviti_harian') ? 'active' : '' }}">
+                                <i class="fs-5 fa fa-school"></i>
+                                <span class="fs-5 ms-3 d-none d-sm-inline">Aktiviti Harian</span>
                             </a>
-                            <ul class="collapse list-unstyled ms-4 {{ request()->routeIs('murid.index') || request()->routeIs('aktiviti.index') || request()->routeIs('murid.rekod_kehadiran') || request()->routeIs('murid.rekod_kehadiran_detail')  || request()->routeIs('murid.aktiviti_harian') ? 'show' : '' }}" id="rancanganKurikulumSubmenu">
-                                <li class="nav-item py-1">
-                                    <a href="{{ route('murid.index') }}" class="nav-link text-primary {{ request()->routeIs('murid.index') ? 'active' : '' }}">
-                                        <i class="fs-5 fa fa-calendar-check"></i>
-                                        <span class="fs-5 ms-3 d-none d-sm-inline">Kehadiran</span>
-                                    </a>
-                                </li>
-                                @if ($teacher->is_admin == true)
-                                    <li class="nav-item py-1">
-                                        <a href="{{ route('murid.rekod_kehadiran') }}" class="nav-link text-primary {{ request()->routeIs('murid.rekod_kehadiran') || request()->routeIs('murid.rekod_kehadiran_detail')? 'active' : '' }}" id="rancanganKurikulumSubmenu">
-                                            <i class="fs-5 fa fa-chart-line"></i>
-                                            <span class="fs-5 ms-3 d-none d-sm-inline">Rekod Kehadiran</span>
-                                        </a>
-                                    </li>
-                                @endif
-                                <li class="nav-item py-1">
-                                    <a href="{{ route('murid.aktiviti_harian') }}" class="nav-link text-primary {{ request()->routeIs('murid.aktiviti_harian') ? 'active' : '' }}" id="rancanganKurikulumSubmenu">
-                                        <i class="fs-5 fa fa-tasks"></i>
-                                        <span class="fs-5 ms-3 d-none d-sm-inline">Aktiviti Harian</span>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
+                        
+                        <li class="nav-item py-2 py-sm-1">
+                            <a href="{{ route('kehadiran.index') }}" class="nav-link text-primary {{ request()->routeIs('kehadiran.index') ? 'active' : '' }}">
+                                <i class="fs-5 fa fa-calendar-check"></i>
+                                <span class="fs-5 ms-3 d-none d-sm-inline">Kehadiran</span>
+                            </a>
+                        </li>
+                        @if ($teacher->is_admin == true)
+                            <li class="nav-item py-2 py-sm-1">
+                                <a href="{{ route('kehadiran.rekod_kehadiran') }}" class="nav-link text-primary {{ request()->routeIs('kehadiran.rekod_kehadiran') || request()->routeIs('kehadiran.rekod_kehadiran_detail') ? 'active' : '' }}">
+                                    <i class="fs-5 fa fa-chart-line"></i>
+                                    <span class="fs-5 ms-3 d-none d-sm-inline">Rekod Kehadiran</span>
+                                </a>
+                            </li>
+                        @endif
+
                     @endif
                     @if ($role->user_type == 3 || $role->user_type == 4)
                         <li class="nav-item py-2 py-sm-1">
@@ -106,7 +97,7 @@
                             </a>
                         </li>
                         <li class="nav-item py-2 py-sm-1">
-                            <a href="#" class="nav-link text-primary">
+                            <a href="{{ route('murid.profile')}}" class="nav-link text-primary">
                                 <i class="fs-5 fa fa-user-graduate"></i>
                                 <span class="fs-5 ms-3 d-none d-sm-inline">Profil Anak</span>
                             </a>

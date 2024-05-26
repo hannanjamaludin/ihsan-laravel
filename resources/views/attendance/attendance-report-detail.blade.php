@@ -5,7 +5,7 @@
     <div class="col-12">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mx-3">
-                <li class="breadcrumb-item"><a href="{{ route('murid.rekod_kehadiran') }}" class="text-primary" style="text-decoration: none">Rekod Kehadiran</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('kehadiran.rekod_kehadiran') }}" class="text-primary" style="text-decoration: none">Rekod Kehadiran</a></li>
                 <li class="breadcrumb-item active" aria-current="page">{{ $class->age }} {{ $class->class_name }}</li>
             </ol>
         </nav>

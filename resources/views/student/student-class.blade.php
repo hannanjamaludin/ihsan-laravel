@@ -143,7 +143,7 @@
                 'scrollable': true,
                 'searchable': true,
                 'ajax': {
-                    'url': "{{ route('murid.datatable_class_list') }}",
+                    'url': "{{ route('kelas.datatable_class_list') }}",
                     'dataType': 'json',
                     'type': 'GET'
                 },
@@ -193,7 +193,7 @@
                 'scrollable': true,
                 'searchable': true,
                 'ajax': {
-                    'url': "{{ route('murid.datatable_room_list') }}",
+                    'url': "{{ route('kelas.datatable_room_list') }}",
                     'dataType': 'json',
                     'type': 'GET'
                 },
