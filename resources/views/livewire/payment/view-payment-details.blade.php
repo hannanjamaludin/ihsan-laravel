@@ -2,7 +2,6 @@
     <div class="modal fade" id="paymentModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content p-5">
- 
                 <div class="modal-body m-3">
                     <div class="row mb-3">
                         <div class="col-3">
@@ -32,39 +31,38 @@
                     <div class="row">
                         <div class="col">
                             <table class="table table-borderless">
-                                {{-- {{ dd($payment) }} --}}
                                 @if ($payment)
-                                    <tr class="">
-                                        <td class="">BUYER NAME:</td>
-                                        <td class="">NUR HANNAN BINTI JAMALUDIN</td>
+                                    <tr>
+                                        <td>BUYER NAME:</td>
+                                        <td>NUR HANNAN BINTI JAMALUDIN</td>
                                     </tr>
-                                    <tr class="">
-                                        <td class="">BUYER ORDER NUMBER:</td>
-                                        <td class="">{{ $payment->payment_intent_id }}</td>
+                                    <tr>
+                                        <td>BUYER ORDER NUMBER:</td>
+                                        <td>{{ $payment->payment_intent_id }}</td>
                                     </tr>
-                                    <tr class="">
-                                        <td class="">BUYER ID:</td>
-                                        <td class="">010415050130</td>
+                                    <tr>
+                                        <td>BUYER ID:</td>
+                                        <td>010415050130</td>
                                     </tr>
-                                    <tr class="">
-                                        <td class="">SOURCE:</td>
-                                        <td class="">CARD PAYMENT</td>
+                                    <tr>
+                                        <td>SOURCE:</td>
+                                        <td>CARD PAYMENT</td>
                                     </tr>
-                                    <tr class="">
-                                        <td class="">TRANSACTION STATUS:</td>
-                                        <td class="">SUCCESSFUL</td>
+                                    <tr>
+                                        <td>TRANSACTION STATUS:</td>
+                                        <td>SUCCESSFUL</td>
                                     </tr>
-                                    <tr class="">
-                                        <td class="">RECEIPT DATE:</td>
-                                        <td class="">09052024</td>
+                                    <tr>
+                                        <td>RECEIPT DATE:</td>
+                                        <td>{{ $payment->created_at->format('dmY') }}</td>
                                     </tr>
-                                    <tr class="">
-                                        <td class="">MERCHANT NAME:</td>
-                                        <td class="">UNIVERSITI TEKNOLOGI MALAYSIA</td>
+                                    <tr>
+                                        <td>MERCHANT NAME:</td>
+                                        <td>UNIVERSITI TEKNOLOGI MALAYSIA</td>
                                     </tr>
-                                    <tr class="">
-                                        <td class="">ACADEMIC SESSION:</td>
-                                        {{-- <td class="">{{ $payment->month_id }} {{ $payment->year }}</td> --}}
+                                    <tr>
+                                        <td>ACADEMIC SESSION:</td>
+                                        <td>{{ $payment->month_id }} {{ $payment->year }}</td>
                                     </tr>
                                 @else
                                     <tr>
@@ -111,10 +109,3 @@
         </div>
     </div>
 </div>
-
-<style>
-    .vertical-line {
-        border-left: 1px solid #000; /* Adjust the color and thickness as needed */
-        height: 100%;
-    }
-</style>
