@@ -68,6 +68,8 @@ Route::middleware('auth')->group(function () {
         // Route::get('/resit-pembayaran', [ViewPaymentDetails::class, 'getPaymentDetails'])->name('resit_pembayaran');
     });
 
+    Route::get('/pembayaran-resit-pdf/{paymentId}', [PaymentController::class, 'downloadReceipt'])->name('payment.receipt.pdf');
+
     // Student's Activity routes
     Route::prefix('murid')->as('murid.')->group(function () {
         Route::get('/profil', [StudentController::class, 'studentProfile'])->name('profile');

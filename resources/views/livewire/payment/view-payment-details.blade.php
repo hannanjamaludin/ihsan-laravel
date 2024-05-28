@@ -105,6 +105,9 @@
                             <div class="fs-6 fw-bolder mt-4 mb-5 pb-5 text-center">Resit ini dijana oleh komputer dan tidak memerlukan tandatangan</div>
                         </div>
                     </div>
+                    <div class="text-end">
+                        <a href="{{ route('payment.receipt.pdf', ['paymentId' => $payment->payment_intent_id]) }}" class="btn btn-primary" target="_blank">Muat Turun PDF</a>
+                    </div>
                     @endif
                 </div>
             </div>

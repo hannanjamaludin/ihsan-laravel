@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Month;
 use App\Models\StripePayment;
 use App\Models\Students;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
@@ -51,4 +52,16 @@ class PaymentController extends Controller
         ]);
     }
 
+    public function downloadReceipt($paymentId){
+        $payment = StripePayment::where('payment_intent_id', $paymentId)
+                                ->with('students.user.parents', 'months', 'students.branch')
+                                ->first();
+        
+        if (!$payment) {
+            return redirect()->back()->with('error', 'Rekod pembayaran tidak dijumpai');
+        }
+
+        $pdf = Pdf::loadView('pdf.receipt', compact('payment'));
+        return $pdf->download('receipt.pdf');
+    }
 }
