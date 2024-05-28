@@ -3,6 +3,11 @@
 
 <div class="row">
     <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mx-3">
+                <li class="breadcrumb-item active"><a href="{{ route('pembayaran.index') }}" class="text-primary" style="text-decoration: none">Pembayaran</a></li>
+            </ol>
+        </nav>
         <div class="card mb-4 mx-3">
             <div class="card-header py-1 d-flex flex-row justify-content-between card-header-divider">
                 <div class="col">

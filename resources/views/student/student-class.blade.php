@@ -81,56 +81,6 @@
 </div>
 
 <livewire:staff.edit-class />
-{{-- Modal edit class --}}
-{{-- <div class="modal fade" id="modalClassDetails" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-
-            <div class="modal-header">
-                <h5 class="modal-title text-primary">Maklumat Kelas</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-            </div>
-
-            <div class="modal-body">
-                <div class="row ms-1">
-                    <div class="form-group row">
-                        <div class="col-6 pl-1">
-                            <div class="form-group">
-                                <label class="form-label">Nama Kelas</label>                            
-                                <input type="text" id="class_room" class="form-control" value="" placeholder="" required name = "class_room" disabled>
-                            </div>
-                        </div>
-                        <div class="col-6 pl-1">
-                            <div class="form-group">
-                                <label class="form-label">Nama Guru</label>                            
-                                <input type="text" id="teacher" class="form-control" value="" placeholder="" required name = "teacher" disabled>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group row mt-1">
-                        <div class="col-6 pl-1">
-                            <div class="form-group">
-                                <label class="form-label">Kapasiti</label>                            
-                                <input type="text" id="capacity" class="form-control" value="" placeholder="" required name = "capacity">
-                            </div>
-                        </div>
-                        <div class="col-6 pl-1">
-                            <div class="form-group">
-                                <label class="form-label">Jumlah Murid</label>                            
-                                <input type="text" id="total_students" class="form-control" value="" placeholder="" required name = "total_students" disabled>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary text-light" aria-label="hantar">Hantar</button>
-            </div>
-
-        </div>
-    </div>
-</div> --}}
 
 @endsection
 
@@ -236,7 +186,23 @@
                     // "emptyTable": "Tiada pendaftaran baharu"
                 }
         });
+    });
 
+    document.addEventListener('livewire:load', function () {
+        window.livewire.on('openModal', () => {
+            $('#modalClassDetails').modal('show');
+        });
+
+        window.livewire.on('closeModal', () => {
+            $('#modalClassDetails').modal('hide');
+        });
+
+        // Listen for the 'classUpdated' event to refresh the DataTable
+        window.livewire.on('classUpdated', () => {
+            // Reload the DataTable with new data
+            $('#class_list').DataTable().ajax.reload();
+            $('#room_list').DataTable().ajax.reload();
+        });
     });
 </script>
 @endsection

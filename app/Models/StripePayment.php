@@ -14,4 +14,8 @@ class StripePayment extends Model
     public function students(){
         return $this->belongsTo(Students::class, 'student_id', 'id');
     }
+
+    public function months(){
+        return $this->belongsTo( Month::class, 'month_id', 'id');
+    }
 }

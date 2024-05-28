@@ -3,6 +3,13 @@
 
 <div class="row">
     <div class="col-12">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mx-3">
+                <li class="breadcrumb-item active"><a href="{{ route('pembayaran.index') }}" class="text-primary" style="text-decoration: none">Pembayaran</a></li>
+                <li class="breadcrumb-item active" aria-current="page">{{ $student->full_name }}</li>
+            </ol>
+        </nav>
+
         @foreach ($years as $y)
         <div class="card mb-1 mx-3">
             <div class="card-header py-1 d-flex flex-row justify-content-between card-header-divider bg-primary">
@@ -57,7 +64,7 @@
                                                     @foreach ($payments as $payment)
                                                         @if ($payment->month_id == $month->id && $payment->year == $y)
                                                             <tr>
-                                                                <td><a href="#" class="payment-details" data-payment-id="{{ $payment->payment_intent_id }}" data-bs-toggle="modal" data-bs-target="#paymentModal">
+                                                                <td><a href="#" class="payment-details" data-payment-id="{{ $payment->payment_intent_id }}">
                                                                     {{ $payment->payment_intent_id }}
                                                                 </a></td>
                                                                 <td>RM{{ $payment->amount }}</td>

@@ -14,8 +14,12 @@ class ViewPaymentDetails extends Component
 
     public function paymentSelected($paymentIntentId)
     {
-        $this->payment = StripePayment::where('payment_intent_id', $paymentIntentId)->first();
-        // Log::info('payment: ' . $this->payment);
+        $this->payment = StripePayment::where('payment_intent_id', $paymentIntentId)
+                                    ->with('students.user.parents', 'students.branch', 'months')
+                                    ->first();
+
+                                    // dd($this->payment);
+
         $this->dispatchBrowserEvent('show-payment-modal');
     }
 
