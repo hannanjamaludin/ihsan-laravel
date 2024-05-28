@@ -97,14 +97,14 @@
                             </a>
                         </li>
                         <li class="nav-item py-2 py-sm-1">
-                            <a href="{{ route('murid.profile') }}" class="nav-link text-primary {{ request()->routeIs('murid.profile') ? 'active' : '' }}">
+                            <a href="{{ route('murid.profile') }}" class="nav-link text-primary {{ request()->routeIs('murid.profile') || request()->routeIs('murid.detail') || request()->routeIs('murid.kemaskini_profil') ? 'active' : '' }}">
                                 <i class="fs-5 fa fa-user-graduate"></i>
                                 <span class="fs-5 ms-3 d-none d-sm-inline">Profil Anak</span>
                             </a>
                         </li>
                         @if ($children->isNotEmpty())
                             <li class="nav-item py-2 py-sm-1">
-                                <a href="{{ route('pembayaran.index') }}" class="nav-link text-primary {{ request()->routeIs('pembayaran.index') ? 'active' : '' }}">
+                                <a href="{{ route('pembayaran.index') }}" class="nav-link text-primary {{ request()->routeIs('pembayaran.index') || request()->routeIs('pembayaran.yuran_student') ? 'active' : '' }}">
                                     <i class="fs-5 fa fa-credit-card"></i>
                                     <span class="fs-5 ms-3 d-none d-sm-inline">Pembayaran</span>
                                 </a>

@@ -34,6 +34,7 @@ class EditClass extends Component
         ]);
 
         $this->emit('closeModal');
+        $this->emit('classUpdated');
     }
 
     public function render()

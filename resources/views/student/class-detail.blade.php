@@ -135,6 +135,10 @@
         });
 
         $('#addStudentModal').on('shown.bs.modal', function() {
+            if ($.fn.DataTable.isDataTable('#modal_student_list')) {
+                $('#modal_student_list').DataTable().clear().destroy();
+            }
+
             $('#modal_student_list').DataTable({
                 'processing': true,
                 'scrollX': true,
@@ -191,6 +195,7 @@
                 }
             });
         });
+        
     });
 
     function addStudentToClass(studentId){
@@ -260,5 +265,10 @@
         margin: 0 0 10px !important;
     }
 
+    .dataTables_scrollHeadInner th:nth-child(1) {
+        /* width: 200px; Set width for the second column */
+        white-space: nowrap; /* Prevent text wrapping */
+        width: auto;
+    }
 </style>
 @endsection
