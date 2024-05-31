@@ -37,7 +37,10 @@
                     </div>
                 </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer d-flex justify-content-between">
+                <div class="text-muted fst-italic">**Maklumat guru boleh dikemaskini di ruangan "Pengurusan Guru" dan klik pada butang " 
+                    <i class="fas fa-eye text-secondary" style="font-size: 10px;"></i> 
+                    " bagi pengurusan murid</div>
                 <button type="button" class="btn btn-primary text-light" wire:click="updateClass">Hantar</button>
             </div>
         </div>

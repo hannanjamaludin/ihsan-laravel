@@ -19,8 +19,14 @@ class EditClass extends Component
     public function editClass($id){
         $class = TadikaClass::with('teacher')->findOrFail($id);
         // dd($class);
+
+        if ($class->teacher->branch_id == 2){
+            $this->className = $class->age . ' ' . $class->class_name;
+        } else {
+            $this->className = $class->class_name;        
+        }
+
         $this->classId = $class->id;        
-        $this->className = $class->class_name;        
         $this->teacher = $class->teacher ? $class->teacher->full_name : '-';        
         $this->capacity = $class->capacity;        
         $this->totalStudents = $class->total_students;  

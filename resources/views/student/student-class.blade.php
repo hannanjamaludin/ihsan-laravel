@@ -61,7 +61,11 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Bilik</th>
+                                    @if ($teacher->branch_id == 1)
+                                        <th>Bilik</th>
+                                    @else
+                                        <th>Kelas</th>
+                                    @endif
                                     <th>Kapasiti</th>
                                     <th>Jumlah Murid</th>
                                     <th>Tindakan</th>

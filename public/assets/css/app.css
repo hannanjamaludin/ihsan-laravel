@@ -135,3 +135,11 @@ h2 {
 .card-students {
     border: 1px solid #70323240;
 }
+
+input:focus, 
+textarea:focus, 
+select:focus {
+    border-color: #703232 !important;
+    box-shadow: 0 0 5px rgba(128, 0, 0, 0.5) !important; 
+    outline: none; 
+}
