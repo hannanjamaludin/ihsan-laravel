@@ -8,15 +8,17 @@ use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UsersManagement\UsersController;
+use App\Http\Controllers\WelcomeController;
 use App\Http\Livewire\Application\ViewApplication;
 use App\Http\Livewire\Payment\ViewPaymentDetails;
 use App\Models\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 

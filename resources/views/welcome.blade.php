@@ -34,11 +34,13 @@
 
                 <div class="card bg-primary text-light p-2 mx-2 w-50 lh-1">
                     <h3 class="card-title text-center py-0 my-0 fs-1 fw-bold">16</h3>
+                    {{-- <h3 class="card-title text-center py-0 my-0 fs-1 fw-bold">{{ $taska_capacity }}</h3> --}}
                     <p class="card-text text-center py-0 my-0 fw-light">Kekosongan</p>
                 </div>
 
                 <div class="card bg-primary text-light p-2 mx-2 w-50 lh-1">
                     <h3 class="card-title text-center py-0 my-0 fs-1 fw-bold">20</h3>
+                    {{-- <h3 class="card-title text-center py-0 my-0 fs-1 fw-bold">{{ $taska->active_students }}</h3> --}}
                     <p class="card-text text-center py-0 mt-0 mb-1 fw-light">Murid telah mendaftar</p>
                 </div>
 
@@ -52,11 +54,13 @@
 
                 <div class="card bg-primary text-light p-2 mx-2 w-50 lh-1">
                     <h3 class="card-title text-center py-0 my-0 fs-1 fw-bold">22</h3>
+                    {{-- <h3 class="card-title text-center py-0 my-0 fs-1 fw-bold">{{ $tadika_capacity }}</h3> --}}
                     <p class="card-text text-center py-0 my-0 fw-light">Kekosongan</p>
                 </div>
 
                 <div class="card bg-primary text-light p-2 mx-2 w-50 lh-1">
                     <h3 class="card-title text-center py-0 my-0 fs-1 fw-bold">50</h3>
+                    {{-- <h3 class="card-title text-center py-0 my-0 fs-1 fw-bold">{{ $tadika->active_students }}</h3> --}}
                     <p class="card-text text-center py-0 mt-0 mb-1 fw-light">Murid telah mendaftar</p>
                 </div>
 
