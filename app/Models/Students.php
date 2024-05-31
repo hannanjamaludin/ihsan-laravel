@@ -54,7 +54,7 @@ class Students extends Model
     }
 
     public function assignedClass(){
-        return $this->hasOne(TadikaClass::class, 'class_id', 'id');
+        return $this->belongsTo(TadikaClass::class, 'class_id', 'id');
     }
 
     public function attendance(){

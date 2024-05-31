@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('payment_stripe', function (Blueprint $table) {
             $table->id();
             $table->string('payment_intent_id');
+            $table->string('transaction_number')->unique();
             $table->unsignedBigInteger('month_id');
             $table->unsignedBigInteger('student_id');
             $table->string('method');

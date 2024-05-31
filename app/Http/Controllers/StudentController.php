@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Staffs;
 use App\Models\Students;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -59,6 +60,15 @@ class StudentController extends Controller
     }
 
     public function studentActivity(){
-        return view('student.student-activity');
+
+        $teacher = Staffs::where('user_id', Auth::user()->id)
+                        ->with('assignedClass')
+                        ->first();
+        
+        // dd($teacher);
+
+        return view('student.student-activity', [
+            'teacher' => $teacher,
+        ]);
     }
 }

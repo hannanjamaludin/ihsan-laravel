@@ -38,7 +38,7 @@
                                     </tr>
                                     <tr>
                                         <td>NOMBOR TRANSAKSI PEMBAYAR:</td>
-                                        <td>{{ $payment->payment_intent_id }}</td>
+                                        <td>{{ $payment->transaction_number ?? '' }}</td>
                                     </tr>
                                     {{-- <tr>
                                         <td>ID PEMBAYAR:</td>
@@ -46,7 +46,7 @@
                                     </tr> --}}
                                     <tr>
                                         <td>SUMBER:</td>
-                                        <td>PEMBAYARAN {{ strtoupper($payment->method) }}</td>
+                                        <td>{{ strtoupper($payment->method) }}</td>
                                     </tr>
                                     <tr>
                                         <td>STATUS TRANSAKSI:</td>
@@ -89,7 +89,7 @@
                                 <tbody>
                                     <tr>
                                         <td class="text-center">1</td>
-                                        <td class="text-start">YURAN BULANAN {{ strtoupper($payment->students->branch->branch_name) }}</td>
+                                        <td class="text-start">YURAN BULANAN {{ strtoupper($payment->students->branch->branch_name) }} {{ strtoupper($payment->students->full_name) }}</td>
                                         <td class="text-center">RM {{ number_format($payment->amount, 2) }}</td>
                                     </tr>
                                     <tr>
@@ -106,7 +106,8 @@
                         </div>
                     </div>
                     <div class="text-end">
-                        <a href="{{ route('payment.receipt.pdf', ['paymentId' => $payment->payment_intent_id]) }}" class="btn btn-primary" target="_blank">Muat Turun PDF</a>
+                        <a href="{{ route('payment.receipt.pdf', ['paymentId' => $payment->payment_intent_id]) }}" class="btn btn-primary" target="_blank">
+                            <i class="fas fa-download"></i> Muat Turun PDF</a>
                     </div>
                     @endif
                 </div>

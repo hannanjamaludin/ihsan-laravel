@@ -23,11 +23,11 @@ class PaymentController extends Controller
 
     public function paymentByStudent($id){
 
-        $student = Students::selectRaw('YEAR(enroll_date) AS enroll_year')->find($id);
-
+        $student = Students::selectRaw('YEAR(enroll_date) AS enroll_year, class_id, full_name')->find($id);
+        
         $enrollYear = $student->enroll_year;
 
-        $currentYear = date('Y'); // Current year
+        $currentYear = date('Y');
         $years = range($enrollYear, $currentYear); // Array of years from enrollment year to current year
 
         $months = Month::get();
@@ -48,7 +48,9 @@ class PaymentController extends Controller
             'payments' => $payments,
             'years' => $years,
             'paymentMonthsYears' => $paymentMonthsYears,
-            'student' => $student
+            'student' => $student,
+            'class' => $student->class_id,
+            'name' => $student->full_name,
         ]);
     }
 

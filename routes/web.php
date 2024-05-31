@@ -22,8 +22,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('product',[RazorpayController::class,'index']);
-Route::post('razorpay-payment',[RazorpayController::class,'store'])->name('razorpay.payment.store');
+// Route::get('product',[RazorpayController::class,'index']);
+// Route::post('razorpay-payment',[RazorpayController::class,'store'])->name('razorpay.payment.store');
 
 Route::middleware('auth')->group(function () {
 
@@ -60,7 +60,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('pembayaran')->as('pembayaran.')->group(function () {
         Route::get('/', [PaymentController::class, 'index'])->name('index');
         Route::get('/yuran/{studentId}', [PaymentController::class, 'paymentByStudent'])->name('yuran_student');
-        Route::get('/transaksi', [PaymentController::class, 'makePayment'])->name('buat_pembarayan');
+        // Route::get('/transaksi', [PaymentController::class, 'makePayment'])->name('buat_pembarayan');
 
         Route::post('/session', [StripeController::class, 'session'])->name('session');
         // Route::get('/status/{studentId}/{monthId}/{session_id}', [StripeController::class, 'status'])->name('status');

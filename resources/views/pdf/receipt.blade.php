@@ -74,19 +74,28 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="left-section">
-                <div class="logo">
-                    <img src="{{ asset('assets/img/logo-UTM.png') }}" alt="logo UTM">
-                </div>
-                <div class="address">
-                    <div class="fw-bolder">Universiti Teknologi Malaysia</div>
-                    <div class="fw-bolder">81310 Skudai, Johor Bahru</div>
-                    <div class="fw-bolder">Johor, Malaysia</div>
-                </div>
-            </div>
-            <div class="receipt-title">
-                <div class="fs-5 fw-bolder">RESIT RASMI</div>
-            </div>
+            <table class="table" style="width: 100%">
+                <tr>
+                    <td>
+                        <div class="logo">
+                            <img src="{{ asset('assets/img/logo-UTM.png') }}" alt="logo UTM">
+                        </div>
+                    </td>
+                    <td style="width: 50%;">
+                        <div class="address">
+                            <div class="fw-bolder">Universiti Teknologi Malaysia</div>
+                            <div class="fw-bolder">81310 Skudai, Johor Bahru</div>
+                            <div class="fw-bolder">Johor, Malaysia</div>
+                        </div>
+                    </td>
+                    <td style="vertical-align: top; text-align: right; width:30%;">
+                        <div class="receipt-title">
+                            <div class="fs-5 fw-bolder">RESIT RASMI</div>
+                        </div>
+                    </td>
+                </tr>
+
+            </table>
         </div>
         <div class="content">
             <div class="row">
@@ -103,7 +112,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <table class="table table-atas">
+                    <table class="table">
                         @if ($payment)
                             <tr>
                                 <td>NAMA PEMBAYAR:</td>
@@ -111,7 +120,7 @@
                             </tr>
                             <tr>
                                 <td>NOMBOR TRANSAKSI PEMBAYAR:</td>
-                                <td>{{ $payment->payment_intent_id }}</td>
+                                <td>{{ $payment->transaction_number ?? '' }}</td>
                             </tr>
                             <tr>
                                 <td>SUMBER:</td>
@@ -158,7 +167,7 @@
                         <tbody>
                             <tr>
                                 <td class="text-center">1</td>
-                                <td class="text-start">YURAN BULANAN {{ strtoupper($payment->students->branch->branch_name) }}</td>
+                                <td class="text-start">YURAN BULANAN {{ strtoupper($payment->students->branch->branch_name) }} {{ strtoupper($payment->students->full_name) }}</td>
                                 <td class="text-center">RM {{ number_format($payment->amount, 2) }}</td>
                             </tr>
                             <tr>
