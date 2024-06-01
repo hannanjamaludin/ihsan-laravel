@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\BotManController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\RazorpayController;
@@ -19,6 +20,8 @@ Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 // Route::get('/', function () {
 //     return view('welcome');
 // });
+
+Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
 
 Auth::routes();
 

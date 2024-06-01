@@ -1,7 +1,7 @@
 @guest
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-0 shadow-none border-radius-xl bg-primary" navbar-scroll="true">
         <div class="container-fluid py-0 px-3">
-            <a class="navbar-brand text-light" href="{{ url('/home') }}">
+            <a class="navbar-brand text-light" href="{{ route('welcome') }}">
 @else
     <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" navbar-scroll="true">
         <div class="container-fluid py-0 px-0">

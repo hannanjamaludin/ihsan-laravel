@@ -67,6 +67,66 @@
             </div>
         </div>
     </div>
+
+    {{-- Chatbot interface --}}
+    <div id="chatbot-container" style="position: fixed; bottom: 20px; right: 20px; width: 300px; border: 1px solid #ccc; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
+        <div id="chat-window" style="height: 300px; overflow-y: scroll; background: #fff; padding: 10px;">
+            <div id="chat-output"></div>
+        </div>
+        <input type="text" id="user-input" style="width: 80%; padding: 10px; box-sizing: border-box;" placeholder="Type your message here...">
+        <button id="send-button" style="width: 20%; padding: 10px;">Send</button>
+    </div>
 </div>
 
+@endsection
+
+@section('js')
+<script>
+    document.getElementById('send-button').addEventListener('click', function () {
+        const userInput = document.getElementById('user-input').value;
+        const chatOutput = document.getElementById('chat-output');
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        if (userInput) {
+            // Display user input
+            chatOutput.innerHTML += `<div class="user-message" style="background-color: #e0f7fa; padding:10px; margin: 10px 0; text-align: right;">${userInput}</div>`;
+
+            // Send user input to the backend
+            fetch('{{ url("/botman") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken
+                },
+                body: JSON.stringify({ message: userInput })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.messages && data.messages.length) {
+                    data.messages.forEach(message => {
+                        // Display chatbot response
+                        chatOutput.innerHTML += `<div class="bot-message" style="background-color: #f0f4c3; padding: 10px; margin: 10px 0;">${message}</div>`;
+                    });
+                    chatOutput.scrollTop = chatOutput.scrollHeight;
+                } else {
+                    console.error('Unexpected response format:', data);
+                }
+            })
+            .catch(error => {
+                console.error('Fetch error: ', error);
+                error.response?.text().then(text => {
+                    console.error('Response text:', text);
+                });
+            });
+
+            // Clear user input
+            document.getElementById('user-input').value = '';
+        }
+    });
+</script>
 @endsection
