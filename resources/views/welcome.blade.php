@@ -84,13 +84,14 @@
 <script>
     var botmanWidget = {
         frameEndpoint: '/chat',
-        introMessage: 'Hello, I am a Chatbot',
+        introMessage: 'Hello, Saya Ihsan Bot',
         chatServer: '/chat',
-        title: 'My Chatbot',
-        mainColor: '#456765',
-        bubbleBackground: '#ff76f4',
-        aboutText: '',
-        bubbleAvatarUrl: '',
+        title: 'Ihsan Bot',
+        placeholderText: 'Hantarkan soalan anda...',
+        mainColor: '#BABABA',
+        bubbleBackground: '#BABABA',
+        aboutText: '', // text to display to navigate to botman website 
+        bubbleAvatarUrl: 'https://openclipart.org/image/800px/307415',
         desktopHeight: '400px',
         desktopWidth: '350px',
         mobileHeight: '300px',

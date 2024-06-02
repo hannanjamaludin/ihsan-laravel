@@ -17,7 +17,7 @@ class BotManController extends Controller
         $botman = BotManFactory::create($config);
 
         $botman->hears('Hello', function (BotMan $bot) {
-            $bot->reply('Hello too');
+            $bot->reply('Hai, apa yang boleh saya bantu?');
         });
 
         $botman->fallback(function($bot) {
