@@ -1,40 +1,29 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use BotMan\BotMan\BotMan;
+use BotMan\BotMan\BotManFactory;
+use BotMan\BotMan\Drivers\DriverManager;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class BotManController extends Controller
 {
-    public function handle(Request $request)
+    public function handle()
     {
-        Log::info('BotMan handle method called');
-        
-        $botman = app('botman');
-        $responseMessages = [];
+        $config = [];
 
-        $botman->hears('hello', function (BotMan $bot) use (&$responseMessages) {
-            $response = 'Hello! How can I help you today?';
-            $responseMessages[] = $response;
-            $bot->reply($response);
+        DriverManager::loadDriver(\BotMan\Drivers\Web\WebDriver::class);
+
+        $botman = BotManFactory::create($config);
+
+        $botman->hears('Hello', function (BotMan $bot) {
+            $bot->reply('Hello too');
         });
 
-        $botman->hears('help', function (BotMan $bot) use (&$responseMessages) {
-            $response = 'You can ask me about the child care center’s operating hours, enrollment process, location, and more.';
-            $responseMessages[] = $response;
-            $bot->reply($response);
-        });
-
-        $botman->fallback(function (BotMan $bot) use (&$responseMessages) {
-            $response = 'Sorry, I did not understand these commands. Try typing help.';
-            $responseMessages[] = $response;
-            $bot->reply($response);
+        $botman->fallback(function($bot) {
+            $bot->reply('Sorry, I did not understand these commands. Here is a list of commands I understand: ...');
         });
 
         $botman->listen();
-
-        return response()->json(['messages' => $responseMessages]);
     }
 }
