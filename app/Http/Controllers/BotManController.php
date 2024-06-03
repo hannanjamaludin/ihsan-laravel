@@ -20,8 +20,13 @@ class BotManController extends Controller
             $bot->reply('Hai, apa yang boleh saya bantu?');
         });
 
+        $botman->hears('.*(pengasuh|penjaga|asuhan).*', function (BotMan $bot) {
+            $bot->reply('Terdapat 5 pengasuh terlatih dan diiktiraf yang bertanggungjawab untuk menjaga kanak kanak di Taska Ihsan.');
+        });
+
         $botman->fallback(function($bot) {
-            $bot->reply('Sorry, I did not understand these commands. Here is a list of commands I understand: ...');
+            // $bot->reply('Sorry, I did not understand these commands. Here is a list of commands I understand: ...');
+            $bot->reply('Maaf, saya tidak dapat menjawab soalan tersebut. Anda boleh hantarkan pertanyaan anda melalui e-mel kepada rahmawatul@utm.my');
         });
 
         $botman->listen();

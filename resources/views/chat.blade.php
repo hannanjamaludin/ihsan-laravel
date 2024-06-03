@@ -7,14 +7,16 @@
     <style>
         body,html{ 
             background-color: #f9f9f9;
-            font-family: Ubuntu,"Helvetica Neue",Arial,sans-serif;
+            font-family: "Ubuntu","Helvetica Neue", Arial, sans-serif;
             font-size: 14px;
             margin: 0;
             padding: 0
         }
 
         #messageArea{
-            overflow-y: scroll
+            /* overflow-y: scroll; */
+            padding-bottom: 70px;
+            flex-grow: 1;
         }
 
         .chat{
@@ -99,7 +101,7 @@
             width: 95%;
             height: 55px;
             z-index: 99;
-            background-color: #fff;
+            background-color: #BABABA;
             border: none;
             outline: 0;
             padding-left: 15px;
@@ -108,7 +110,8 @@
             font-weight: 300;
             font-size: 1rem;
             line-height: 1.5;
-            background: rgba(250,250,250,.8)
+            /* background: rgba(250,250,250,.8) */
+            background: #bababaaf
         }
 
         .textarea: focus{
@@ -202,6 +205,12 @@
     @endphp
 
     <script id="botmanWidget" src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/chat.js'></script>
+    {{-- <script>
+        if (document.querySelectorAll('.chatbot .msg').value){
+            const chatWindow = document.getElementById('messageArea');
+            chatWindow.scrollTop = chatWindow.scrollHeight;
+        }
+    </script> --}}
 
 </body>
 
