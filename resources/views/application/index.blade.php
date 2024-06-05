@@ -126,9 +126,24 @@
                 })
             }
         });
-          
+    });
 
-    })
-
+    @if (session('success'))
+        Swal.fire({
+            title: 'Berjaya',
+            text: "{{ session('success') }}",
+            icon: 'success',
+            confirmButtonColor: '#703232'
+        });
+    @endif
+    
+    @if (session('error'))
+        Swal.fire({
+            title: 'Ralat',
+            text: "{{ session('error') }}",
+            icon: 'error',
+            confirmButtonColor: '#703232'
+        });
+    @endif
 </script>
 @endsection

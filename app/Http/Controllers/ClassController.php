@@ -188,11 +188,10 @@ class ClassController extends Controller
                                 <i class="fas fa-eye text-light mx-1" style="font-size: 10px;"></i>
                             </a>';
             
-            $edit_btn = '<a href="#" class="btn btn-primary me-3 px-2 pb-1 pt-0" style="background-color: var(--custom-primary-color); border:none;"
-                            title="Kemaskini">
-                            <i class="fas fa-pen-to-square text-light mx-1" style="font-size: 10px;"></i>
-                        </a>';
-
+            $edit_btn = '<button type="button" class="btn btn-primary me-3 px-2 pb-1 pt-0" 
+                            title="Kemaskini" onclick="Livewire.emit(\'editClass\', '. $room->id .')">
+                            <i class="fas fa-pen-to-square mx-1" style="font-size: 10px;"></i>
+                        </button>';
             $room_list[] = [
                 'room' => $room->age . ' ' . $room->class_name,
                 'capacity' => $room->capacity,

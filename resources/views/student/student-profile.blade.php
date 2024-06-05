@@ -18,6 +18,11 @@
 
             <div class="" id="child">
                 <div class="card-body px-3 py-4 w-auto">
+                    @if ($students->isEmpty())
+                        <div class="text-center">
+                            <div class="text-primary">Tiada Anak yang berdaftar di Taska / Tadika Ihsan</div>
+                        </div>
+                    @endif
                     <div class="mt-3 text-start">
                         @foreach ($students as $s)
                                 <div class="card mb-4 mx-3 card-students clickable-card" style="cursor: pointer;" 

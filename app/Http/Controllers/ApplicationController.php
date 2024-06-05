@@ -94,64 +94,97 @@ class ApplicationController extends Controller
 
     public function store(Request $request){
 
-        $form_data = session('form_data');
-
-        $user = Parents::where('user_id', Auth::user()->id)->first();
-
-        $parents = Parents::where('user_id', Auth::user()->id)->get();
-        // dd($parents);
-
-        $mom = null;
-        $dad = null;
-
-        $count_parent = 0;
-        foreach ($parents as $index => $parent) {
-            if ($parent->role_id == 1 || $parent->role_id == 2){
-                $count_parent++;
-            }
-
-            if ($index == 0){
-                if ($user->role_id == 2){
-                    $mom = $parent;
-                } else {
-                    $dad = $parent;
+        try{
+            $form_data = session('form_data');
+    
+            $user = Parents::where('user_id', Auth::user()->id)->first();
+    
+            $parents = Parents::where('user_id', Auth::user()->id)->get();
+            // dd($parents);
+    
+            $mom = null;
+            $dad = null;
+    
+            $count_parent = 0;
+            foreach ($parents as $index => $parent) {
+                if ($parent->role_id == 1 || $parent->role_id == 2){
+                    $count_parent++;
+                }
+    
+                if ($index == 0){
+                    if ($user->role_id == 2){
+                        $mom = $parent;
+                    } else {
+                        $dad = $parent;
+                    }
+                }
+    
+                if ($index == 1){
+                    if ($user->role_id == 2){
+                        $dad = $parent;
+                    } else {
+                        $mom = $parent;
+                    }
                 }
             }
-
-            if ($index == 1){
-                if ($user->role_id == 2){
-                    $dad = $parent;
+    
+            // dd($parents, $count_parent, $mom, $dad);
+    
+            if ($user->role_id == 2){
+                $mom = $user->update([
+                    'full_name' => $form_data['mom_full_name'],
+                    'email' => $form_data['mom_email'],
+                    'phone_no' => $form_data['mom_phone_no'],
+                    'job' => $form_data['mom_job'],
+                    'staff_no' => $form_data['mom_staff_no'],
+                    'student_no' => $form_data['mom_student_no'],
+                    'address' => $form_data['m_office_address'],
+                    'district' => $form_data['m_office_district'],
+                    'state' => $form_data['m_office_state'],
+                    'postcode' => $form_data['m_office_postcode']
+                ]);
+    
+                if ($count_parent == 2){
+    
+                    $dad = $dad->update([
+                        'full_name' => $form_data['dad_full_name'],
+                        'user_id' => Auth::user()->id,
+                        'email' => $form_data['dad_email'],
+                        'phone_no' => $form_data['dad_phone_no'],
+                        'job' => $form_data['dad_job'],
+                        'role_id' => 1,
+                        'staff_no' => $form_data['dad_staff_no'],
+                        'student_no' => $form_data['dad_student_no'],
+                        'address' => $form_data['d_office_address'],
+                        'district' => $form_data['d_office_district'],
+                        'state' => $form_data['d_office_state'],
+                        'postcode' => $form_data['d_office_postcode']
+                    ]);
+        
                 } else {
-                    $mom = $parent;
+                    $dad = Parents::create([
+                        'full_name' => $form_data['dad_full_name'],
+                        'user_id' => Auth::user()->id,
+                        'email' => $form_data['dad_email'],
+                        'phone_no' => $form_data['dad_phone_no'],
+                        'job' => $form_data['dad_job'],
+                        'role_id' => 1,
+                        'staff_no' => $form_data['dad_staff_no'],
+                        'student_no' => $form_data['dad_student_no'],
+                        'address' => $form_data['d_office_address'],
+                        'district' => $form_data['d_office_district'],
+                        'state' => $form_data['d_office_state'],
+                        'postcode' => $form_data['d_office_postcode']
+                    ]);
                 }
-            }
-        }
-
-        // dd($parents, $count_parent, $mom, $dad);
-
-        if ($user->role_id == 2){
-            $mom = $user->update([
-                'full_name' => $form_data['mom_full_name'],
-                'email' => $form_data['mom_email'],
-                'phone_no' => $form_data['mom_phone_no'],
-                'job' => $form_data['mom_job'],
-                'staff_no' => $form_data['mom_staff_no'],
-                'student_no' => $form_data['mom_student_no'],
-                'address' => $form_data['m_office_address'],
-                'district' => $form_data['m_office_district'],
-                'state' => $form_data['m_office_state'],
-                'postcode' => $form_data['m_office_postcode']
-            ]);
-
-            if ($count_parent == 2){
-
-                $dad = $dad->update([
+    
+            } else {
+    
+                $dad = $user->update([
                     'full_name' => $form_data['dad_full_name'],
-                    'user_id' => Auth::user()->id,
                     'email' => $form_data['dad_email'],
                     'phone_no' => $form_data['dad_phone_no'],
                     'job' => $form_data['dad_job'],
-                    'role_id' => 1,
                     'staff_no' => $form_data['dad_staff_no'],
                     'student_no' => $form_data['dad_student_no'],
                     'address' => $form_data['d_office_address'],
@@ -160,120 +193,94 @@ class ApplicationController extends Controller
                     'postcode' => $form_data['d_office_postcode']
                 ]);
     
-            } else {
-                $dad = Parents::create([
-                    'full_name' => $form_data['dad_full_name'],
-                    'user_id' => Auth::user()->id,
-                    'email' => $form_data['dad_email'],
-                    'phone_no' => $form_data['dad_phone_no'],
-                    'job' => $form_data['dad_job'],
-                    'role_id' => 1,
-                    'staff_no' => $form_data['dad_staff_no'],
-                    'student_no' => $form_data['dad_student_no'],
-                    'address' => $form_data['d_office_address'],
-                    'district' => $form_data['d_office_district'],
-                    'state' => $form_data['d_office_state'],
-                    'postcode' => $form_data['d_office_postcode']
+                if ($count_parent == 2){
+                    $mom = $mom->update([
+                        'full_name' => $form_data['mom_full_name'],
+                        'user_id' => Auth::user()->id,
+                        'email' => $form_data['mom_email'],
+                        'phone_no' => $form_data['mom_phone_no'],
+                        'job' => $form_data['mom_job'],
+                        'role_id' => 2,
+                        'staff_no' => $form_data['mom_staff_no'],
+                        'student_no' => $form_data['mom_student_no'],
+                        'address' => $form_data['m_office_address'],
+                        'district' => $form_data['m_office_district'],
+                        'state' => $form_data['m_office_state'],
+                        'postcode' => $form_data['m_office_postcode']
+                    ]);
+                } else {
+                    $mom = Parents::create([
+                        'full_name' => $form_data['mom_full_name'],
+                        'user_id' => Auth::user()->id,
+                        'email' => $form_data['mom_email'],
+                        'phone_no' => $form_data['mom_phone_no'],
+                        'job' => $form_data['mom_job'],
+                        'role_id' => 2,
+                        'staff_no' => $form_data['mom_staff_no'],
+                        'student_no' => $form_data['mom_student_no'],
+                        'address' => $form_data['m_office_address'],
+                        'district' => $form_data['m_office_district'],
+                        'state' => $form_data['m_office_state'],
+                        'postcode' => $form_data['m_office_postcode']
+                    ]);
+                }            
+            }
+    
+            $mom = Parents::where('user_id', Auth::user()->id)
+                            ->where('role_id', 2)
+                            ->first();
+    
+            $dad = Parents::where('user_id', Auth::user()->id)
+                            ->where('role_id', 1)
+                            ->first();
+    
+            // dd($mom, $dad);
+    
+            $student = Students::create([
+                'full_name' => $form_data['child_full_name'],
+                'ic_no' => $form_data['ic_no'],
+                'dob' => $form_data['dob'],
+                'gender' => $form_data['gender'],
+                'siblings' => $form_data['siblings'],
+                'illness' => $form_data['illness'],
+                'allergy' => $form_data['allergy'],
+                'study' => $form_data['study'],
+                'disability' => $form_data['disability'],
+                'address1' => $form_data['address1'],
+                'postcode' => $form_data['postcode'],
+                'district' => $form_data['district'],
+                'state' => $form_data['state'],
+                'branch_id' => $form_data['branch_id'],
+                'dad_id' => $dad->id,
+                'mom_id' => $mom->id,
+                'user_id' => Auth::user()->id,
+                'is_active' => NULL,
+                'enroll_date' => $form_data['enroll_date'],
+            ]);
+    
+            // dd($mom->id);    
+            $app = Application::create([
+                'branch_id' => $student['branch_id'],
+                'user_id' => Auth::user()->id,
+                'student_id' => $student['id'],
+                'verification' => $request->pengakuan
+            ]);
+    
+            $branch = Branch::find($student->branch_id);
+    
+            if($branch){
+                $branch = $branch->update([
+                    'application' => $branch->application + 1,
                 ]);
             }
+    
+            session()->forget('form_data');
+            session()->flash('success', 'Pendaftaran berjaya dihantar!');
+            
+        } catch (\Exception $e){
+            session()->flash('error', 'Pendaftaran gagal. Sila cuba lagi.');
 
-        } else {
-
-            $dad = $user->update([
-                'full_name' => $form_data['dad_full_name'],
-                'email' => $form_data['dad_email'],
-                'phone_no' => $form_data['dad_phone_no'],
-                'job' => $form_data['dad_job'],
-                'staff_no' => $form_data['dad_staff_no'],
-                'student_no' => $form_data['dad_student_no'],
-                'address' => $form_data['d_office_address'],
-                'district' => $form_data['d_office_district'],
-                'state' => $form_data['d_office_state'],
-                'postcode' => $form_data['d_office_postcode']
-            ]);
-
-            if ($count_parent == 2){
-                $mom = $mom->update([
-                    'full_name' => $form_data['mom_full_name'],
-                    'user_id' => Auth::user()->id,
-                    'email' => $form_data['mom_email'],
-                    'phone_no' => $form_data['mom_phone_no'],
-                    'job' => $form_data['mom_job'],
-                    'role_id' => 2,
-                    'staff_no' => $form_data['mom_staff_no'],
-                    'student_no' => $form_data['mom_student_no'],
-                    'address' => $form_data['m_office_address'],
-                    'district' => $form_data['m_office_district'],
-                    'state' => $form_data['m_office_state'],
-                    'postcode' => $form_data['m_office_postcode']
-                ]);
-            } else {
-                $mom = Parents::create([
-                    'full_name' => $form_data['mom_full_name'],
-                    'user_id' => Auth::user()->id,
-                    'email' => $form_data['mom_email'],
-                    'phone_no' => $form_data['mom_phone_no'],
-                    'job' => $form_data['mom_job'],
-                    'role_id' => 2,
-                    'staff_no' => $form_data['mom_staff_no'],
-                    'student_no' => $form_data['mom_student_no'],
-                    'address' => $form_data['m_office_address'],
-                    'district' => $form_data['m_office_district'],
-                    'state' => $form_data['m_office_state'],
-                    'postcode' => $form_data['m_office_postcode']
-                ]);
-            }            
         }
-
-        $mom = Parents::where('user_id', Auth::user()->id)
-                        ->where('role_id', 2)
-                        ->first();
-
-        $dad = Parents::where('user_id', Auth::user()->id)
-                        ->where('role_id', 1)
-                        ->first();
-
-        // dd($mom, $dad);
-
-        $student = Students::create([
-            'full_name' => $form_data['child_full_name'],
-            'ic_no' => $form_data['ic_no'],
-            'dob' => $form_data['dob'],
-            'gender' => $form_data['gender'],
-            'siblings' => $form_data['siblings'],
-            'illness' => $form_data['illness'],
-            'allergy' => $form_data['allergy'],
-            'study' => $form_data['study'],
-            'disability' => $form_data['disability'],
-            'address1' => $form_data['address1'],
-            'postcode' => $form_data['postcode'],
-            'district' => $form_data['district'],
-            'state' => $form_data['state'],
-            'branch_id' => $form_data['branch_id'],
-            'dad_id' => $dad->id,
-            'mom_id' => $mom->id,
-            'user_id' => Auth::user()->id,
-            'is_active' => 0,
-            'enroll_date' => $form_data['enroll_date'],
-        ]);
-
-        // dd($mom->id);    
-        $app = Application::create([
-            'branch_id' => $student['branch_id'],
-            'user_id' => Auth::user()->id,
-            'student_id' => $student['id'],
-            'verification' => $request->pengakuan
-        ]);
-
-        $branch = Branch::find($student->branch_id);
-
-        if($branch){
-            $branch = $branch->update([
-                'application' => $branch->application + 1,
-            ]);
-        }
-
-        session()->forget('form_data');
 
         return redirect()->route('pendaftaran.index');
 

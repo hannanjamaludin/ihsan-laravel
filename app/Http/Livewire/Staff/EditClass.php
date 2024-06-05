@@ -45,6 +45,8 @@ class EditClass extends Component
 
     public function render()
     {
-        return view('livewire.staff.edit-class');
+        return view('livewire.staff.edit-class', [
+            'class_room' => $this->classId,
+        ]);
     }
 }

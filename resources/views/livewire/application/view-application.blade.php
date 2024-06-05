@@ -11,9 +11,30 @@
             <div class="modal-body">
                 <div class="row ms-1">
                     <div class="col-3 mx-1">
+                        {{-- @if ($student->branch_id == 1)
+                            @if ($student->gender == 'lelaki') 
+                                <div class="rounded-circle mx-auto mb-3 shadow-lg" style="background-color: #bcd2e9; width: 200px; height: 200px; display: flex; justify-content: center; align-items: center;">
+                                    <i class="fas fa-baby" style="font-size: 100px;"></i>
+                                </div>                
+                            @else
+                                <div class="rounded-circle mx-auto mb-3 shadow-lg" style="background-color: #dac6dd; width: 200px; height: 200px; display: flex; justify-content: center; align-items: center;">
+                                    <i class="fas fa-baby" style="font-size: 100px;"></i>
+                                </div>                
+                            @endif
+                        @else
+                            @if ($student->gender == 'lelaki')
+                                <div class="rounded-circle mx-auto mb-3 shadow-lg" style="background-color: #bcd2e9; width: 200px; height: 200px; display: flex; justify-content: center; align-items: center;">
+                                    <i class="fas fa-child" style="font-size: 100px;"></i>
+                                </div>                
+                            @else
+                                <div class="rounded-circle mx-auto mb-3 shadow-lg" style="background-color: #dac6dd; width: 200px; height: 200px; display: flex; justify-content: center; align-items: center;">
+                                    <i class="fas fa-child-dress" style="font-size: 100px;"></i>
+                                </div>                
+                            @endif
+                        @endif --}}
                         <div class="rounded-circle mx-auto mb-3 bg-secondary shadow-lg" style="width: 200px; height: 200px; display: flex; justify-content: center; align-items: center;">
                             <i class="fas fa-user" style="font-size: 100px;"></i>
-                        </div>                
+                        </div>
                     </div>
                     <div class="col-8 mx-1">
                         <div class="card mb-4 mx-3">

@@ -25,5 +25,11 @@ class Parents extends Model
         'postcode'
     ];
 
-
+    // public function state(){
+    //     return $this->belongsTo(State::class, 'state', 'id');
+    // }
+    
+    // public function district(){
+    //     return $this->belongsTo(District::class, 'district', 'id');
+    // }
 }

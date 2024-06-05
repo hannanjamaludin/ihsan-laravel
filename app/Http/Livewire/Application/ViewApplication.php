@@ -13,13 +13,20 @@ use Livewire\Component;
 
 class ViewApplication extends Component
 {
-    // public $studentId;
+    public $student;
 
-    // protected $listeners = ['displayModal'];
-    
+    // public function mount($student_id = null){
+    //     if($student_id){
+    //         $this->student = Students::with(['mom', 'dad', 'branch'])->find($student_id);
+    //     }
+    // }
+
     public function render()
     {
-        return view('livewire.application.view-application');
+        // dd($this->student);
+        return view('livewire.application.view-application', [
+            'student' => $this->student,
+        ]);
     }
 
     // public function displayModal($id)
@@ -32,19 +39,20 @@ class ViewApplication extends Component
 
     public function getStudentDetails(Request $request){
 
-        $student = Students::with(['mom', 'dad', 'branch'])
+        $this->student = Students::with(['mom', 'dad', 'branch'])
                             ->find($request->student_id);
                             
-        return response()->json($student);
+        // dd($this->student);
+        return response()->json($this->student);
     }
 
     public function updateApplication(Request $request) {
-        $student = Students::find($request->student_id);
+        $this->student = Students::find($request->student_id);
         $application = Application::where('student_id', $request->student_id)->first();
-        $branch = Branch::find($student->branch_id);
+        $branch = Branch::find($this->student->branch_id);
 
         if ($request->status == 1) {
-            $student->update(['is_active' => 1]);
+            $this->student->update(['is_active' => 1]);
             $application->update(['status' => 1]);
             $branch->update([
                 'active_students' => $branch->active_students + 1,
@@ -53,7 +61,7 @@ class ViewApplication extends Component
         }
 
         if ($request->status == 0) {
-            $student->update(['is_active' => 0]);
+            $this->student->update(['is_active' => 0]);
             $application->update(['status' => 0]);
             $branch->update([
                 'rejected_students' => $branch->rejected_students + 1,

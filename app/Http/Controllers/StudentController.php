@@ -14,6 +14,8 @@ class StudentController extends Controller
                         ->where('is_active', 1)
                         ->with('branch')->get();
 
+                        // dd($students);
+
         return view('student.student-profile', [
             'students' => $students
         ]);
