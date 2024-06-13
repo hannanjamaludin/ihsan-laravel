@@ -13,8 +13,13 @@
                         </div>
                         <div class="col-md-10 ps-4">
                             <div class="row mb-2">
-                                <div class="col-12">
+                                <div class="col-10">
                                     <h4 class="text-primary">{{ $user->staffs->full_name }}</h4>
+                                </div>
+                                <div class="col-2">
+                                    <div class="text-end me-3">
+                                        <a href="{{ route("pengguna.index") }}" class="text-primary fw-light fs-6 text" style="text-decoration: none">Kemaskini</a>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row mb-2">
@@ -163,6 +168,47 @@
         </div>
 
         @if ($user->staffs->is_admin == true)
+            <!-- Class Section -->
+            <div class="col-md-6">
+                <div class="custom-container d-flex flex-column">
+                    @if ($user->staffs->branch_id == 1)
+                        <h4 class="mb-4">Bilik Taska Ihsan</h4>
+                    @else
+                        <h4 class="mb-4">Kelas Tadika Ihsan</h4>
+                    @endif
+                    <div class="d-flex flex-row justify-content-between flex-wrap">
+                        <div class="row w-100 justify-content-center mx-1">
+                            @php
+                                $backgroundColors = ['#D4AFB9', '#DCE1E9', '#ABB7AA', '#EACD94', '#B799A7'];
+                                $icons = ['fa-plane-up', 'fa-fort-awesome', 'fa-car-rear', 'fa-bucket', 'fa-cake-candles'];
+                            @endphp
+            
+                            @foreach ($classes as $index => $class)
+                                @php
+                                    $bgColor = $backgroundColors[$index % count($backgroundColors)];
+                                    $icon = $icons[$index % count($icons)];
+                                @endphp
+            
+                                <div class="col-sm-6 col-lg-4 mb-3">
+                                    <div class="class-box p-3 rounded overflow-hidden position-relative text-dark" style="background-color: {{ $bgColor }}">
+                                        <div class="class-content">
+                                            <h3 class="display-4 d-block l-h-n m-0 fw-normal">{{ $class->total_students }}</h3>
+                                            @if ($user->staffs->branch_id == 1)
+                                            <small class="m-0 l-h-n">{{ $class->age }} {{ $class->class_name }}</small>
+                                            @else
+                            
+                                            <small class="m-0 l-h-n">{{ $class->age }} {{ $class->class_name }}</small>
+                                            @endif
+                                        </div>
+                                        <i class="fa {{ $icon }} position-absolute icon-bg"></i>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- Attendance Section -->
             <div class="col-md-6">
                 <div class="custom-container">
@@ -193,20 +239,6 @@
                 </div>
             </div>
         @endif
-        <!-- Class Section -->
-        {{-- <div class="col-md-6">
-            <div class="custom-container d-flex flex-column">
-                <h4 class="mb-4">Ringkasan Murid</h4>
-                <div class="d-flex flex-row justify-content-between">
-                    <div class="chart-container d-flex justify-content-center align-items-center">
-                        <canvas id="genderDistributionChart"></canvas>
-                    </div>
-                    <div class="chart-container">
-                        <canvas id="applicationChart"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
     </div>
 </div>
 
@@ -225,7 +257,7 @@
                 data: [boysCount, girlsCount],
                 backgroundColor: ['#bcd2e9', '#dac6dd'],
                 hoverBackgroundColor: ['#bcd2e9', '#dac6dd'],
-                // borderWidth: 0,
+                borderWidth: 0,
             }]
         };
 
@@ -255,9 +287,9 @@
             labels: ['Diterima', 'Ditolak'],
             datasets: [{
                 data: [acceptedCount, rejectedCount],
-                backgroundColor: ['#210203', '#404E4D'],
-                hoverBackgroundColor: ['#210203', '#404E4D'],
-                // borderWidth: 0,
+                backgroundColor: ['#FF8E72', '#FFAF87'],
+                hoverBackgroundColor: ['#FF8E72', '#FFAF87'],
+                borderWidth: 0,
             }]
         };
 
@@ -290,12 +322,10 @@
 <style>
     .custom-container {
         border-radius: 15px;
-        /* background-color: #eaeaeae7; */
         background-color: white;
         padding: 15px;
         margin-bottom: 20px;
         position: relative;
-        /* height: 400px; */
         height: auto;
         display: flex;
         flex-direction: column;
@@ -308,8 +338,8 @@
 
     .chart-container {
         position: relative;
-        width: 48%;  /* Full width */
-        height: 300px; /* Fixed height or adjust as needed */
+        width: 48%; 
+        height: 300px; 
         margin-right: 1%
     }
 
@@ -317,4 +347,29 @@
         width: 100% !important;
         height: 100% !important;
     }
+
+    .class-box {
+        position: relative;
+        min-height: 100px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .class-content {
+        position: relative;
+        z-index: 1;
+    }
+
+    .icon-bg {
+        font-size: 8rem;
+        z-index: 0;
+        right: -4rem;
+        top: 50%;
+        transform: translateY(-50%);
+        opacity: 0.10;
+    }
+
+    .display-4 {
+        font-size: 2.5rem;
+    }
+
 </style>
