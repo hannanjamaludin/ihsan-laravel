@@ -108,7 +108,7 @@
                 <h4 class="mb-4">Permohonan Pendaftaran</h4>
                 @if ($students->isNotEmpty())
                     @foreach ($students as $s)
-                        <div class="card mb-2" style="background-color: #eaeaeae7">
+                        <div class="card mb-3" style="background-color: #f2f1f1e7">
                             <div class="card-body ps-3 pe-1">
                                 <div class="row">
                                     <div class="col-2 text-center">
@@ -125,19 +125,9 @@
                                     <div class="col-10">
                                         <div class="container d-flex align-items-center justify-content-between m-0 p-0">
                                             <h5 class="card-title text-primary">{{ $s->full_name }}</h5> 
-                                            {{-- @if ($s->applicationStatus->status != 1)
-                                                <button id="" type="button" class="btn-close" aria-label="Tutup" data-student-id="{{ $s->id }}"></button>   
-                                            @endif --}}
                                         </div>
                                         <div class="container d-flex align-items-center justify-content-start m-0 p-0">
                                             <div class="card-subtitle text-muted">{{ $s->applicationStatus->updated_at }}</div>   
-                                            {{-- @if ($s->applicationStatus->status === 0)
-                                                <div class="badge bg-danger ms-3" style="background-color: var(--custom-danger-color);">Ditolak</div>
-                                            @elseif ($s->applicationStatus->status === 1)
-                                                <div class="badge bg-success ms-3" style="background-color: var(--custom-success-color);">Diterima</div>
-                                            @elseif ($s->applicationStatus->status === null)
-                                                <div class="badge bg-secondary ms-3" style="background-color: var(--custom-secondary-color);">Dihantar</div>
-                                            @endif                                                  --}}
                                         </div>                                             
                                     </div>
                                 </div>     
@@ -343,7 +333,8 @@
         margin-right: 1%
     }
 
-    #genderDistributionChart, #applicationChart {
+    #genderDistributionChart, 
+    #applicationChart {
         width: 100% !important;
         height: 100% !important;
     }
