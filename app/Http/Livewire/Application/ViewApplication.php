@@ -52,7 +52,9 @@ class ViewApplication extends Component
         $branch = Branch::find($this->student->branch_id);
 
         if ($request->status == 1) {
-            $this->student->update(['is_active' => 1]);
+            $this->student->update([
+                'is_active' => 1,
+            ]);
             $application->update(['status' => 1]);
             $branch->update([
                 'active_students' => $branch->active_students + 1,

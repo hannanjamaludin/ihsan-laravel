@@ -145,6 +145,11 @@
                                             <label class="form-label">Pakej</label>
                                             <input type="text" id="branch_id" class="form-control" value="" placeholder="" required name = "branch_id" disabled>
                                         </div>
+
+                                        <div class="col-4 pl-1">
+                                            <label class="form-label" for="enroll_date">Tarikh Masuk</label>                        
+                                            <input type="date" id="enroll_date" class="form-control" placeholder="" value="" name = "enroll_date" disabled>
+                                        </div>                    
                                     </div>
                                 </div>
                             </div>

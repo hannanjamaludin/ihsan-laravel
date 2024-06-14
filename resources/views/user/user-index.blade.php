@@ -48,11 +48,24 @@
             <div class="col-6">
                 <div class="form-group row">
                     <div class="col-12 pl-1">
-                        <label class="form-label" for="phone_no">No. Tel</label>
-                        @if ($user->user_type == 2)
-                            <input type="text" id="phone_no" class="form-control" placeholder="" value="{{ $user->staffs->phone_no }}" name="phone_no">
+                        @if ($user->user_type == 3 || $user->user_type == 4)
+                            <label class="form-label" for="job">Pekerjaan</label>
+                            <input type="text" id="job" class="form-control" placeholder="" value="{{ $user->parents->job }}" name="job">
                         @else
-                            <input type="text" id="phone_no" class="form-control" placeholder="" value="{{ $user->parents->phone_no }}" name="phone_no">
+                            <label class="form-label" for="position">Jawatan</label>
+                            @if ($user->staffs->branch_id == 1)
+                                @if ($user->staffs->is_admin)
+                                    <input type="text" id="position" class="form-control" placeholder="" value="Ketua Pengasuh" name="position" disabled>
+                                @else
+                                    <input type="text" id="position" class="form-control" placeholder="" value="Pengasuh" name="position" disabled>
+                                @endif
+                            @else
+                                @if ($user->staffs->is_admin)
+                                    <input type="text" id="position" class="form-control" placeholder="" value="Guru besar" name="position" disabled>
+                                @else                                    
+                                    <input type="text" id="position" class="form-control" placeholder="" value="Guru" name="position" disabled>
+                                @endif
+                            @endif
                         @endif
                     </div>
                 </div>
@@ -89,6 +102,33 @@
             <div class="col-6">
                 <div class="form-group row">
                     <div class="col-12 pl-1">
+                        <label class="form-label" for="phone_no">No. Tel</label>
+                        @if ($user->user_type == 2)
+                            <input type="text" id="phone_no" class="form-control" placeholder="" value="{{ $user->staffs->phone_no }}" name="phone_no">
+                        @else
+                            <input type="text" id="phone_no" class="form-control" placeholder="" value="{{ $user->parents->phone_no }}" name="phone_no">
+                        @endif
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="form-group row">
+                    <div class="col-12 pl-1">
+                        <label class="form-label" for="ic_no">No. Kad Pengenalan</label>
+                        @if ($user->user_type == 2)
+                            <input type="text" id="ic_no" class="form-control" placeholder="" value="{{ $user->staffs->ic_no ?? '' }}" name="ic_no">
+                        @else
+                            <input type="text" id="ic_no" class="form-control" placeholder="" value="{{ $user->parents->ic_no ?? '' }}" name="ic_no">
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4 px-3">
+            <div class="col-6">
+                <div class="form-group row">
+                    <div class="col-12 pl-1">
                         <label class="form-label" for="password">Kata Laluan Baharu</label>
                         <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="" autocomplete="new-password">
                         
@@ -110,6 +150,7 @@
                 </div>
             </div>
         </div>
+        
         <div class="row mt-4 px-3">
             <div class="col-12">
                 <div class="form-group row">
@@ -138,9 +179,12 @@
     function update_profile(id){
 
         var phoneNo = $('#phone_no').val();
+        var ic_no = $('#ic_no').val();
         var password = $('#password').val();
+        var job = $('#job').val();
 
         console.log(phoneNo);
+        console.log(ic_no);
         console.log(id);
 
         $.ajax({
@@ -149,7 +193,9 @@
             data: {
                 "_token": "{{ csrf_token() }}",
                 "user_id": id,
+                "job" : job,
                 "phone_no": phoneNo,
+                "ic_no": ic_no,
                 "password": password,
             },
             success: function(response){

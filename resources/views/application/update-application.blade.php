@@ -138,6 +138,7 @@
                 $('#district').val(response.district);
                 $('#postcode').val(response.postcode);
                 $('#branch_id').val(response.branch.branch_name);
+                $('#enroll_date').val(response.enroll_date);
                 
                 $('#mom_full_name').val(response.mom.full_name);
                 $('#mom_job').val(response.mom.job);

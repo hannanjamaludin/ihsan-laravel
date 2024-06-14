@@ -12,8 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
 {
@@ -65,7 +63,65 @@ class UsersController extends Controller
 
     public function updateProfile(Request $request){
 
-        // Log::info('Request method: ' . $request->method());
+        // dd($request->all());
+        Log::info('Request: ', $request->all());
+
+        $user = User::find($request->user_id);
+
+        if ($request->password){
+            $user->update([
+                'password' => Hash::make($request->password),
+            ]);
+        }
+
+        if ($user->user_type == 2){
+            
+            $staff_admin = $request->is_admin == 1 ? 1 : 0;
+
+            Log::info('Staff Admin: ' . $staff_admin);
+            Log::info('Request Admin: ' . $request->is_admin);
+
+            $teacher = Staffs::where('user_id', $user->id)->first();
+            $teacher->update([
+                'ic_no' => $request->ic_no,
+                'phone_no' => $request->phone_no,
+                'is_admin' => $staff_admin,
+            ]);
+            Log::info('updated teacher: ' . $teacher);
+        }
+
+        if ($user->user_type == 3){
+            $mom = Parents::where('user_id', $user->id)
+                            ->where('role_id', 2)
+                            ->first();
+            $mom->update([
+                'ic_no' => $request->ic_no,
+                'phone_no' => $request->phone_no,
+                'job' => $request->job,
+                'staff_no' => $request->staff_no,
+            ]);
+        }
+
+        if ($user->user_type == 4){
+            $dad = Parents::where('user_id', $user->id)
+                            ->where('role_id', 1)
+                            ->first();
+            $dad->update([
+                'ic_no' => $request->ic_no,
+                'phone_no' => $request->phone_no,
+                'job' => $request->job,
+                'staff_no' => $request->staff_no,
+            ]);
+        }
+
+        return response()->json(['success' => true, 'message' => 'Profil telah dikemas kini']);
+    }
+
+    public function updateProfileAdmin(Request $request){
+
+        // dd($request->all());
+        Log::info('Request: ', $request->all());
+
         $user = User::find($request->user_id);
         $user->update([
             'email' => $request->email,
@@ -89,9 +145,11 @@ class UsersController extends Controller
             $teacher->update([
                 'full_name' => $request->full_name,
                 'staff_no' => $request->staff_no,
+                'ic_no' => $request->ic_no,
                 'phone_no' => $request->phone_no,
                 'is_admin' => $staff_admin,
             ]);
+            Log::info('updated teacher: ' . $teacher);
         }
 
         if ($user->user_type == 3){
@@ -101,7 +159,9 @@ class UsersController extends Controller
             $mom->update([
                 'full_name' => $request->full_name,
                 'staff_no' => $request->staff_no,
+                'ic_no' => $request->ic_no,
                 'phone_no' => $request->phone_no,
+                'job' => $request->job,
                 'email' => $request->email,
                 'staff_no' => $request->staff_no,
             ]);
@@ -114,7 +174,9 @@ class UsersController extends Controller
             $dad->update([
                 'full_name' => $request->full_name,
                 'staff_no' => $request->staff_no,
+                'ic_no' => $request->ic_no,
                 'phone_no' => $request->phone_no,
+                'job' => $request->job,
                 'email' => $request->email,
                 'staff_no' => $request->staff_no,
             ]);
