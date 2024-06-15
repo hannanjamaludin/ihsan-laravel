@@ -96,6 +96,8 @@ class ApplicationController extends Controller
 
         try{
             $form_data = session('form_data');
+
+            $userUser = User::findOrFail(Auth::user()->id);
     
             $user = Parents::where('user_id', Auth::user()->id)->first();
     
@@ -131,6 +133,12 @@ class ApplicationController extends Controller
             // dd($parents, $count_parent, $mom, $dad);
     
             if ($user->role_id == 2){
+
+                $userUser->update([
+                    'email' => $form_data['mom_email'],
+                    'staff_no' => $form_data['mom_staff_no'],
+                ]);
+
                 $mom = $user->update([
                     'full_name' => $form_data['mom_full_name'],
                     'email' => $form_data['mom_email'],
@@ -144,7 +152,7 @@ class ApplicationController extends Controller
                     'postcode' => $form_data['m_office_postcode']
                 ]);
     
-                if ($count_parent == 2){
+                if ($count_parent == 2){   
     
                     $dad = $dad->update([
                         'full_name' => $form_data['dad_full_name'],
@@ -179,6 +187,11 @@ class ApplicationController extends Controller
                 }
     
             } else {
+
+                $userUser->update([
+                    'email' => $form_data['dad_email'],
+                    'staff_no' => $form_data['dad_staff_no'],
+                ]);
     
                 $dad = $user->update([
                     'full_name' => $form_data['dad_full_name'],
@@ -346,7 +359,10 @@ class ApplicationController extends Controller
             // calculate age
             $today = new DateTime();
             $dob = new DateTime($s->dob);
-            $age = $dob->diff($today)->y;
+            $diff = $dob->diff($today);
+            $years = $diff->y;
+            $months = $diff->m;
+            $age_display = $years > 0 ? $years . ' Tahun' : $months . ' Bulan';        
 
             $staff_student = null;
 
@@ -386,7 +402,7 @@ class ApplicationController extends Controller
 
             $al_data[] = [
                 'name' => $s->full_name,
-                'age' => $age . ' Tahun',
+                'age' => $age_display,
                 'branch' => $s->branch->branch_name,
                 'staff_student' => $staff_student,
                 'action' => $info_btn . $accept_btn . $reject_btn,
@@ -427,7 +443,10 @@ class ApplicationController extends Controller
             // calculate age
             $today = new DateTime();
             $dob = new DateTime($s->dob);
-            $age = $dob->diff($today)->y;
+            $diff = $dob->diff($today);
+            $years = $diff->y;
+            $months = $diff->m;
+            $age_display = $years > 0 ? $years . ' Tahun' : $months . ' Bulan';        
 
             $staff_student = null;
 
@@ -454,7 +473,7 @@ class ApplicationController extends Controller
                 $action_btn = '<div class="badge bg-primary me-3" style="background-color: var(--custom-primary-color);">
                                     Diterima
                                 </div>';
-                if ($age >= 4 || $s->class_id){
+                if ($years >= 4 || $s->class_id){
                     
                 }
             } else {
@@ -467,7 +486,7 @@ class ApplicationController extends Controller
 
             $updated_app[] = [
                 'name' => $s->full_name,
-                'age' => $age . ' Tahun',
+                'age' => $age_display,
                 'branch' => $s->branch->branch_name,
                 'staff_student' => $staff_student,
                 'updated_at' => $updated_at,

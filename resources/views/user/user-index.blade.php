@@ -180,6 +180,7 @@
 
         var phoneNo = $('#phone_no').val();
         var ic_no = $('#ic_no').val();
+        var staff_no = $('#staff_no').val();
         var password = $('#password').val();
         var job = $('#job').val();
 
@@ -196,6 +197,7 @@
                 "job" : job,
                 "phone_no": phoneNo,
                 "ic_no": ic_no,
+                "staff_no": staff_no,
                 "password": password,
             },
             success: function(response){

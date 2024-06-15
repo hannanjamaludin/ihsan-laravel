@@ -28,7 +28,7 @@
                     </div>
                     <div class="col-4 pl-1">
                         <label class="form-label" for="dob">Tarikh Lahir</label>                        
-                        <input type="date" id="dob" class="form-control" placeholder="" value="{{ old('dob', isset($form_data['dob']) ? $form_data['dob'] : '' ) }}" name = "dob" required>
+                        <input type="date" id="dob" class="form-control" placeholder="" value="{{ old('dob', isset($form_data['dob']) ? $form_data['dob'] : '' ) }}" name = "dob" wire:model="birthdate" required>
                     </div>
                     <div class="col-4 pl-1">
                         <label class="form-label" for="gender">Jantina</label>                        
