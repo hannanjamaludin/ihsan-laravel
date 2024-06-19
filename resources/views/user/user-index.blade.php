@@ -18,7 +18,7 @@
                 <div class="form-group row">
                     <div class="col-12 pl-1">
                         <label class="form-label" for="full_name">Nama Penuh</label>
-                        @if ($user->user_type == 2)
+                        @if ($user->user_type == 1 || $user->user_type == 2)
                             <input type="text" id="full_name" class="form-control" placeholder="" value="{{ $user->staffs->full_name }}" name="full_name" disabled>
                         @else
                             <input type="text" id="full_name" class="form-control" placeholder="" value="{{ $user->parents->full_name }}" name="full_name" disabled>
@@ -59,12 +59,14 @@
                                 @else
                                     <input type="text" id="position" class="form-control" placeholder="" value="Pengasuh" name="position" disabled>
                                 @endif
-                            @else
+                            @elseif ($user->staffs->branch_id == 2)
                                 @if ($user->staffs->is_admin)
                                     <input type="text" id="position" class="form-control" placeholder="" value="Guru besar" name="position" disabled>
                                 @else                                    
                                     <input type="text" id="position" class="form-control" placeholder="" value="Guru" name="position" disabled>
                                 @endif
+                            @else {{-- Admin --}}
+                                <input type="text" id="position" class="form-control" placeholder="" value="Admin" name="position" disabled>
                             @endif
                         @endif
                     </div>
@@ -86,11 +88,11 @@
                     <div class="form-group row">
                         <div class="col-12 pl-1">
                             @if ($user->staffs->branch->id == 1)
-                                <label class="form-label" for="assignedClass">Pengasuh</label>
-                                <input type="text" id="assignedClass" class="form-control" placeholder="" value="{{ $user->staffs->assignedClass->class_name }}" name="assignedClass" disabled>
+                                <label class="form-label" for="assignedClass">Pengasuh Bilik</label>
+                                <input type="text" id="assignedClass" class="form-control" placeholder="" value="{{ $user->staffs->assignedClass->class_name ?? ' '}}" name="assignedClass" disabled>
                             @else
                                 <label class="form-label" for="assignedClass">Guru Kelas</label>
-                                <input type="text" id="assignedClass" class="form-control" placeholder="" value="{{ $user->staffs->assignedClass->age }} {{ $user->staffs->assignedClass->class_name }}" name="assignedClass" disabled>
+                                <input type="text" id="assignedClass" class="form-control" placeholder="" value="{{ $user->staffs->assignedClass->age ?? '' }} {{ $user->staffs->assignedClass->class_name ?? '' }}" name="assignedClass" disabled>
                             @endif
                         </div>
                     </div>
@@ -103,7 +105,7 @@
                 <div class="form-group row">
                     <div class="col-12 pl-1">
                         <label class="form-label" for="phone_no">No. Tel</label>
-                        @if ($user->user_type == 2)
+                        @if ($user->user_type == 1 || $user->user_type == 2)
                             <input type="text" id="phone_no" class="form-control" placeholder="" value="{{ $user->staffs->phone_no }}" name="phone_no">
                         @else
                             <input type="text" id="phone_no" class="form-control" placeholder="" value="{{ $user->parents->phone_no }}" name="phone_no">
@@ -115,7 +117,7 @@
                 <div class="form-group row">
                     <div class="col-12 pl-1">
                         <label class="form-label" for="ic_no">No. Kad Pengenalan</label>
-                        @if ($user->user_type == 2)
+                        @if ($user->user_type == 1 || $user->user_type == 2)
                             <input type="text" id="ic_no" class="form-control" placeholder="" value="{{ $user->staffs->ic_no ?? '' }}" name="ic_no">
                         @else
                             <input type="text" id="ic_no" class="form-control" placeholder="" value="{{ $user->parents->ic_no ?? '' }}" name="ic_no">

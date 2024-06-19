@@ -8,6 +8,7 @@ use App\Models\Month;
 use App\Models\Staffs;
 use App\Models\Students;
 use App\Models\TadikaClass;
+use App\Models\User;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
@@ -114,6 +115,13 @@ class ClassController extends Controller
     }
 
     public function studentClass(){
+
+        $admin = User::where('user_type', 1)
+                        ->whereHas('staffs', function ($query){
+                            $query->where('user_id', Auth::user()->id);
+                        })->first();
+        
+                        // dd($admin);
         $teacher = Staffs::where('user_id', Auth::user()->id)->first();
 
         if($teacher->branch_id == 1){
@@ -125,7 +133,8 @@ class ClassController extends Controller
         // dd($class);
         return view('student.student-class', [
             'classes' => $classes,
-            'teacher' => $teacher
+            'teacher' => $teacher,
+            'admin' => $admin
         ]);
     }
 

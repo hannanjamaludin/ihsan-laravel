@@ -19,6 +19,7 @@ class UsersDummySeeder extends Seeder
             'email' => 'admin@example.com',
             'password' => bcrypt('12345678'),
             'user_type' => 1,
+            'staff_no' => 'UTM180032',
         ]);
     }
 }

@@ -21,7 +21,7 @@ class UsersController extends Controller
 
         $user_role = null;
 
-        if ($user->user_type == 2){
+        if ($user->user_type == 1 || $user->user_type == 2){
             // $user_role = User::where('id', $user->id)->with('staffs')->first();
             $user_role = User::where('id', $user->id)->with(['staffs.branch', 'staffs.assignedClass'])->first();
 
@@ -74,7 +74,7 @@ class UsersController extends Controller
             ]);
         }
 
-        if ($user->user_type == 2){
+        if ($user->user_type == 1 || $user->user_type == 2){
             
             $staff_admin = $request->is_admin == 1 ? 1 : 0;
 
@@ -134,7 +134,7 @@ class UsersController extends Controller
             ]);
         }
 
-        if ($user->user_type == 2){
+        if ($user->user_type == 1 || $user->user_type == 2){
             
             $staff_admin = $request->is_admin == 1 ? 1 : 0;
 
@@ -384,6 +384,7 @@ class UsersController extends Controller
                 'name' => $name->full_name,
                 'email' => $user->email,
                 'user_type' => $user_type,
+                'last_access' => $user->last_login_at,
                 'action' => $edit_btn . $delete_btn,
             ];
         }

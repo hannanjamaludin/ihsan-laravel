@@ -40,7 +40,7 @@
                 
                 <li class="nav-item dropdown">
                     <a id="navbarDropdown" class="nav-link dropdown-toggle text-primary" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        @if (Auth::user()->user_type == 2)
+                        @if (Auth::user()->user_type == 1 || Auth::user()->user_type == 2)
                         {{ Auth::user()->staffs->full_name }}
                         @elseif (Auth::user()->user_type == 3 || Auth::user()->user_type == 4)
                         {{ Auth::user()->parents->full_name }}

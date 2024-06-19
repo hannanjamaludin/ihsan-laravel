@@ -16,15 +16,27 @@
                     </li>
                     @if ($role->user_type == 1)
                         <li class="nav-item py-2 py-sm-1">
-                            <a href="{{ route('pengguna.index_admin') }}" class="nav-link text-primary {{ request()->routeIs('pengguna.index_admin') || request()->routeIs('pengguna.kemaskini_pengguna') ? 'active' : '' }}">
+                            <a href="{{ route('pengguna.index') }}" class="nav-link text-primary {{ request()->routeIs('pengguna.index') ? 'active' : '' }}">
                                 <i class="fs-5 fa fa-user-secret"></i>
                                 <span class="fs-5 ms-3 d-none d-sm-inline">Profil Pengguna</span>
+                            </a>
+                        </li>
+                        <li class="nav-item py-2 py-sm-1">
+                            <a href="{{ route('pengguna.index_admin') }}" class="nav-link text-primary {{ request()->routeIs('pengguna.index_admin') || request()->routeIs('pengguna.kemaskini_pengguna') ? 'active' : '' }}">
+                                <i class="fs-5 fa fa-users"></i>
+                                <span class="fs-5 ms-3 d-none d-sm-inline">Pengurusan Pengguna</span>
                             </a>
                         </li>
                         <li class="nav-item py-2 py-sm-1">
                             <a href="{{ route('pendaftaran.permohonan') }}" class="nav-link text-primary {{ request()->routeIs('pendaftaran.permohonan') ? 'active' : '' }}">
                                 <i class="fs-5 fa fa-list-check"></i>
                                 <span class="fs-5 ms-3 d-none d-sm-inline">Permohonan Pendaftaran</span>
+                            </a>
+                        </li>
+                        <li class="nav-item py-2 py-sm-1">
+                            <a href="{{ route('kelas.kelas') }}" class="nav-link text-primary {{ request()->routeIs('kelas.kelas') || request()->routeIs('kelas.kelas_detail') ? 'active' : '' }}">
+                                <i class="fs-5 fa fa-graduation-cap"></i>
+                                <span class="fs-5 ms-3 d-none d-sm-inline">Bilik & Kelas</span>
                             </a>
                         </li>
                     @else

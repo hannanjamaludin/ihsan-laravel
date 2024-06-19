@@ -1,88 +1,114 @@
 @extends('layouts.auth-app')
 @section('content')
 
-<div class="row" id="collection-summary">        
-    <div class="col-xl-12">
-        <div class="row justify-content-center align-items-center">
-        
-            @php
-                $icons = [
-                    'fa-robot',
-                    'fa-puzzle-piece',
-                    'fa-cookie-bite',
-                    'fa-shapes',
-                    'fa-cubes-stacked',
-                ];
-            @endphp
-
-            @foreach ($classes as $index => $class)
-                <div class="col-5 col-sm-2 col-md-2 d-flex mb-g">                                            
-                    <div class="bg-white rounded p-0 m-0 d-flex flex-column w-100 h-100 js-showcase-icon" style="border: 1px solid #3d5cbc1f; box-shadow: 1px 2px 20px 0px rgb(3 0 71 / 9%);">                                                
-                        <div class="rounded-top w-100">                                                    
-                            <div class="d-flex align-items-center justify-content-center w-100 pt-3 pb-3 pr-2 pl-2 fa-3x"> 
-                                <i class="text-primary fa {{ $icons[$index % count($icons)] }}"></i>
-                            </div>
-                            <div class="d-flex flex-column align-items-center justify-content-center">                                    
-                                <span class="fw-300 fs-xs d-block opacity-50"></span>     
-                                <h4 class="fw-bold" id="class{{ $index + 1 }}">{{ $class->total_students }}</h4>
-                            </div>                                                                                                                                           
-                        </div>                                     
-                        <div class="rounded-bottom p-1 w-300 d-flex justify-content-center align-items-center text-center">                                                                         
-                            <div class="d-block fw-normal">{{ $class->age }} {{ $class->class_name }}</div>                                                
-                        </div>                                            
-                    </div>                                        
-                </div>
-            @endforeach
-                     
-        </div>
-    </div>
-</div>
-
-<div class="row mt-4">
-    <div class="col-12">
-       
-        <div class="card mb-4 mx-3">
-            <div class="card-header bg-primary">
-                @if ($teacher->branch_id == 1)
-                    <div class="card-title text-light">Pengurusan Bilik Taska Ihsan</div>
-                @else
-                    <div class="card-title text-light">Pengurusan Kelas Tadika Ihsan</div>
-                @endif
-            </div>
+@if ($teacher->branch_id == 1 || $teacher->branch_id == 2)
+    <div class="row" id="collection-summary">        
+        <div class="col-xl-12">
+            <div class="row justify-content-center align-items-center">
             
-            <div class="card-body px-3 pt-2 pb-4 w-auto">
-                <div class="mt-3 text-center text-primary">
-                    <div>
-                        @if ($teacher->branch_id == 1)
-                            <table id="room_list" class="table table-bordered table-hover table-striped w-100">
-                        @else
-                            <table id="class_list" class="table table-bordered table-hover table-striped w-100">
-                        @endif
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    @if ($teacher->branch_id == 1)
-                                        <th>Bilik</th>
-                                    @else
-                                        <th>Kelas</th>
-                                    @endif
-                                    <th>Kapasiti</th>
-                                    <th>Jumlah Murid</th>
-                                    <th>Tindakan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
+                @php
+                    $icons = [
+                        'fa-robot',
+                        'fa-puzzle-piece',
+                        'fa-cookie-bite',
+                        'fa-shapes',
+                        'fa-cubes-stacked',
+                    ];
+                @endphp
+
+                @foreach ($classes as $index => $class)
+                    <div class="col-5 col-sm-2 col-md-2 d-flex mb-g">                                            
+                        <div class="bg-white rounded p-0 m-0 d-flex flex-column w-100 h-100 js-showcase-icon" style="border: 1px solid #3d5cbc1f; box-shadow: 1px 2px 20px 0px rgb(3 0 71 / 9%);">                                                
+                            <div class="rounded-top w-100">                                                    
+                                <div class="d-flex align-items-center justify-content-center w-100 pt-3 pb-3 pr-2 pl-2 fa-3x"> 
+                                    <i class="text-primary fa {{ $icons[$index % count($icons)] }}"></i>
+                                </div>
+                                <div class="d-flex flex-column align-items-center justify-content-center">                                    
+                                    <span class="fw-300 fs-xs d-block opacity-50"></span>     
+                                    <h4 class="fw-bold" id="class{{ $index + 1 }}">{{ $class->total_students }}</h4>
+                                </div>                                                                                                                                           
+                            </div>                                     
+                            <div class="rounded-bottom p-1 w-300 d-flex justify-content-center align-items-center text-center">                                                                         
+                                <div class="d-block fw-normal">{{ $class->age }} {{ $class->class_name }}</div>                                                
+                            </div>                                            
+                        </div>                                        
                     </div>
-                    
+                @endforeach
+                        
+            </div>
+        </div>
+    </div>
+@endif
+
+@if ($teacher->branch_id == 1 || $admin)
+    <div class="row mt-4">
+        <div class="col-12">
+        
+            <div class="card mb-4 mx-3">
+                <div class="card-header bg-primary">
+                    <div class="card-title text-light">Pengurusan Bilik Taska Ihsan</div>
+                </div>
+                
+                <div class="card-body px-3 pt-2 pb-4 w-auto">
+                    <div class="mt-3 text-center text-primary">
+                        <div>
+                            <table id="room_list" class="table table-bordered table-hover table-striped w-100">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Bilik</th>
+                                        <th>Kapasiti</th>
+                                        <th>Jumlah Murid</th>
+                                        <th>Tindakan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
                 </div>
             </div>
         </div>
-    
     </div>
+@endif
 
-</div>
+@if ($teacher->branch_id == 2 || $admin)   
+    <div class="row mt-4">
+        <div class="col-12">
+        
+            <div class="card mb-4 mx-3">
+                <div class="card-header bg-primary">
+                <div class="card-title text-light">Pengurusan Kelas Tadika Ihsan</div>
+                </div>
+                
+                <div class="card-body px-3 pt-2 pb-4 w-auto">
+                    <div class="mt-3 text-center text-primary">
+                        <div>
+                            <table id="class_list" class="table table-bordered table-hover table-striped w-100">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>Kelas</th>
+                                        <th>Kapasiti</th>
+                                        <th>Jumlah Murid</th>
+                                        <th>Tindakan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+
+    </div>
+@endif
 
 <livewire:staff.edit-class />
 

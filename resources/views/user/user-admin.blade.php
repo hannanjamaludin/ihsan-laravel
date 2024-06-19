@@ -30,6 +30,7 @@
                                     <th>Nama</th>
                                     <th>Alamat E-mel</th>
                                     <th>Jenis Pengguna</th>
+                                    <th>Akses Terakhir</th>
                                     <th>Tindakan</th>
                                 </tr>
                             </thead>
@@ -79,6 +80,9 @@
                     render: function(data, type, row) {
                         return type === 'display' ? $('<div/>').html(data).text() : data;
                     }
+                },
+                {
+                    data: 'last_access',
                 },
                 {
                     data: 'action',

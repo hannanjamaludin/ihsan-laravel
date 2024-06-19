@@ -23,6 +23,7 @@ class User extends Authenticatable
         'password',
         'user_type',
         'staff_no',
+        'last_login_at'
     ];
 
     /**
@@ -59,6 +60,10 @@ class User extends Authenticatable
 
     public function children(){
         return $this->hasMany(Students::class, 'user_id', 'id');
+    }
+
+    public function scopeActiveUsers($query, $days = 30){
+        return $query->where('last_login_at', '>=', now()->subDays($days));
     }
 
 }
