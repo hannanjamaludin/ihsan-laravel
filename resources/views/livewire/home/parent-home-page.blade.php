@@ -76,11 +76,19 @@
                                     <div class="col-2 text-center">
                                         @if ($s->gender == 'lelaki')
                                             <div class="rounded-circle mx-auto shadow-lg" style="background-color: #bcd2e9; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center;">
-                                                <i class="fas fa-child" style="font-size: 30px;"></i>
+                                                @if ($s->branch_id == 1)
+                                                    <i class="fas fa-baby" style="font-size: 30px;"></i>
+                                                @else
+                                                    <i class="fas fa-child" style="font-size: 30px;"></i>
+                                                @endif
                                             </div>
                                         @else
                                             <div class="rounded-circle mx-auto shadow-lg" style="background-color: #dac6dd; width: 50px; height: 50px; display: flex; justify-content: center; align-items: center;">
-                                                <i class="fas fa-child-dress" style="font-size: 30px;"></i>
+                                                @if ($s->branch_id == 1)
+                                                    <i class="fas fa-baby" style="font-size: 30px;"></i>
+                                                @else
+                                                    <i class="fas fa-child-dress" style="font-size: 30px;"></i>
+                                                @endif
                                             </div>
                                         @endif
                                     </div>

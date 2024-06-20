@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Livewire\Student\StudentTadikaActivity;
 use App\Models\Staffs;
 use App\Models\Students;
+use App\Models\TadikaActivity;
+use App\Models\TadikaClass;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -66,11 +70,35 @@ class StudentController extends Controller
         $teacher = Staffs::where('user_id', Auth::user()->id)
                         ->with('assignedClass')
                         ->first();
+
+        $class = TadikaClass::with('teacher')
+                            ->where('id', $teacher->class_room)
+                            ->first();
         
+        $today = Carbon::now();
+                
         // dd($teacher);
 
         return view('student.student-activity', [
             'teacher' => $teacher,
+            'class' => $class,
+            'today' => $today
         ]);
     }
+
+    // public function storeTadikaActivity($class_id, $today, Request $request){
+
+    //     $class = TadikaClass::with('teacher')->findOrFail($class_id);
+
+    //     $activity = TadikaActivity::create([
+    //         'class_id' => $class_id,
+    //         'teacher_id' => $class->teacher->id,
+    //         'subject_id' => $request->subject,
+    //         'learning' => $request->learning,
+    //         'activity' => $request->activity,
+    //         'date' => $today,
+    //     ]);
+
+    //     return response()->json(['success' => true]);
+    // }
 }

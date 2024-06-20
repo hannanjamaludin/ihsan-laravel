@@ -86,6 +86,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/profil/{studentId}', [StudentController::class, 'profileDetail'])->name('detail');
         Route::post('/kemaskini-profil/{studentId}', [StudentController::class, 'updateStudent'])->name('kemaskini_profil');
         Route::get('/aktiviti-harian', [StudentController::class, 'studentActivity'])->name('aktiviti_harian');
+        // Route::post('/tadika-simpan/{class_id}/{today}', [StudentController::class, 'storeTadikaActivity'])->name('tadika_simpan');
     });
 
     Route::prefix('kelas')->as('kelas.')->group(function () {
