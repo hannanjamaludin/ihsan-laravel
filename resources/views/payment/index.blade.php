@@ -25,9 +25,23 @@
                                     <div class="card-body px-3 py-2 w-auto">
                                         <div class="row">
                                             <div class="col-2 text-center">
-                                                <div class="rounded-circle mx-auto bg-secondary shadow-lg" style="width: 75px; height: 75px; display: flex; justify-content: center; align-items: center;">
-                                                    <i class="fas fa-user" style="font-size: 40px;"></i>
-                                                </div>
+                                                @if ($s->gender == 'lelaki')
+                                                    <div class="rounded-circle mx-auto shadow-lg" style="background-color: #bcd2e9; width: 75px; height: 75px; display: flex; justify-content: center; align-items: center;">
+                                                        @if ($s->branch_id == 1)
+                                                            <i class="fas fa-baby" style="font-size: 40px;"></i>
+                                                        @else
+                                                            <i class="fas fa-child" style="font-size: 40px;"></i>
+                                                        @endif
+                                                    </div>
+                                                @else
+                                                    <div class="rounded-circle mx-auto shadow-lg" style="background-color: #dac6dd; width: 75px; height: 75px; display: flex; justify-content: center; align-items: center;">
+                                                        @if ($s->branch_id == 1)
+                                                            <i class="fas fa-baby" style="font-size: 40px;"></i>
+                                                        @else
+                                                            <i class="fas fa-child-dress" style="font-size: 40px;"></i>
+                                                        @endif
+                                                    </div>
+                                                @endif
                                             </div>
                                             <div class="col-8 pt-2">
                                                 <div class="container d-flex align-items-center justify-content-between m-0 p-0">

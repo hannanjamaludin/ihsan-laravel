@@ -235,7 +235,15 @@ class ClassController extends Controller
 
             $today = new DateTime();
             $dob = new DateTime($student->dob);
-            $age = $dob->diff($today)->y;
+            $diff = $dob->diff($today);
+            // $age = $dob->diff($today)->y;
+            $age = $today->format('Y') - $dob->format('Y');
+            if ($age > 0){
+                $age_display = $age . ' Tahun';        
+            } else {
+                $months = $diff->m;
+                $age_display = $months . ' Bulan';
+            }
 
             $delete_btn = '<button type="button" class="btn btn-primary me-3 px-2 pb-1 pt-0" 
                                 title="Buang Murid daripada kelas" onclick="removeStudentFromClass('.  $student->id . ');">
@@ -245,7 +253,7 @@ class ClassController extends Controller
             $student_list[] = [
                 'name' => $student->full_name,
                 'gender' => $student->gender,
-                'age' => $age . ' Tahun',
+                'age' => $age_display,
                 'enroll_date' => $student->enroll_date,
                 'action' => $delete_btn
             ];
@@ -258,19 +266,30 @@ class ClassController extends Controller
         
         $class = TadikaClass::findOrFail($request->class_id);
 
-        $students = Students::where('branch_id', $class->branch)->where('class_id', null)->get();
+        $students = Students::where('branch_id', $class->branch)
+                                ->where('is_active', 1)
+                                ->where('class_id', null)
+                                ->get();
 
         $student_list = [];
 
         foreach ($students as $student){
             $today = new DateTime();
             $dob = new DateTime($student->dob);
-            $age = $dob->diff($today)->y;
+            $diff = $dob->diff($today);
+            // $age = $dob->diff($today)->y;
+            $age = $today->format('Y') - $dob->format('Y');
+            if ($age > 0){
+                $age_display = $age . ' Tahun';        
+            } else {
+                $months = $diff->m;
+                $age_display = $months . ' Bulan';
+            }
 
             $student_list[] = [
                 'name' => $student->full_name,
                 'gender' => $student->gender,
-                'age' => $age . ' Tahun',
+                'age' => $age_display,
                 'enroll_date' => $student->enroll_date,
                 'id' => $student->id
             ];

@@ -29,7 +29,7 @@
                             <thead>
                                 <tr>
                                     <th>No.</th>
-                                    <th>Nama</th>
+                                    <th style="white-space: nowrap !important;">Nama</th>
                                     <th>Jantina</th>
                                     <th>Umur</th>
                                     <th>Tarikh Masuk</th>

@@ -28,6 +28,7 @@ class StaffHomePage extends Component
                             })
                             // ->with('mom', 'dad', 'branch', 'applicationStatus')
                             ->with('mom', 'dad', 'branch')
+                            ->orderBy('updated_at', 'desc')
                             ->take(3)
                             ->get();
 

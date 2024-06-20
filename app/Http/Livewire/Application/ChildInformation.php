@@ -13,7 +13,7 @@ class ChildInformation extends Component
     public $birthdate;
     public $age;
     public $branch;
-    public $filteredBranch;
+    public $filteredBranch = null;
     public $states;
     public $district;
     public $selectState;
@@ -25,18 +25,23 @@ class ChildInformation extends Component
     {
         $today = new DateTime();
         $dob = new DateTime($this->birthdate);
-        $this->age = $dob->diff($today)->y;
+        $this->age = $today->format('Y') - $dob->format('Y');
 
-        if ($this->age > 3){
+        if ($this->age > 4){
             $this->filteredBranch = 2;
-        } else {
+        } else if ($this->age < 4){
             $this->filteredBranch = 1;
+        } else {
+            $this->filteredBranch = null;
         }
 
         $this->branch = Branch::when($this->birthdate != null, function ($query){
                                     $query->where('id', $this->filteredBranch);
+                                    // dd('masuk');
                                 })
                                 ->get();
+
+                                // dd($this->branch);
 
         $this->states = State::get();
 

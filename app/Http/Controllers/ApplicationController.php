@@ -360,9 +360,14 @@ class ApplicationController extends Controller
             $today = new DateTime();
             $dob = new DateTime($s->dob);
             $diff = $dob->diff($today);
-            $years = $diff->y;
-            $months = $diff->m;
-            $age_display = $years > 0 ? $years . ' Tahun' : $months . ' Bulan';        
+            // $age = $dob->diff($today)->y;
+            $age = $today->format('Y') - $dob->format('Y');
+            if ($age > 0){
+                $age_display = $age . ' Tahun';        
+            } else {
+                $months = $diff->m;
+                $age_display = $months . ' Bulan';
+            }
 
             $staff_student = null;
 
@@ -444,9 +449,14 @@ class ApplicationController extends Controller
             $today = new DateTime();
             $dob = new DateTime($s->dob);
             $diff = $dob->diff($today);
-            $years = $diff->y;
-            $months = $diff->m;
-            $age_display = $years > 0 ? $years . ' Tahun' : $months . ' Bulan';        
+            // $age = $dob->diff($today)->y;
+            $age = $today->format('Y') - $dob->format('Y');
+            if ($age > 0){
+                $age_display = $age . ' Tahun';        
+            } else {
+                $months = $diff->m;
+                $age_display = $months . ' Bulan';
+            }
 
             $staff_student = null;
 
@@ -473,9 +483,6 @@ class ApplicationController extends Controller
                 $action_btn = '<div class="badge bg-primary me-3" style="background-color: var(--custom-primary-color);">
                                     Diterima
                                 </div>';
-                if ($years >= 4 || $s->class_id){
-                    
-                }
             } else {
                 $action_btn = '<div class="badge bg-secondary me-3" style="background-color: var(--custom-secondary-color);">
                                     Ditolak
