@@ -28,20 +28,19 @@ class ChildInformation extends Component
         $this->age = $today->format('Y') - $dob->format('Y');
 
         if ($this->age > 4){
-            $this->filteredBranch = 2;
+            $this->filteredBranch = [2];
         } else if ($this->age < 4){
-            $this->filteredBranch = 1;
+            $this->filteredBranch = [1];
         } else {
-            $this->filteredBranch = null;
+            $this->filteredBranch = [1, 2];
         }
 
         $this->branch = Branch::when($this->birthdate != null, function ($query){
-                                    $query->where('id', $this->filteredBranch);
-                                    // dd('masuk');
+                                    $query->whereIn('id', $this->filteredBranch);
                                 })
                                 ->get();
 
-                                // dd($this->branch);
+        // dd($this->age, $this->branch);
 
         $this->states = State::get();
 
