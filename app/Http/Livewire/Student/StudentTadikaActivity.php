@@ -3,12 +3,11 @@
 namespace App\Http\Livewire\Student;
 
 use App\Models\Attendance;
-use App\Models\Staffs;
 use App\Models\Students;
 use App\Models\Subject;
 use App\Models\TadikaActivity;
+use App\Models\TadikaActivityStudent;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class StudentTadikaActivity extends Component
@@ -24,16 +23,26 @@ class StudentTadikaActivity extends Component
     public $subject;
     public $learning;
     public $activity;
-    public $student_name;
+    public $student_id;
     public $comment;
 
     public $submitted = false;
+    public $submittedActivities = [];
 
     public function mount($class, $today)
     {
         $this->class = $class;
         $this->formattedDate = $today->format('d/m/Y');
         $this->today = Carbon::createFromFormat('d/m/Y', $this->formattedDate)->format('Y-m-d');
+        $this->loadSubmittedActivities();
+    }
+
+    public function loadSubmittedActivities(){
+        $this->submittedActivities = TadikaActivity::where('class_id', $this->class->id)
+                                                    ->where('date', $this->today)
+                                                    ->with('subjects')
+                                                    ->get();
+
     }
 
     public function submitForm(){
@@ -41,22 +50,32 @@ class StudentTadikaActivity extends Component
             'subject' => 'required',
             'learning' => 'required',
             'activity' => 'required',
-            'student_name' => 'nullable',
+            'student_id' => 'nullable',
             'comment' => 'nullable',
         ]);
 
         $class = $this->class;
 
-        TadikaActivity::create([
-            'class_id' => $class->id,
-            'teacher_id' => $class->teacher->id,
-            'subject_id' => $this->subject,
-            'learning' => $this->learning,
-            'activity' => $this->activity,
-            'date' => $this->today,
-        ]);
+        $tadika_activity = TadikaActivity::create([
+                                'class_id' => $class->id,
+                                'teacher_id' => $class->teacher->id,
+                                'subject_id' => $this->subject,
+                                'learning' => $this->learning,
+                                'activity' => $this->activity,
+                                'date' => $this->today,
+                            ]);
+
+        if ($tadika_activity && $this->student_id != null){
+            TadikaActivityStudent::create([
+                'student_id' => $this->student_id,
+                'activity_id' => $tadika_activity->id,
+                'comment' => $this->comment,
+                'teacher_id' => $tadika_activity->teacher_id,
+            ]);
+        }
 
         $this->submitted = true;
+        $this->loadSubmittedActivities();
 
         // Emit event for sweetAlert
         $this->emit('formSubmitted');
@@ -76,17 +95,21 @@ class StudentTadikaActivity extends Component
                                         ->with('student')
                                         ->get();
                                                         
-        } else {
-            $this->students = Students::where('class_id', $this->class->id)->get();
-        }
+        } 
+        // else {
+        //     $this->students = Students::where('class_id', $this->class->id)->get();
+        // }
 
         $subjects = Subject::get();
+
+        // dd($this->submittedActivities);
 
         return view('livewire.student.student-tadika-activity', [
             'class' => $this->class,
             'formattedDate' => $this->formattedDate,
             'presentStudents' => $this->presentStudents,
-            'subjects' => $subjects
+            'subjects' => $subjects,
+            'submittedActivities' => $this->submittedActivities,
         ]);
     }
 }

@@ -18,4 +18,8 @@ class TadikaActivity extends Model
         'activity',
         'date'
     ];
+
+    public function subjects(){
+        return $this->hasOne(Subject::class, 'id', 'subject_id');
+    }
 }

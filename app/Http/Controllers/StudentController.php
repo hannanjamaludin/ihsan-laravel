@@ -6,6 +6,7 @@ use App\Http\Livewire\Student\StudentTadikaActivity;
 use App\Models\Staffs;
 use App\Models\Students;
 use App\Models\TadikaActivity;
+use App\Models\TadikaActivityStudent;
 use App\Models\TadikaClass;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -86,19 +87,23 @@ class StudentController extends Controller
         ]);
     }
 
-    // public function storeTadikaActivity($class_id, $today, Request $request){
+    public function datatable_submitted_tadika_activity(Request $request){
 
-    //     $class = TadikaClass::with('teacher')->findOrFail($class_id);
+        $activities = TadikaActivityStudent::where('activity_id', $request->submittedActivity_id)
+                                            ->with('student')
+                                            ->get();
 
-    //     $activity = TadikaActivity::create([
-    //         'class_id' => $class_id,
-    //         'teacher_id' => $class->teacher->id,
-    //         'subject_id' => $request->subject,
-    //         'learning' => $request->learning,
-    //         'activity' => $request->activity,
-    //         'date' => $today,
-    //     ]);
+        $student_list = [];
 
-    //     return response()->json(['success' => true]);
-    // }
+        foreach($activities as $activity){
+            $student_list[] = [
+                'name' => $activity->student->full_name,
+                'comment' => $activity->comment,
+                'action' => 'Action'
+            ];
+        }
+
+        return datatables()->of($student_list)->addIndexColumn()->make();
+    }
+
 }
