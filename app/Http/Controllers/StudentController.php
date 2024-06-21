@@ -87,23 +87,4 @@ class StudentController extends Controller
         ]);
     }
 
-    public function datatable_submitted_tadika_activity(Request $request){
-
-        $activities = TadikaActivityStudent::where('activity_id', $request->submittedActivity_id)
-                                            ->with('student')
-                                            ->get();
-
-        $student_list = [];
-
-        foreach($activities as $activity){
-            $student_list[] = [
-                'name' => $activity->student->full_name,
-                'comment' => $activity->comment,
-                'action' => 'Action'
-            ];
-        }
-
-        return datatables()->of($student_list)->addIndexColumn()->make();
-    }
-
 }
