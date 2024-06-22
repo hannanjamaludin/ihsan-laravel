@@ -77,8 +77,6 @@ class StudentController extends Controller
                             ->first();
         
         $today = Carbon::now();
-                
-        // dd($teacher);
 
         return view('student.student-activity', [
             'teacher' => $teacher,

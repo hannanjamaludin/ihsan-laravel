@@ -54,10 +54,7 @@ class StudentTadikaActivity extends Component
                                             ->where('date', $this->today)
                                             ->first();
 
-        // dd($tadika_activity);
-
         if (!$tadika_activity){
-            // dd('masuk no existing activity');
 
             $tadika_activity = TadikaActivity::create([
                 'class_id' => $this->class->id,
@@ -68,20 +65,17 @@ class StudentTadikaActivity extends Component
                 'date' => $this->today,
             ]);
         } else {
-            // dd('masuk 1');
             $this->subject = $tadika_activity->subject_id;
             $this->learning = $tadika_activity->learning;
             $this->activity = $tadika_activity->activity;
         }
 
         if ($this->student_id){
-            // dd('masuk 2');
             $existingPerformance = TadikaActivityStudent::where('activity_id', $tadika_activity->id)
                                                             ->where('student_id', $this->student_id)
                                                             ->first();
 
             if (!$existingPerformance){
-                // dd('masuk 3');
 
                 TadikaActivityStudent::create([
                     'student_id' => $this->student_id,
@@ -89,11 +83,14 @@ class StudentTadikaActivity extends Component
                     'comment' => $this->comment,
                     'teacher_id' => $tadika_activity->teacher_id,
                 ]);
-            } else {
-                // dd('masuk 4');
 
+                $this->emit('formSubmitted', 'success', 'Komen murid berjaya disimpan');
+
+            } else {
                 session()->flash('message', 'Murid ini sudah diberi komen');
             }
+        } else {
+            $this->emit('formSubmitted', 'success', 'Aktiviti berjaya disimpan');
         }
 
         $this->resetForm();
@@ -118,14 +115,11 @@ class StudentTadikaActivity extends Component
                                             
         } 
 
-        // dd($this->subject, $this->learning, $this->activity);
-
         $subjects = Subject::get();
 
         $this->tadika_activity = TadikaActivity::where('class_id', $this->class->id)
                                     ->where('date', $this->today)
                                     ->first();
-                                    // dd($this->tadika_activity);
 
         if ($this->tadika_activity) {
             $this->students = TadikaActivityStudent::where('activity_id', $this->tadika_activity->id)

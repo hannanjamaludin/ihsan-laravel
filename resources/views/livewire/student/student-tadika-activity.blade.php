@@ -24,8 +24,6 @@
 
         @if ($attendance->isNotEmpty())
             <form wire:submit.prevent="submitForm" class="px-2">
-                @csrf
-            {{-- <form class="px-2"> --}}
         
                 {{-- Class Activity --}}
                 <h5 class="mt-4">Aktiviti</h5>
@@ -81,7 +79,6 @@
                         <label class="form-label" for="student_id">Nama:</label>
                     </div>
                     <div class="col-11">
-                        {{-- <select class="form-select" id="student_id" wire:model="student_id" name="student_id"> --}}
                         <select class="form-select" id="student_id" name="student_id" wire:model="student_id">
                             <option value="">Sila pilih murid</option>
                             @foreach ($presentStudents as $student)
@@ -96,13 +93,11 @@
                         <label class="form-label" for="comment">Komen:</label>
                     </div>
                     <div class="col-11">
-                        {{-- <input type="text" id="comment" class="form-control" placeholder="Nyatakan prestasi murid" wire:model="comment"> --}}
                         <input type="text" id="comment" class="form-control" placeholder="Nyatakan prestasi murid" wire:model="comment">
                     </div>
                 </div>
 
                 <div class="col-12 d-flex justify-content-end my-4">
-                    {{-- <button type="submit" class="btn btn-primary btn-hantar" wire:click="submitForm()">Hantar</button> --}}
                     <button type="submit" class="btn btn-primary btn-hantar">Hantar</button>
                 </div>
             </form>
@@ -137,5 +132,16 @@
 </div>
 
 
-</style>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener('livewire:load', function() {
+        @this.on('formSubmitted', (type, message) => {
+            Swal.fire({
+                icon: type,
+                title: 'Berjaya!',
+                text: message,
+                confirmButtonColor: '#703232'
+            });
+        });
+    });
+</script>
