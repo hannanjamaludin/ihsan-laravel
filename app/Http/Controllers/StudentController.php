@@ -85,4 +85,10 @@ class StudentController extends Controller
         ]);
     }
 
+    public function preview_file($path){
+        $visualPath = storage_path('app/' . $path);
+
+        return response()->file($visualPath);
+    }
+
 }
