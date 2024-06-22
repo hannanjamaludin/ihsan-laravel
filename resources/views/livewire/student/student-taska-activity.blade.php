@@ -35,22 +35,39 @@
                     </div>
                 </div>
                 <div class="form-group row mt-3 align-items-center">
-                    <div class="col-2">
-                        <label class="form-label" for="media">Gambar/Video:</label>
-                    </div>
-                    <div class="col-10">
-                        @if ($existingActivity && $existingActivity->path)
-                            <div class="d-flex align-items-center mb-2">
-                                <button type="button" class="me-2 btn btn-sm" style="background-color: #bababa74" onclick="window.open('{{ Storage::url($existingActivity->path) }}', '_blank')">Papar media</button>
-                                <span class="">{{ basename($existingActivity->path) }}</span>
+                    @if ($existingActivity && $existingActivity->path)
+                        <div class="">
+                            <label class="form-label" for="media">Gambar/Video:</label>    
+                            <div class="d-flex align-items-center justify-content-center mb-2">
+                                @php
+                                    $extension = pathinfo(Storage::url($existingActivity->path), PATHINFO_EXTENSION);
+                                @endphp
+                                @if (in_array($extension, ['jpg', 'jpeg', 'png', 'gif']))
+                                    <img src="{{ Storage::url($existingActivity->path) }}" alt="Image" class="responsive-media">
+                                @elseif (in_array($extension, ['mp4', 'webm', 'ogg']))
+                                    <video controls class="responsive-media">
+                                        <source src="{{ Storage::url($existingActivity->path) }}" type="video/{{ $extension }}">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                @else
+                                    <p>Unsupported media type.</p>
+                                @endif
+                                {{-- <button type="button" class="me-2 btn btn-sm" style="background-color: #bababa74" onclick="window.open('{{ Storage::url($existingActivity->path) }}', '_blank')">Papar media</button>
+                                <span class="">{{ basename($existingActivity->path) }}</span> --}}
                             </div>
-                        @else
-                            <input type="file" id="media" class="form-control" wire:model="media" {{ $existingActivity ? 'disabled' : '' }}>
+                        </div>
+                    @else
+                        <div class="col-2">
+                            <label class="form-label" for="media">Gambar/Video:</label>
+                        </div>
+                        <div class="col-10">
+                            {{-- <input type="file" id="media" class="form-control" wire:model="media" {{ $existingActivity ? 'disabled' : '' }}> --}}
+                            <input type="file" id="media" class="form-control" wire:model="media">
                             @error('media')
                                 <span class="text-danger">{{ $message }}</span>
                             @enderror
-                        @endif                      
-                    </div>
+                        </div>
+                    @endif                      
                 </div>
 
                 {{-- @if ($existingActivity)
@@ -66,10 +83,10 @@
                     @endif
                         <div class="card-body px-3 pt-2 pb-2 w-auto">
                             <div class="form-group row align-items-center">
-                                <div class="col-8">
+                                <div class="col-5">
                                     <label class="form-label" for="studentMedia.{{ $student->student->id }}">{{ $student->student->full_name }}</label>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-7">
                                     @if ($existingStudentMedia[$student->student->id])
                                         <div class="d-flex align-items-center">
                                             <button type="button" class="me-2 btn btn-sm" style="background-color: #bababa74" onclick="window.open('{{ Storage::url($existingStudentMedia[$student->student->id]->path) }}', '_blank')">Papar media</button>
@@ -107,3 +124,14 @@
         });
     });
 </script>
+
+<style>
+    .responsive-media {
+        width: 70%;
+        max-width: 70%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+</style>

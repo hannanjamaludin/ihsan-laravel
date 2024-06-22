@@ -62,10 +62,17 @@ class StudentTaskaActivity extends Component
     }
 
     public function submitForm(){
+        // dd('masuk');
+        // try{
+
+        // } catch (\Illuminate\Validation\ValidationException $e) {
+        //     dd($e->errors());
+        // }
+
         $this->validate([
-            'activity' => 'required',
-            'media' => 'file',
-            'studentMedia.*' => 'file',
+            // 'activity' => 'required',
+            'media' => 'file|mimes:jpg,jpeg,png,gif,mp4,webm,ogg|max:10240',
+            'studentMedia.*' => 'file|mimes:jpg,jpeg,png,gif,mp4,webm,ogg|max:10240',
         ]);
 
         if (!$this->existingActivity) {
@@ -88,18 +95,14 @@ class StudentTaskaActivity extends Component
             $taskaActivity = $this->existingActivity;
         }
 
-        dd($this->presentStudents);
         foreach ($this->presentStudents as $student){
-            dd('masuk foreach');
             if (isset($this->studentMedia[$student->student->id])) {
 
-                dd('masuk isset');
                 $existingStudentMedia = TaskaActivityStudent::where('activity_id', $taskaActivity->id)
                                                             ->where('student_id', $student->student->id)
                                                             ->first();
 
                 if (!$existingStudentMedia){
-                    dd('masuk no existing');
 
                     $studentMediaPath = $this->studentMedia[$student->student->id]->store('public/uploads/student');
     
