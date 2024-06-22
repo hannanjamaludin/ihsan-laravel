@@ -63,9 +63,6 @@ class UsersController extends Controller
 
     public function updateProfile(Request $request){
 
-        // dd($request->all());
-        Log::info('Request: ', $request->all());
-
         $user = User::find($request->user_id);
 
         if ($request->password){
@@ -78,16 +75,12 @@ class UsersController extends Controller
             
             $staff_admin = $request->is_admin == 1 ? 1 : 0;
 
-            Log::info('Staff Admin: ' . $staff_admin);
-            Log::info('Request Admin: ' . $request->is_admin);
-
             $teacher = Staffs::where('user_id', $user->id)->first();
             $teacher->update([
                 'ic_no' => $request->ic_no,
                 'phone_no' => $request->phone_no,
                 'is_admin' => $staff_admin,
             ]);
-            Log::info('updated teacher: ' . $teacher);
         }
 
         if ($user->user_type == 3){
@@ -119,9 +112,6 @@ class UsersController extends Controller
 
     public function updateProfileAdmin(Request $request){
 
-        // dd($request->all());
-        Log::info('Request: ', $request->all());
-
         $user = User::find($request->user_id);
         $user->update([
             'email' => $request->email,
@@ -138,9 +128,6 @@ class UsersController extends Controller
             
             $staff_admin = $request->is_admin == 1 ? 1 : 0;
 
-            Log::info('Staff Admin: ' . $staff_admin);
-            Log::info('Request Admin: ' . $request->is_admin);
-
             $teacher = Staffs::where('user_id', $user->id)->first();
             $teacher->update([
                 'full_name' => $request->full_name,
@@ -149,7 +136,6 @@ class UsersController extends Controller
                 'phone_no' => $request->phone_no,
                 'is_admin' => $staff_admin,
             ]);
-            Log::info('updated teacher: ' . $teacher);
         }
 
         if ($user->user_type == 3){

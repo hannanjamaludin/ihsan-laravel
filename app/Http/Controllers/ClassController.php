@@ -216,11 +216,6 @@ class ClassController extends Controller
 
         $class = TadikaClass::find($id);
 
-        // dd($class);
-
-        Log::info('id: ' . $id);
-        Log::info('class: ' . $class);
-
         return view('student.class-detail', ['class' => $class]);
     }
 
