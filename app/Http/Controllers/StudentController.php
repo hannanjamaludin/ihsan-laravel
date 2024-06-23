@@ -8,6 +8,7 @@ use App\Models\Students;
 use App\Models\TadikaActivity;
 use App\Models\TadikaActivityStudent;
 use App\Models\TadikaClass;
+use App\Models\TaskaActivity;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -89,6 +90,103 @@ class StudentController extends Controller
         $visualPath = storage_path('app/' . $path);
 
         return response()->file($visualPath);
+    }
+
+    public function childActivity(){
+        $students = Students::where('user_id', Auth::user()->id)
+                        ->where('is_active', 1)
+                        ->with('branch')->get();
+
+        return view('student.child-activity', [
+            'students' => $students,
+        ]);
+    }
+
+    public function activityDetail($studentId){
+        $student = Students::where('id', $studentId)
+                            ->with('branch', 'assignedClass')->first();
+        // dd($student);
+
+        $teacher = Staffs::where('class_room', $student->class_id)
+                            ->first();
+
+        return view('student.child-activity-detail', [
+            'student' => $student,
+            'teacher' => $teacher,
+        ]);
+    }
+
+    public function datatable_room_activity(Request $request){
+        $activity_list = [];
+
+        $activities = TaskaActivity::where('room_id', $request->room_id)
+                                    ->with('activityStudent')
+                                    ->get();
+
+        // dd($activities);
+        foreach ($activities as $activity) {
+
+            if ($activity->type == 1){
+                $media_class = '<button type="button" class="btn btn-primary me-3 px-2 pb-1 pt-0" 
+                                    title="Kemaskini" onclick="">
+                                    Papar Gambar
+                                </button>';
+            } elseif ($activity->type == 2){
+                $media_class = '<button type="button" class="btn btn-primary me-3 px-2 pb-1 pt-0" 
+                                    title="Kemaskini" onclick="">
+                                    Papar Video
+                                </button>';
+            } else {
+                $media_class = '';
+            }
+
+            if ($activity->activityStudent->isNotEmpty()){
+                if ($activity->type == 1){
+                    $media_student = '<button type="button" class="btn btn-primary me-3 px-2 pb-1 pt-0" 
+                                        title="Kemaskini" onclick="">
+                                        Papar Gambar
+                                    </button>';
+                } elseif ($activity->type == 2){
+                    $media_student = '<button type="button" class="btn btn-primary me-3 px-2 pb-1 pt-0" 
+                                        title="Kemaskini" onclick="">
+                                        Papar Video
+                                    </button>';
+                } else {
+                    $media_student = '';
+                }
+                } else {
+                $media_student = '-';
+            }
+
+            $activity_list[] = [
+                'date' => $activity->date,
+                'activity' => $activity->activity,
+                'media_class' => $media_class,
+                'media_student' => $media_student,
+            ];
+        }
+        return datatables()->of($activity_list)->addIndexColumn()->make();
+    }
+
+    public function datatable_class_activity(Request $request){
+        $activity_list = [];
+
+        $activities = TadikaActivity::where('class_id', $request->class_id)
+                                    ->with('subjects', 'studentActivity')
+                                    ->get();
+
+        foreach ($activities as $activity) {
+            // dd($activity->studentActivity->isNotEmpty());
+            $activity_list[] = [
+                'date' => $activity->date,
+                'subject' => $activity->subjects->full_name,
+                'learning' => $activity->learning,
+                'activity' => $activity->activity,
+                'comment' => $activity->studentActivity->isNotEmpty() ? $activity->studentActivity->comment : '-',
+
+            ];
+        }
+        return datatables()->of($activity_list)->addIndexColumn()->make();
     }
 
 }

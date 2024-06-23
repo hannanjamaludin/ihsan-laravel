@@ -87,6 +87,10 @@ Route::middleware('auth')->group(function () {
         Route::post('/kemaskini-profil/{studentId}', [StudentController::class, 'updateStudent'])->name('kemaskini_profil');
         Route::get('/aktiviti-harian', [StudentController::class, 'studentActivity'])->name('aktiviti_harian');
         Route::get('/visual-aktiviti-harian/{id}', [StudentController::class, 'preview_file'])->name('visual_aktiviti_harian');
+        Route::get('/aktiviti-anak', [StudentController::class, 'childActivity'])->name('aktiviti_anak');
+        Route::get('/aktiviti-anak/{studentId}', [StudentController::class, 'activityDetail'])->name('aktiviti_detail');
+        Route::get('/datatable_room_activity', [StudentController::class, 'datatable_room_activity'])->name('datatable_room_activity');
+        Route::get('/datatable_class_activity', [StudentController::class, 'datatable_class_activity'])->name('datatable_class_activity');
         // Route::get('/datatable_submitted_tadika_activity', [StudentController::class, 'datatable_submitted_tadika_activity'])->name('datatable_submitted_tadika_activity');
         // Route::post('/tadika-simpan/{class_id}/{today}', [StudentController::class, 'storeTadikaActivity'])->name('tadika_simpan');
     });

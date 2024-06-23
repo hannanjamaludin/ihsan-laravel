@@ -22,4 +22,8 @@ class TadikaActivity extends Model
     public function subjects(){
         return $this->hasOne(Subject::class, 'id', 'subject_id');
     }
+
+    public function studentActivity(){
+        return $this->hasMany(TaskaActivityStudent::class, 'activity_id', 'id');
+    }
 }

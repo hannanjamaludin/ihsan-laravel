@@ -19,4 +19,8 @@ class TaskaActivity extends Model
         'type',
         'path',
     ];
+
+    public function activityStudent(){
+        return $this->hasMany(TaskaActivityStudent::class, 'activity_id', 'id');
+    }
 }
