@@ -17,4 +17,8 @@ class TaskaActivityStudent extends Model
         'path',
         'type',
     ];
+
+    public function activity(){
+        return $this->belongsTo(TaskaActivity::class, 'activity_id', 'id');
+    }
 }

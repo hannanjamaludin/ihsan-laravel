@@ -105,7 +105,6 @@ class StudentController extends Controller
     public function activityDetail($studentId){
         $student = Students::where('id', $studentId)
                             ->with('branch', 'assignedClass')->first();
-        // dd($student);
 
         $teacher = Staffs::where('class_room', $student->class_id)
                             ->first();
@@ -123,17 +122,16 @@ class StudentController extends Controller
                                     ->with('activityStudent')
                                     ->get();
 
-        // dd($activities);
         foreach ($activities as $activity) {
 
             if ($activity->type == 1){
                 $media_class = '<button type="button" class="btn btn-primary me-3 px-2 pb-1 pt-0" 
-                                    title="Kemaskini" onclick="">
+                                    title="Papar Gambar" data-id="'. $activity->id .'" data-type="class">
                                     Papar Gambar
                                 </button>';
             } elseif ($activity->type == 2){
                 $media_class = '<button type="button" class="btn btn-primary me-3 px-2 pb-1 pt-0" 
-                                    title="Kemaskini" onclick="">
+                                    title="Papar Video" data-id="'. $activity->id .'" data-type="class">
                                     Papar Video
                                 </button>';
             } else {
@@ -141,20 +139,27 @@ class StudentController extends Controller
             }
 
             if ($activity->activityStudent->isNotEmpty()){
-                if ($activity->type == 1){
-                    $media_student = '<button type="button" class="btn btn-primary me-3 px-2 pb-1 pt-0" 
-                                        title="Kemaskini" onclick="">
-                                        Papar Gambar
-                                    </button>';
-                } elseif ($activity->type == 2){
-                    $media_student = '<button type="button" class="btn btn-primary me-3 px-2 pb-1 pt-0" 
-                                        title="Kemaskini" onclick="">
-                                        Papar Video
-                                    </button>';
+               
+                $activity_student = $activity->activityStudent->where('student_id', $request->student_id)->first();
+
+                if ($activity_student) {
+                    if ($activity_student->type == 1){
+                        $media_student = '<button type="button" class="btn btn-primary me-3 px-2 pb-1 pt-0" 
+                                            title="Papar Gambar" data-id="'. $activity_student->id .'" data-type="student">
+                                            Papar Gambar
+                                        </button>';
+                    } elseif ($activity_student->type == 2){
+                        $media_student = '<button type="button" class="btn btn-primary me-3 px-2 pb-1 pt-0" 
+                                            title="Papar Video" data-id="'. $activity_student->id .'" data-type="student">
+                                            Papar Video
+                                        </button>';
+                    } else {
+                        $media_student = '';
+                    }
                 } else {
                     $media_student = '';
                 }
-                } else {
+            } else {
                 $media_student = '-';
             }
 
@@ -176,13 +181,15 @@ class StudentController extends Controller
                                     ->get();
 
         foreach ($activities as $activity) {
-            // dd($activity->studentActivity->isNotEmpty());
+
+            $comment = $activity->studentActivity->where('student_id', $request->student_id)->first();
+
             $activity_list[] = [
                 'date' => $activity->date,
                 'subject' => $activity->subjects->full_name,
                 'learning' => $activity->learning,
                 'activity' => $activity->activity,
-                'comment' => $activity->studentActivity->isNotEmpty() ? $activity->studentActivity->comment : '-',
+                'comment' => $comment ? $comment->comment : '-',
 
             ];
         }

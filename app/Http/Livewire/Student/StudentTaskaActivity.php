@@ -62,12 +62,6 @@ class StudentTaskaActivity extends Component
     }
 
     public function submitForm(){
-        // dd('masuk');
-        // try{
-
-        // } catch (\Illuminate\Validation\ValidationException $e) {
-        //     dd($e->errors());
-        // }
 
         $this->validate([
             // 'activity' => 'required',

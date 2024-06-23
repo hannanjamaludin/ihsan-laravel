@@ -52,8 +52,6 @@
                                 @else
                                     <p>Unsupported media type.</p>
                                 @endif
-                                {{-- <button type="button" class="me-2 btn btn-sm" style="background-color: #bababa74" onclick="window.open('{{ Storage::url($existingActivity->path) }}', '_blank')">Papar media</button>
-                                <span class="">{{ basename($existingActivity->path) }}</span> --}}
                             </div>
                         </div>
                     @else
@@ -61,7 +59,6 @@
                             <label class="form-label" for="media">Gambar/Video:</label>
                         </div>
                         <div class="col-10">
-                            {{-- <input type="file" id="media" class="form-control" wire:model="media" {{ $existingActivity ? 'disabled' : '' }}> --}}
                             <input type="file" id="media" class="form-control" wire:model="media">
                             @error('media')
                                 <span class="text-danger">{{ $message }}</span>
@@ -69,10 +66,6 @@
                         </div>
                     @endif                      
                 </div>
-
-                {{-- @if ($existingActivity)
-                    <img src="{{ Storage::url($existingActivity->path) }}" alt="Image">
-                @endif --}}
 
                 <h5 class="mt-4">Aktiviti Murid</h5>
                 @foreach($presentStudents as $student)

@@ -91,6 +91,7 @@
 </div>
 
 {{-- Modal to view media --}}
+<livewire:student.activity-media-modal />
 
 @endsection
 
@@ -147,7 +148,7 @@
                         "next": "Seterusnya",
                         "previous": "Sebelumnya"
                     },
-                    // "emptyTable": "Tiada pendaftaran baharu"
+                    "emptyTable": "Tiada maklumat aktiviti"
                 }
         });
 
@@ -177,9 +178,6 @@
                     },
                     {
                         data: 'learning',
-                        // render: function(data, type, row) {
-                        //     return type === 'display' ? $('<div/>').html(data).text() : data;
-                        // }
                     },
                     {
                         data: 'activity',
@@ -201,9 +199,16 @@
                         "next": "Seterusnya",
                         "previous": "Sebelumnya"
                     },
-                    // "emptyTable": "Tiada pendaftaran baharu"
+                    "emptyTable": "Tiada maklumat aktiviti"
                 }
         });
+
+        $('#room_activity').on('click', '.btn-primary', function () {
+            const id = $(this).data('id');
+            const type = $(this).data('type');
+            Livewire.emit('viewMedia', id, type);
+        });
+
     });
 
 </script>
