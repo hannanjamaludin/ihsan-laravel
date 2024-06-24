@@ -504,17 +504,9 @@ class ApplicationController extends Controller
         return datatables()->of($updated_app)->addIndexColumn()->make();
     }
 
-    // public function getStudentDetails($student_id){
-    //     $student = Students::where('id', $student_id);
-
-    //     return $student;
-    // }
-
     public function getDistrict(Request $request){
         $state = State::where('id', $request->id)->first();
         $district = District::whereIn('state_id', $state->id)->pluck('id', 'district');
-
-        // dd($district);
         
         return response()->json([
             'listDistricts' => $district

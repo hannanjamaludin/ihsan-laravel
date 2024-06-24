@@ -20,11 +20,11 @@ class WelcomeController extends Controller
         $taska_capacity = 0;
 
         foreach ($tadika_classes as $class){
-            $tadika_capacity = $tadika_capacity + $class->capacity;
+            $tadika_capacity = $tadika_capacity + ($class->capacity - $class->total_students);
         }
 
         foreach ($taska_rooms as $room){
-            $taska_capacity = $taska_capacity + $room->capacity;
+            $taska_capacity = $taska_capacity + ($room->capacity - $room->total_students);
         }
 
         // dd($tadika_capacity, $taska_capacity);
