@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Livewire\Student\StudentTadikaActivity;
+use App\Models\Attendance;
 use App\Models\Staffs;
 use App\Models\Students;
 use App\Models\TadikaActivity;
@@ -118,81 +119,99 @@ class StudentController extends Controller
     public function datatable_room_activity(Request $request){
         $activity_list = [];
 
-        $activities = TaskaActivity::where('room_id', $request->room_id)
-                                    ->with('activityStudent')
-                                    ->get();
+        $attendances = Attendance::where('student_id', $request->student_id)
+                                ->where('status', 1)
+                                ->get();
 
-        foreach ($activities as $activity) {
+        foreach ($attendances as $attendance){
 
-            if ($activity->type == 1){
-                $media_class = '<button type="button" class="btn btn-primary me-3 px-2 pb-1 pt-0" 
-                                    title="Papar Gambar" data-id="'. $activity->id .'" data-type="class">
-                                    Papar Gambar
-                                </button>';
-            } elseif ($activity->type == 2){
-                $media_class = '<button type="button" class="btn btn-primary me-3 px-2 pb-1 pt-0" 
-                                    title="Papar Video" data-id="'. $activity->id .'" data-type="class">
-                                    Papar Video
-                                </button>';
-            } else {
-                $media_class = '';
-            }
+            $activities = TaskaActivity::where('room_id', $request->room_id)
+                                        ->where('date', $attendance->date)
+                                        ->with('activityStudent')
+                                        ->get();
 
-            if ($activity->activityStudent->isNotEmpty()){
-               
-                $activity_student = $activity->activityStudent->where('student_id', $request->student_id)->first();
+            
+            foreach ($activities as $activity) {
 
-                if ($activity_student) {
-                    if ($activity_student->type == 1){
-                        $media_student = '<button type="button" class="btn btn-primary me-3 px-2 pb-1 pt-0" 
-                                            title="Papar Gambar" data-id="'. $activity_student->id .'" data-type="student">
-                                            Papar Gambar
-                                        </button>';
-                    } elseif ($activity_student->type == 2){
-                        $media_student = '<button type="button" class="btn btn-primary me-3 px-2 pb-1 pt-0" 
-                                            title="Papar Video" data-id="'. $activity_student->id .'" data-type="student">
-                                            Papar Video
-                                        </button>';
+                if ($activity->type == 1){
+                    $media_class = '<button type="button" class="btn btn-primary me-3 px-2 pb-1 pt-0" 
+                                        title="Papar Gambar" data-id="'. $activity->id .'" data-type="class">
+                                        Papar Gambar
+                                    </button>';
+                } elseif ($activity->type == 2){
+                    $media_class = '<button type="button" class="btn btn-primary me-3 px-2 pb-1 pt-0" 
+                                        title="Papar Video" data-id="'. $activity->id .'" data-type="class">
+                                        Papar Video
+                                    </button>';
+                } else {
+                    $media_class = '';
+                }
+
+                if ($activity->activityStudent->isNotEmpty()){
+                    
+                    $activity_student = $activity->activityStudent->where('student_id', $request->student_id)->first();
+
+                    if ($activity_student) {
+                        if ($activity_student->type == 1){
+                            $media_student = '<button type="button" class="btn btn-primary me-3 px-2 pb-1 pt-0" 
+                                                title="Papar Gambar" data-id="'. $activity_student->id .'" data-type="student">
+                                                Papar Gambar
+                                            </button>';
+                        } elseif ($activity_student->type == 2){
+                            $media_student = '<button type="button" class="btn btn-primary me-3 px-2 pb-1 pt-0" 
+                                                title="Papar Video" data-id="'. $activity_student->id .'" data-type="student">
+                                                Papar Video
+                                            </button>';
+                        } else {
+                            $media_student = '';
+                        }
                     } else {
                         $media_student = '';
                     }
                 } else {
-                    $media_student = '';
+                    $media_student = '-';
                 }
-            } else {
-                $media_student = '-';
-            }
 
-            $activity_list[] = [
-                'date' => $activity->date,
-                'activity' => $activity->activity,
-                'media_class' => $media_class,
-                'media_student' => $media_student,
-            ];
-        }
+                $activity_list[] = [
+                    'date' => $activity->date,
+                    'activity' => $activity->activity,
+                    'media_class' => $media_class,
+                    'media_student' => $media_student,
+                ];
+            }
+        }    
+
         return datatables()->of($activity_list)->addIndexColumn()->make();
     }
 
     public function datatable_class_activity(Request $request){
         $activity_list = [];
 
-        $activities = TadikaActivity::where('class_id', $request->class_id)
-                                    ->with('subjects', 'studentActivity')
-                                    ->get();
+        $attendances = Attendance::where('student_id', $request->student_id)
+                                ->where('status', 1)
+                                ->get();
+                                
+        foreach ($attendances as $attendance){
+            $activities = TadikaActivity::where('class_id', $request->class_id)
+                                        ->where('date', $attendance->date)
+                                        ->with('subjects', 'studentActivity')
+                                        ->get();
 
-        foreach ($activities as $activity) {
+            foreach ($activities as $activity) {
 
-            $comment = $activity->studentActivity->where('student_id', $request->student_id)->first();
+                $comment = $activity->studentActivity->where('student_id', $request->student_id)->first();
 
-            $activity_list[] = [
-                'date' => $activity->date,
-                'subject' => $activity->subjects->full_name,
-                'learning' => $activity->learning,
-                'activity' => $activity->activity,
-                'comment' => $comment ? $comment->comment : '-',
-
-            ];
+                $activity_list[] = [
+                    'date' => $activity->date,
+                    'subject' => $activity->subjects->full_name,
+                    'learning' => $activity->learning,
+                    'activity' => $activity->activity,
+                    'comment' => $comment ? $comment->comment : '-',
+                ];
+            }
         }
+
+
         return datatables()->of($activity_list)->addIndexColumn()->make();
     }
 

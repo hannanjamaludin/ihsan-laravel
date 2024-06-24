@@ -39,10 +39,11 @@
                             <div class="text-primary fs-4 fw-bold">{{ $student->full_name }}</div>
                             @if ($student->branch_id == 1)
                                 <div class="">Bilik: {{ $student->assignedClass->class_name }}</div>
+                                <div class="">Pengasuh: {{ $teacher->full_name }}</div>
                             @else
                                 <div class="">Kelas: {{ $student->assignedClass->age }} {{ $student->assignedClass->class_name }}</div>
+                                <div class="">Guru: {{ $teacher->full_name }}</div>
                             @endif
-                            <div class="">Guru: {{ $teacher->full_name }}</div>
                         </div>
                     </div>
                 </div>
