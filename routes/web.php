@@ -22,7 +22,7 @@ Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 // });
 
 // Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
-Route::match(['get', 'post'], '/chat', [BotManController::class, 'handle']);
+Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
 Route::get('/chat', function () {
     return view('chat');
 });

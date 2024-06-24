@@ -13,10 +13,17 @@
             padding: 0
         }
 
+        /* Example with !important flag */
+        iframe {
+            overflow-clip-margin: unset !important; /* or whatever value you want */
+            overflow: visible !important; /* or whatever value you want */
+        }
+
         #messageArea{
-            /* overflow-y: scroll; */
-            padding-bottom: 70px;
+            overflow-y: auto;
+            padding-bottom: 0;
             flex-grow: 1;
+            height: calc(100vh - 55px);
         }
 
         .chat{
@@ -212,6 +219,20 @@
         }
     </script> --}}
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatWindow = document.getElementById('messageArea');
+
+            function scrollToBottom() {
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            }
+
+            const observer = new MutationObserver(scrollToBottom);
+            observer.observe(chatWindow, { childList: true });
+
+            scrollToBottom();
+        });
+    </script>
 </body>
 
 </html>
