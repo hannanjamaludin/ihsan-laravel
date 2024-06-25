@@ -48,7 +48,7 @@ class BotManController extends Controller
             $bot->reply($reply);
         });
 
-        $botman->hears('.*waktu.*', function (BotMan $bot) {
+        $botman->hears('.*(waktu|pukul).*', function (BotMan $bot) {
             $reply = "<p>Waktu operasi <strong>Taska Ihsan</strong> adalah seperti berikut:</p>"
                    . "<br/>"
                    . "<p>Ahad - Rabu: 7.30 pagi - 5.30 petang</p>"
