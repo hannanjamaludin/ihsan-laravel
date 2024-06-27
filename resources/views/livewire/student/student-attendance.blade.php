@@ -1,4 +1,9 @@
 <div>
+    <div class="col-3 mb-3">
+        <label for="dateInput" class="form-label">Pilih Tarikh:</label>
+        <input type="date" id="dateInput" class="form-control" wire:model="selectedDate" max="{{ \Carbon\Carbon::today()->format('Y-m-d') }}">
+    </div>
+    
     @if ($branch->id == 1)
         <h3 class="text-primary">{{ $class->class_name }}</h3>
     @else
@@ -21,7 +26,7 @@
             </tr>
             <tr>
                 <th class="bg-secondary fst-italic">Tarikh:</th>
-                <td class="bg-light">{{ $formattedDate }}</td>
+                <td class="bg-light">{{ $selectedDate }}</td>
             </tr>
             <tr>
                 <th class="bg-secondary fst-italic">Kehadiran:</th>

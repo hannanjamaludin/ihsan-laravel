@@ -15,7 +15,7 @@ class StudentTaskaActivity extends Component
 
     public $room;
     public $today;
-    public $formattedDate;
+    public $selectedDate;
     public $presentStudents = [];
 
     public $activity;
@@ -27,27 +27,32 @@ class StudentTaskaActivity extends Component
 
     public function mount($room, $today){
         $this->room = $room;
-        $this->formattedDate = $today->format('d/m/Y');
-        $this->today = Carbon::createFromFormat('d/m/Y', $this->formattedDate)->format('Y-m-d');
+        $this->selectedDate = $today->format('Y-m-d');
 
         $this->loadData();
     }
 
+    public function updatedSelectedDate()
+    {
+        $this->loadData();
+    }
+
+
     public function loadData(){
         $attendance = Attendance::where('class_id', $this->room->id)
-                                ->where('date', $this->today)
+                                ->where('date', $this->selectedDate)
                                 ->get();
 
         if ($attendance->isNotEmpty()) {
             $this->presentStudents = Attendance::where('status', 1)
-                                                ->where('date', $this->today)
+                                                ->where('date', $this->selectedDate)
                                                 ->where('class_id', $this->room->id)
                                                 ->with('student')
                                                 ->get();
         }
 
         $this->existingActivity = TaskaActivity::where('room_id', $this->room->id)
-                                                ->where('date', $this->today)
+                                                ->where('date', $this->selectedDate)
                                                 ->first();
 
         foreach ($this->presentStudents as $student) {
@@ -81,7 +86,7 @@ class StudentTaskaActivity extends Component
                 'room_id' => $this->room->id,
                 'teacher_id' => $this->room->teacher->id,
                 'activity' => $this->activity,
-                'date' => $this->today,
+                'date' => $this->selectedDate,
                 'type' => $mediaType, 
                 'path' => $path,
             ]);
@@ -130,7 +135,7 @@ class StudentTaskaActivity extends Component
     public function render()
     {
         $attendance = Attendance::where('class_id', $this->room->id)
-                                ->where('date', $this->today)
+                                ->where('date', $this->selectedDate)
                                 ->get();
                     
         $this->loadData();

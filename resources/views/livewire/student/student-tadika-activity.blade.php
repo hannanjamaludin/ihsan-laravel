@@ -1,4 +1,9 @@
 <div class="card pb-4">
+    <div class="col-3 mb-3 px-3 pt-2">
+        <label for="dateInput" class="form-label">Pilih Tarikh:</label>
+        <input type="date" id="dateInput" class="form-control" wire:model="selectedDate" max="{{ \Carbon\Carbon::today()->format('Y-m-d') }}">
+    </div>
+
     <div class="card-body px-3 pt-2 pb-4 w-auto">
         <h3 class="text-primary">{{ $class->age }} {{ $class->class_name }}</h3>
         <table class="table table-bordered">
@@ -13,7 +18,7 @@
                 </tr>
                 <tr>
                     <th class="bg-secondary fst-italic">Tarikh:</th>
-                    <td class="bg-light">{{ $formattedDate }}</td>
+                    <td class="bg-light">{{ $selectedDate }}</td>
                 </tr>
                 <tr>
                     <th class="bg-secondary fst-italic">Kehadiran:</th>

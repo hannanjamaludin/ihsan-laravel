@@ -315,7 +315,7 @@ class ApplicationController extends Controller
                 $student->delete();
                 $branch->update([
                     'application' => $branch->application - 1,
-                ]);
+                    ]);
         
                 return response()->json(['success' => true, 'message' => 'Pendaftaran telah dibuang']);
             } else {

@@ -3,12 +3,7 @@
 namespace App\Http\Livewire\Student;
 
 use App\Models\Attendance;
-use App\Models\Branch;
-use App\Models\Staffs;
 use App\Models\Students;
-use App\Models\TadikaClass;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class StudentAttendance extends Component
@@ -18,14 +13,20 @@ class StudentAttendance extends Component
     public $absentStudents = [];
     public $class;
     public $today;
-    public $formattedDate;
+    public $selectedDate;
     public $branch;
 
     public function mount($class, $today, $branch)
     {
         $this->class = $class;
-        $this->formattedDate = $today->format('d/m/Y');
-        $this->today = Carbon::createFromFormat('d/m/Y', $this->formattedDate)->format('Y-m-d');
+        $this->selectedDate = $today->format('Y-m-d');
+        $this->branch = $branch;
+        $this->loadAttendanceData();
+    }
+
+    public function updatedSelectedDate()
+    {
+        $this->loadAttendanceData();
     }
 
     public function markPresent($studentId)
@@ -33,17 +34,13 @@ class StudentAttendance extends Component
         $attendance = Attendance::create([
             'student_id' => $studentId,
             'class_id' => $this->class->id,
-            'date' => $this->today,
+            'date' => $this->selectedDate,
             'status' => 1,
         ]);
 
         if($attendance) {
-            // dd('masuk');
-            $student = $this->students->where('id', $studentId)->first();
-            $this->presentStudents[] = $student;
+            $this->loadAttendanceData();
         }
-
-        // dd($formattedDate, $attendance, $this->presentStudents);
     }
 
     public function markAbsent($studentId)
@@ -51,48 +48,45 @@ class StudentAttendance extends Component
         $attendance = Attendance::create([
             'student_id' => $studentId,
             'class_id' => $this->class->id,
-            'date' => $this->today,
+            'date' => $this->selectedDate,
             'status' => 0,
         ]);
 
         if($attendance) {
-            // dd('masuk');
-            $student = $this->students->where('id', $studentId)->first();
-            $this->absentStudents[] = $student;
+            $this->loadAttendanceData();
         }
     }
 
-    public function render()
-    {
+    public function loadAttendanceData(){
         $attendance = Attendance::where('class_id', $this->class->id)
-                            ->where('date', $this->today)
-                            ->get();
- 
-        // dd($attendance);
-        
+                                ->where('date', $this->selectedDate)
+                                ->get();
+
         if ($attendance->isNotEmpty()) {
-            // dd('masuk');
             $this->students = Students::where('class_id', $this->class->id)
-                                ->whereDoesntHave('attendance', function($query){
-                                    $query->where('date', $this->today);
-                                })->get();
+                        ->whereDoesntHave('attendance', function($query){
+                            $query->where('date', $this->selectedDate);
+                        })->get();
 
             $this->presentStudents = Attendance::where('status', 1)
-                                        ->where('date', $this->today)
-                                        ->where('class_id', $this->class->id)
-                                        ->with('student')
-                                        ->get();
-                                        
+                                ->where('date', $this->selectedDate)
+                                ->where('class_id', $this->class->id)
+                                ->with('student')
+                                ->get();
+                                
             $this->absentStudents = Attendance::where('status', 0)
-                                        ->where('date', $this->today)
-                                        ->where('class_id', $this->class->id)
-                                        ->with('student')
-                                        ->get();
-                
+                                ->where('date', $this->selectedDate)
+                                ->where('class_id', $this->class->id)
+                                ->with('student')
+                                ->get();
         } else {
             $this->students = Students::where('class_id', $this->class->id)->get();
         }
 
+    }
+
+    public function render()
+    {
         return view('livewire.student.student-attendance', [
             'students' => $this->students,
             'presentStudents' => $this->presentStudents,

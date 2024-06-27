@@ -203,42 +203,42 @@ class UsersController extends Controller
     }
 
     // public function deleteUser(Request $request) {
-    public function deleteUserOld($id) {
-        // dd($request->user_id);
-        // try {
-            // $user = User::findOrFail($request->user_id);
-            $user = User::findOrFail($id);
-            // $student = Students::where('user_id', $request->user_id)->get();
-            $student = Students::where('user_id', $id)->get();
-            // $parents = Parents::where('user_id', $request->user_id)->get();
-            $parents = Parents::where('user_id', $id)->get();
+    // public function deleteUserOld($id) {
+    //     // dd($request->user_id);
+    //     // try {
+    //         // $user = User::findOrFail($request->user_id);
+    //         $user = User::findOrFail($id);
+    //         // $student = Students::where('user_id', $request->user_id)->get();
+    //         $student = Students::where('user_id', $id)->get();
+    //         // $parents = Parents::where('user_id', $request->user_id)->get();
+    //         $parents = Parents::where('user_id', $id)->get();
 
-            // dd($user);
-            if ($parents) {
-                foreach ($parents as $p) {
-                    $p->delete();
-                }
-            } 
+    //         // dd($user);
+    //         if ($parents) {
+    //             foreach ($parents as $p) {
+    //                 $p->delete();
+    //             }
+    //         } 
 
-            if ($student) {
+    //         if ($student) {
 
-                foreach ($student as $s){
-                    $s->delete();
-                }
-            }
+    //             foreach ($student as $s){
+    //                 $s->delete();
+    //             }
+    //         }
             
-            if ($user) {
-                $user->delete();
+    //         if ($user) {
+    //             $user->delete();
     
-                return response()->json(['success' => true, 'message' => 'Pengguna telah dibuang']);
-            }
-             else {
-                return response()->json(['success' => false, 'message' => 'Pengguna gagal dibuang']);
-            }
-        // } catch (\Exception $e) {
-        //     return response()->json(['success' => false, 'message' => 'Ralat: ' . $e->getMessage()], 500);
-        // }
-    }
+    //             return response()->json(['success' => true, 'message' => 'Pengguna telah dibuang']);
+    //         }
+    //          else {
+    //             return response()->json(['success' => false, 'message' => 'Pengguna gagal dibuang']);
+    //         }
+    //     // } catch (\Exception $e) {
+    //     //     return response()->json(['success' => false, 'message' => 'Ralat: ' . $e->getMessage()], 500);
+    //     // }
+    // }
 
     public function deleteUser(Request $request) {
         // dd($request->user_id);
