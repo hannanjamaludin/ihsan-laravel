@@ -13,6 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
+        // Create parents table and declare the columns with datatypes and constraints
         Schema::create('parents', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');

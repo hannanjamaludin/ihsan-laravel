@@ -36,9 +36,11 @@
                         <label class="form-label" for="activity">Aktiviti:</label>
                     </div>
                     <div class="col-11">
-                        <input type="text" id="activity" class="form-control" placeholder="Nyatakan aktiviti pada hari ini" wire:model="activity" required {{ $existingActivity ? 'disabled' : '' }}>
+                        <input type="text" id="activity" class="form-control" placeholder="Nyatakan aktiviti pada hari ini" wire:model="activity" 
+                        required {{ $existingActivity ? 'disabled' : '' }}>
                     </div>
                 </div>
+                {{-- Upload media --}}
                 <div class="form-group row mt-3 align-items-center">
                     @if ($existingActivity && $existingActivity->path)
                         <div class="">
@@ -52,10 +54,10 @@
                                 @elseif (in_array($extension, ['mp4', 'webm', 'ogg']))
                                     <video controls class="responsive-media">
                                         <source src="{{ Storage::url($existingActivity->path) }}" type="video/{{ $extension }}">
-                                        Your browser does not support the video tag.
+                                        Pelayar anda tidak menyokong tag video.
                                     </video>
                                 @else
-                                    <p>Unsupported media type.</p>
+                                    <p>Jenis media tidak disokong. Sila cuba format lain.</p>
                                 @endif
                             </div>
                         </div>

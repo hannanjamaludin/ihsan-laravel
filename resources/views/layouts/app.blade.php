@@ -28,14 +28,12 @@
     {{-- Chatbot Botman --}}
     {{-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/assets/css/chat.min.css"> --}}
 
-    <!-- Scripts -->
+    <!-- Library Scripts -->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>  
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://kit.fontawesome.com/3c8bffa6d2.js" crossorigin="anonymous"></script>
     <script src="/DataTables/datatables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    {{-- @livewireStyles --}}
 
 </head>
 <body class="m-0 p-0 body-main">
@@ -46,40 +44,11 @@
 
         @guest
             @yield('guest')
-            {{-- @php
-                dd("masuk");
-            @endphp --}}
         @endguest      
         
-        
-        {{-- @include('layouts.sidebar') --}}
-
-
-        {{-- <!-- Sidebar -->
-        <aside class="page-sidebar">
-            <div class="page-logo">
-                <a href="#" class="page-logo-link press-scale-down d-flex align-items-center position-relative"
-                    data-toggle="modal" data-target="#modal-shortcut">
-                    <img src="{{ url('assets/img/ihsan-logo-32x32.png') }}" class="d-inline-flex" alt="" aria-roledescription="logo">
-                    <span class="page-logo-text mr-1">Ihsan</span>
-                    <span class="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
-                </a>
-            </div>
-            
-            <nav id="js-primary-nav" class="primary-nav" role="navigation">
-                <ul class="nav-menu">
-                    <li class="list-group-item">Sidebar Item 1</li>
-                    <li class="list-group-item">Sidebar Item 2</li>
-                    <!-- Add more sidebar items as needed -->
-                </ul>
-            </nav>
-        </aside> --}}
-
-        {{-- <main class="main"> --}}
-            {{-- @yield('content') --}}
         @yield('js')
         @yield('css')
-        {{-- </main> --}}
+
     </div>
     @livewireScripts
 </body>

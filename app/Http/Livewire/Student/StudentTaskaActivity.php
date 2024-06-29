@@ -90,7 +90,7 @@ class StudentTaskaActivity extends Component
                 'type' => $mediaType, 
                 'path' => $path,
             ]);
-        } else {
+        } else { // display the uploaded media if exists
             $taskaActivity = $this->existingActivity;
         }
 

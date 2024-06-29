@@ -13,7 +13,6 @@ use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 
 class ClassController extends Controller
 {
@@ -41,7 +40,6 @@ class ClassController extends Controller
         $branch = Branch::where('id', $teacher->branch_id)->first();
 
         $class = TadikaClass::where('branch', $branch->id)->get();
-        $classIds = $class->pluck('id');
 
         $today = Carbon::now();
 
