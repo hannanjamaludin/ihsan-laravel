@@ -73,11 +73,11 @@ class StudentTadikaActivity extends Component
 
     public function submitForm(){
 
-        // $this->validate([
-        //     'subject' =>'required',
-        //     'learning' =>'required',
-        //     'activity' =>'required',
-        // ]);
+        $this->validate([
+            'subject' =>'required',
+            'learning' =>'required',
+            'activity' =>'required',
+        ]);
 
         $tadika_activity = TadikaActivity::where('class_id', $this->class->id)
                                             ->where('date', $this->selectedDate)

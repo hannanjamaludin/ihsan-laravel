@@ -212,12 +212,6 @@
     @endphp
 
     <script id="botmanWidget" src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/chat.js'></script>
-    {{-- <script>
-        if (document.querySelectorAll('.chatbot .msg').value){
-            const chatWindow = document.getElementById('messageArea');
-            chatWindow.scrollTop = chatWindow.scrollHeight;
-        }
-    </script> --}}
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {

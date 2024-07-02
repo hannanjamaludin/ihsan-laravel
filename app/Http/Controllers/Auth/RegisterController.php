@@ -53,9 +53,10 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
+            // 'phoneNo' => ['required', 'integer', 'min:10', 'max:12', 'confirmed'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'staffID' => ['required', 'string', 'min:8'],
+            'staffId' => ['required', 'string', 'min:8'],
             'user_type' => ['required', 'integer'],
         ]);
     }
@@ -71,7 +72,7 @@ class RegisterController extends Controller
         $user = User::create([
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'staff_no' => $data['staffID'],
+            'staff_no' => $data['staffId'],
             'user_type' => $data['user_type'],
         ]);
 
@@ -82,7 +83,7 @@ class RegisterController extends Controller
                 'user_id' => $user->id,
                 'full_name' => $data['name'],
                 'phone_no' => $data['phoneNo'],
-                'staff_no' => $data['staffID'],
+                'staff_no' => $data['staffId'],
                 'branch_id' => 2,
                 'is_admin' => 0
             ]);
@@ -93,7 +94,7 @@ class RegisterController extends Controller
                 'user_id' => $user->id,
                 'full_name' => $data['name'],
                 'phone_no' => $data['phoneNo'],
-                'staff_no' => $data['staffID'],
+                'staff_no' => $data['staffId'],
                 'branch_id' => 1,
                 'is_admin' => 0
             ]);
@@ -108,7 +109,7 @@ class RegisterController extends Controller
                 'user_id' => $user->id,
                 'full_name' => $data['name'],
                 'phone_no' => $data['phoneNo'],
-                'staff_no' => $data['staffID'],
+                'staff_no' => $data['staffId'],
                 'email' => $data['email'],
                 'role_id' => 2
             ]);
@@ -119,7 +120,7 @@ class RegisterController extends Controller
                 'user_id' => $user->id,
                 'full_name' => $data['name'],
                 'phone_no' => $data['phoneNo'],
-                'staff_no' => $data['staffID'],
+                'staff_no' => $data['staffId'],
                 'email' => $data['email'],
                 'role_id' => 1
             ]);

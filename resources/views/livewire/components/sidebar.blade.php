@@ -22,7 +22,7 @@
                             </a>
                         </li>
                         <li class="nav-item py-2 py-sm-1">
-                            <a href="{{ route('pengguna.index_admin') }}" class="nav-link text-primary {{ request()->routeIs('pengguna.index_admin') || request()->routeIs('pengguna.kemaskini_pengguna') ? 'active' : '' }}">
+                            <a href="{{ route('pengguna.index_admin') }}" class="nav-link text-primary {{ request()->routeIs('pengguna.index_admin') || request()->routeIs('pengguna.kemaskini_pengguna') || request()->routeIs('pengguna.penggunaBaru') ? 'active' : '' }}">
                                 <i class="fs-5 fa fa-users"></i>
                                 <span class="fs-5 ms-3 d-none d-sm-inline">Pengurusan Pengguna</span>
                             </a>

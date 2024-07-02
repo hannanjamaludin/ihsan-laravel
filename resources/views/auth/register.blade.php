@@ -63,9 +63,9 @@
                             <div class="input-group-text">
                                 <i class="fa fa-user-tie"></i>
                             </div>    
-                            <input id="staffID" type="staffID" class="form-control @error('staffID') is-invalid @enderror" name="staffID" placeholder="{{ __('ID Pekerja/Pelajar UTM') }}" value="{{ old('staffID') }}" required autocomplete="staffID">
+                            <input id="staffId" type="staffId" class="form-control @error('staffId') is-invalid @enderror" name="staffId" placeholder="{{ __('ID Pekerja/Pelajar UTM') }}" value="{{ old('staffId') }}" required autocomplete="staffId">
 
-                            @error('staffID')
+                            @error('staffId')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

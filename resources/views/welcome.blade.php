@@ -64,15 +64,9 @@
         </div>
     </div>
 
-    {{-- Chatbot interface --}}
-    {{-- <div id="chatbot-container" style="position: fixed; bottom: 20px; right: 20px; width: 300px; border: 1px solid #ccc; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);">
-        <div id="chat-window" style="height: 300px; overflow-y: scroll; background: #fff; padding: 10px;">
-            <div id="chat-output"></div>
-        </div>
-        <input type="text" id="user-input" style="width: 80%; padding: 10px; box-sizing: border-box;" placeholder="Type your message here...">
-        <button id="send-button" style="width: 20%; padding: 10px;">Send</button>
-    </div> --}}
 </div>
+
+<div class="botman-bubble" id="botmanBubble">Klik di sini untuk berbual!</div>
 
 @endsection
 
