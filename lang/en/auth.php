@@ -14,7 +14,8 @@ return [
     */
 
     // 'failed' => 'These credentials do not match our records.',
-    'failed' => 'Alamat e-mel ini tiada dalam rekod.',
+    'email' => 'Alamat e-mel tiada dalam rekod.',
+    'failed' => 'E-mel atau kata laluan tidak sah.',
     // 'password' => 'The provided password is incorrect.',
     'password' => 'Kata laluan tidak sah.',
     // 'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',

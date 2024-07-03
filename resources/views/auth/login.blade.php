@@ -29,6 +29,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
+
                         </div>
 
                         <div class="mb-3">
@@ -42,12 +43,12 @@
                             @enderror
                         </div>
 
-                        <div class="mb-3 form-check">
+                        {{-- <div class="mb-3 form-check">
                             <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                             <label class="form-check-label" for="remember">
                                 {{ __('Ingatkan Saya') }}
                             </label>
-                        </div>
+                        </div> --}}
 
                         <div class="row mb-0">
                             <div class="col-md-8">
@@ -55,11 +56,11 @@
                                     {{ __('Log Masuk') }}
                                 </button>
 
-                                @if (Route::has('password.request'))
+                                {{-- @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Lupa Kata Laluan?') }}
                                     </a>
-                                @endif
+                                @endif --}}
                             </div>
                         </div>
                     </form>
