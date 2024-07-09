@@ -72,9 +72,9 @@
 <style>
     .responsive-media {
         width: 100%;
-        max-width: 100%;
-        height: auto;
-        object-fit: cover;
+        max-width: 800px;
+        height: 500px;
+        object-fit: contain;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }

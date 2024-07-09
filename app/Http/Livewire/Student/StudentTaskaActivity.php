@@ -63,7 +63,9 @@ class StudentTaskaActivity extends Component
 
         if ($this->existingActivity) {
             $this->activity = $this->existingActivity->activity;
-        }    
+        } else {
+            $this->activity = '';
+        }   
     }
 
     public function submitForm(){

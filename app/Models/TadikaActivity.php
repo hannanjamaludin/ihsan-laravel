@@ -24,7 +24,7 @@ class TadikaActivity extends Model
     }
 
     public function studentActivity(){
-        return $this->hasMany(TaskaActivityStudent::class, 'activity_id', 'id');
+        return $this->hasMany(TadikaActivityStudent::class, 'activity_id', 'id');
     }
 
     public function attendance() {

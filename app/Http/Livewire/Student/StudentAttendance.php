@@ -66,21 +66,26 @@ class StudentAttendance extends Component
             $this->students = Students::where('class_id', $this->class->id)
                         ->whereDoesntHave('attendance', function($query){
                             $query->where('date', $this->selectedDate);
-                        })->get();
+                        })
+                        ->orderBy('full_name', 'asc')
+                        ->get();
 
             $this->presentStudents = Attendance::where('status', 1)
                                 ->where('date', $this->selectedDate)
                                 ->where('class_id', $this->class->id)
-                                ->with('student')
+                                ->whereHas('student', function ($query){
+                                    $query->orderBy('full_name', 'asc');
+                                })
                                 ->get();
                                 
             $this->absentStudents = Attendance::where('status', 0)
                                 ->where('date', $this->selectedDate)
                                 ->where('class_id', $this->class->id)
-                                ->with('student')
-                                ->get();
+                                ->with(['student' => function ($query) {
+                                    $query->orderBy('full_name', 'asc'); 
+                                }])->get();
         } else {
-            $this->students = Students::where('class_id', $this->class->id)->get();
+            $this->students = Students::where('class_id', $this->class->id)->orderBy('full_name', 'asc')->get();
         }
 
     }

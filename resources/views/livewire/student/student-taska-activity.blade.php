@@ -127,10 +127,10 @@
 
 <style>
     .responsive-media {
-        width: 70%;
-        max-width: 70%;
-        height: auto;
-        object-fit: cover;
+        width: 100%;
+        max-width: 100%;
+        height: 500px;
+        object-fit: contain;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
