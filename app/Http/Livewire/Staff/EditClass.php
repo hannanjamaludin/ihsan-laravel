@@ -16,6 +16,10 @@ class EditClass extends Component
 
     protected $listeners = ['editClass'];
 
+    protected $rules = [
+        'capacity' => 'required|integer|min:1',
+    ];
+
     public function editClass($id){
         $class = TadikaClass::with('teacher')->findOrFail($id);
         // dd($class);
@@ -35,6 +39,8 @@ class EditClass extends Component
 
     public function updateClass(){
         $class = TadikaClass::findOrFail($this->classId);
+
+        $this->validate();
         $class->update([
             'capacity' => $this->capacity,
         ]);

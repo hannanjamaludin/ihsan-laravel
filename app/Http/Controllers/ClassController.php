@@ -101,7 +101,9 @@ class ClassController extends Controller
                                 });
         
         // dd($attendanceRecords);
-        $students = Students::where('class_id', $classId)->get();
+        $students = Students::where('class_id', $classId)->orderBy('full_name')->get();
+
+        // dd($students);
 
         return view('attendance.attendance-report-detail',[
             'class' => $class,
