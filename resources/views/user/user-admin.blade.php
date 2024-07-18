@@ -101,7 +101,8 @@
                     "next": "Seterusnya",
                     "previous": "Sebelumnya"
                 },
-                "emptyTable": "Tiada pendaftaran baharu"
+                "emptyTable": "Tiada pendaftaran baharu",
+                "zeroRecords": "Tiada data ditemui"
             }
         });
 

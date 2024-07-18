@@ -4,24 +4,17 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\BotManController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\RazorpayController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\StripeController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UsersManagement\UsersController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Livewire\Application\ViewApplication;
-use App\Http\Livewire\Payment\ViewPaymentDetails;
-use App\Models\Application;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
-// Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
 Route::match(['get', 'post'], '/botman', [BotManController::class, 'handle']);
 Route::get('/chat', function () {
     return view('chat');
@@ -30,9 +23,6 @@ Route::get('/chat', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-// Route::get('product',[RazorpayController::class,'index']);
-// Route::post('razorpay-payment',[RazorpayController::class,'store'])->name('razorpay.payment.store');
 
 Route::middleware('auth')->group(function () {
 
@@ -70,12 +60,9 @@ Route::middleware('auth')->group(function () {
     Route::prefix('pembayaran')->as('pembayaran.')->group(function () {
         Route::get('/', [PaymentController::class, 'index'])->name('index');
         Route::get('/yuran/{studentId}', [PaymentController::class, 'paymentByStudent'])->name('yuran_student');
-        // Route::get('/transaksi', [PaymentController::class, 'makePayment'])->name('buat_pembarayan');
 
         Route::post('/session', [StripeController::class, 'session'])->name('session');
-        // Route::get('/status/{studentId}/{monthId}/{session_id}', [StripeController::class, 'status'])->name('status');
         Route::get('/status/{studentId}/{year}/{monthId}', [StripeController::class, 'status'])->name('status');
-        // Route::get('/resit-pembayaran', [ViewPaymentDetails::class, 'getPaymentDetails'])->name('resit_pembayaran');
     });
 
     Route::get('/pembayaran-resit-pdf/{paymentId}', [PaymentController::class, 'downloadReceipt'])->name('payment.receipt.pdf');
@@ -91,8 +78,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/aktiviti-anak/{studentId}', [StudentController::class, 'activityDetail'])->name('aktiviti_detail');
         Route::get('/datatable_room_activity', [StudentController::class, 'datatable_room_activity'])->name('datatable_room_activity');
         Route::get('/datatable_class_activity', [StudentController::class, 'datatable_class_activity'])->name('datatable_class_activity');
-        // Route::get('/datatable_submitted_tadika_activity', [StudentController::class, 'datatable_submitted_tadika_activity'])->name('datatable_submitted_tadika_activity');
-        // Route::post('/tadika-simpan/{class_id}/{today}', [StudentController::class, 'storeTadikaActivity'])->name('tadika_simpan');
     });
 
     Route::prefix('kelas')->as('kelas.')->group(function () {

@@ -362,7 +362,7 @@ class UsersController extends Controller
             //                 </a>';
 
             $delete_btn = '<button type="button" class="btn btn-primary me-3 px-2 pb-1 pt-0" 
-                                title="Tolak permohonan" onclick="delete_user('.  $user->id . ');">
+                                title="Buang pengguna" onclick="delete_user('.  $user->id . ');">
                                 <i class="fas fa-trash mx-1" style="font-size: 10px;"></i>
                             </button>';
 
