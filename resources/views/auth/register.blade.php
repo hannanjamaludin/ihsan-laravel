@@ -161,19 +161,19 @@
 @section('css')
 <style>
     body {
-        overflow-x: hidden; /* Prevent horizontal scrolling */
+        overflow-x: hidden; 
     }
 
     .container-fluid {
-        padding: 0 15px; /* Reduce padding if necessary */
+        padding: 0 15px;
     }
 
     .row {
-        margin: 0; /* Reset margin if custom values are causing overflow */
+        margin: 0;
     }
 
     .col-md-5 {
-        padding: 0; /* Remove padding if causing overflow */
+        padding: 0;
     }
 </style>
 @endsection

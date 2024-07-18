@@ -40,8 +40,6 @@ class ChildInformation extends Component
                                 })
                                 ->get();
 
-        // dd($this->age, $this->branch);
-
         $this->states = State::get();
 
         $this->district = District::
@@ -52,8 +50,6 @@ class ChildInformation extends Component
                             })
                             ->get();
                             
-        // dd($this->district);                 
-
         return view('livewire.application.child-information', [
             'branch' => $this->branch,
             'states' => $this->states,

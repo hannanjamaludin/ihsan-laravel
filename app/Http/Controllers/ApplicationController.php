@@ -22,11 +22,10 @@ class ApplicationController extends Controller
                                 ->with('applicationStatus')
                                 ->get();
                         
-        // dd($student_status);
-
         return view('application.index', ['student' => $student_status]);
     }
 
+    // function to navigate to create new application page
     public function createApplication(){
 
         $branch = Branch::get();
@@ -57,8 +56,6 @@ class ApplicationController extends Controller
 
         }
 
-        // dd($count_parent, $parent, $mom, $dad);
-
         $form_data = session('form_data');
 
         return view('application.create-application', [
@@ -69,12 +66,12 @@ class ApplicationController extends Controller
         ]);
     }
 
+    // function to navigate to next page for create application
     public function createApplicationNext(){
 
         $branch = Branch::get();
 
         $form_data = session('form_data');
-        // dd($form_data);
 
         return view('application.create-application-next', [
             'form_data' => $form_data,
@@ -82,16 +79,16 @@ class ApplicationController extends Controller
         ]);
     }
     
+    // function to store application information in session
     public function storeSession(Request $request){
-        // dd('masuk');
 
         $form_data = $request->all(); 
-        // dd($form_data);
         session()->put('form_data', $form_data);
 
         return redirect()->route('pendaftaran.pendaftaranBaruFinal');
     }
 
+    // function to store application information in database
     public function store(Request $request){
 
         try{
@@ -102,7 +99,6 @@ class ApplicationController extends Controller
             $user = Parents::where('user_id', Auth::user()->id)->first();
     
             $parents = Parents::where('user_id', Auth::user()->id)->get();
-            // dd($parents);
     
             $mom = null;
             $dad = null;
@@ -129,9 +125,8 @@ class ApplicationController extends Controller
                     }
                 }
             }
-    
-            // dd($parents, $count_parent, $mom, $dad);
-    
+        
+            // if user is a mom
             if ($user->role_id == 2){
 
                 $userUser->update([
@@ -152,6 +147,7 @@ class ApplicationController extends Controller
                     'postcode' => $form_data['m_office_postcode']
                 ]);
     
+                // if dad's information is available in database, update the information
                 if ($count_parent == 2){   
     
                     $dad = $dad->update([
@@ -169,7 +165,7 @@ class ApplicationController extends Controller
                         'postcode' => $form_data['d_office_postcode']
                     ]);
         
-                } else {
+                } else { // if dad's information is not available, create a new one
                     $dad = Parents::create([
                         'full_name' => $form_data['dad_full_name'],
                         'user_id' => Auth::user()->id,
@@ -186,7 +182,7 @@ class ApplicationController extends Controller
                     ]);
                 }
     
-            } else {
+            } else { // if user is a dad
 
                 $userUser->update([
                     'email' => $form_data['dad_email'],
@@ -206,6 +202,7 @@ class ApplicationController extends Controller
                     'postcode' => $form_data['d_office_postcode']
                 ]);
     
+                // if mom's information is available, update the information
                 if ($count_parent == 2){
                     $mom = $mom->update([
                         'full_name' => $form_data['mom_full_name'],
@@ -221,7 +218,7 @@ class ApplicationController extends Controller
                         'state' => $form_data['m_office_state'],
                         'postcode' => $form_data['m_office_postcode']
                     ]);
-                } else {
+                } else { // if mom's information is not available, create a new one
                     $mom = Parents::create([
                         'full_name' => $form_data['mom_full_name'],
                         'user_id' => Auth::user()->id,
@@ -247,8 +244,6 @@ class ApplicationController extends Controller
                             ->where('role_id', 1)
                             ->first();
     
-            // dd($mom, $dad);
-    
             $student = Students::create([
                 'full_name' => $form_data['child_full_name'],
                 'ic_no' => $form_data['ic_no'],
@@ -271,7 +266,6 @@ class ApplicationController extends Controller
                 'enroll_date' => $form_data['enroll_date'],
             ]);
     
-            // dd($mom->id);    
             $app = Application::create([
                 'branch_id' => $student['branch_id'],
                 'user_id' => Auth::user()->id,
@@ -281,6 +275,7 @@ class ApplicationController extends Controller
     
             $branch = Branch::find($student->branch_id);
     
+            // add the application count
             if($branch){
                 $branch = $branch->update([
                     'application' => $branch->application + 1,
@@ -299,6 +294,7 @@ class ApplicationController extends Controller
 
     }
 
+    // function to navigate to update application page
     public function updateApplication(){        
         return view('application.update-application');
     }
@@ -342,16 +338,10 @@ class ApplicationController extends Controller
                                     })->whereHas('applicationStatus', function($query){
                                         $query->where('status', NULL);
                                     })->with('mom', 'dad', 'branch');
-                // dd('masuk');
             }
         }
         
         $student = $studentQuery->get();
-
-        // dd($user, $student);  
-
-        // dd($student);
-
         $al_data = [];
 
         foreach ($student as $s){
@@ -360,7 +350,6 @@ class ApplicationController extends Controller
             $today = new DateTime();
             $dob = new DateTime($s->dob);
             $diff = $dob->diff($today);
-            // $age = $dob->diff($today)->y;
             $age = $today->format('Y') - $dob->format('Y');
             if ($age > 0){
                 $age_display = $age . ' Tahun';        
@@ -403,8 +392,6 @@ class ApplicationController extends Controller
                                 <i class="fas fa-times mx-1" style="font-size: 10px;"></i>
                             </button>';
 
-            // dd($today, $dob, $age);
-
             $al_data[] = [
                 'name' => $s->full_name,
                 'age' => $age_display,
@@ -433,14 +420,11 @@ class ApplicationController extends Controller
                                             })->whereHas('branch', function($query) use ($teacher) {
                                                 $query->where('id', $teacher->branch_id);
                                             })->with('mom', 'dad', 'branch');
-                // dd('masuk');
             }
         }
         
         $student = $studentQuery->get();
         
-        // dd($student);
-
         $updated_app = [];
 
         foreach ($student as $s){
@@ -449,7 +433,6 @@ class ApplicationController extends Controller
             $today = new DateTime();
             $dob = new DateTime($s->dob);
             $diff = $dob->diff($today);
-            // $age = $dob->diff($today)->y;
             $age = $today->format('Y') - $dob->format('Y');
             if ($age > 0){
                 $age_display = $age . ' Tahun';        
@@ -488,8 +471,6 @@ class ApplicationController extends Controller
                                     Ditolak
                                 </div>';
             }
-
-            // dd($today, $dob, $age);
 
             $updated_app[] = [
                 'name' => $s->full_name,

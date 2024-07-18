@@ -43,11 +43,8 @@ class FatherInformation extends Component
             }
         }
 
-        // dd($this->dad);
-        // if ($this->dad){
         $this->dOfficeState = $this->dad->state ?? '';
         $this->dOfficeDistrict = $this->dad->district ?? '';
-        // }
 
         $this->initialStaffChecked = $this->dad && $this->dad->staff_no !== null;
         $this->initialStudentChecked = $this->dad && $this->dad->student_no !== null;
@@ -66,13 +63,6 @@ class FatherInformation extends Component
                             })
                             ->get();
 
-        // dd($this->dad->state);
-        // foreach ($this->states as $state){
-        //     if ($this->dad !== null && $this->dad->state === $state->id){
-        //         dd($this->dad->state, $state->id);
-        //     }
-        // }
-
         return view('livewire.application.father-information', [
             'dad' => $this->dad,
             'states' => $this->states,
@@ -82,7 +72,6 @@ class FatherInformation extends Component
     }
 
     public function addInputBox($id){
-        // dd($id);
         if ($id == 'staffRadioButton_dad'){
             $this->dispatchBrowserEvent('displayDadStaff');
         } else {

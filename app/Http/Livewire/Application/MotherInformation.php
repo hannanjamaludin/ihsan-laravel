@@ -42,10 +42,8 @@ class MotherInformation extends Component
             }
         }
 
-        // if ($this->mom){
-            $this->mOfficeState = $this->mom->state ?? '';
-            $this->mOfficeDistrict = $this->mom->district ?? '';
-        // }
+        $this->mOfficeState = $this->mom->state ?? '';
+        $this->mOfficeDistrict = $this->mom->district ?? '';
 
         $this->initialStaffChecked = $this->mom && $this->mom->staff_no !== null;
         $this->initialStudentChecked = $this->mom && $this->mom->student_no !== null;
@@ -75,7 +73,6 @@ class MotherInformation extends Component
         if ($id == 'staffRadioButton_mom'){
             $this->dispatchBrowserEvent('displayMomStaff');
         } else {
-            // dd($id);
             $this->dispatchBrowserEvent('displayMomStudent');
         }
     }

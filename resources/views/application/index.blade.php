@@ -91,6 +91,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 
+    // delete application
     $('.btn-close').on('click', function() {
         var studentId = $(this).data('student-id');
         var studentName = $(this).closest('.card-students').find('.card-title').text().trim();
