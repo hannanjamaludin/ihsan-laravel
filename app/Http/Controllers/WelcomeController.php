@@ -27,8 +27,6 @@ class WelcomeController extends Controller
             $taska_capacity = $taska_capacity + ($room->capacity - $room->total_students);
         }
 
-        // dd($tadika_capacity, $taska_capacity);
-
         return view('welcome', [
             'taska' => $taska,
             'tadika' =>$tadika,

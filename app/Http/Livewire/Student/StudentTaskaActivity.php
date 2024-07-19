@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Student;
 use App\Models\Attendance;
 use App\Models\TaskaActivity;
 use App\Models\TaskaActivityStudent;
-use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -64,15 +63,11 @@ class StudentTaskaActivity extends Component
         if ($this->existingActivity) {
             $this->activity = $this->existingActivity->activity;
         } 
-        // else {
-        //     $this->activity = '';
-        // }   
     }
 
     public function submitForm(){
 
         $this->validate([
-            // 'activity' => 'required',
             'media' => 'file|mimes:jpg,jpeg,png,gif,mp4,webm,ogg|max:10240',
             'studentMedia.*' => 'file|mimes:jpg,jpeg,png,gif,mp4,webm,ogg|max:10240',
         ]);
@@ -121,7 +116,6 @@ class StudentTaskaActivity extends Component
             }
         }
 
-        // $this->reset(['activity', 'visual']);
         $this->emit('formSubmitted', 'success', 'Aktiviti murid berjaya disimpan');
     }
 

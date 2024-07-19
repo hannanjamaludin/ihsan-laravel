@@ -90,13 +90,9 @@ class StaffController extends Controller
 
         $teacher = Staffs::findOrFail($teacher_id);
 
-        // dd($class_id, $teacher_id);
-
         $teacher->update([
             'class_room' => $class_id
         ]);
-
-        // dd($teacher);
 
         return response()->json(['success' => 'Kelas baharu telah ditetapkan ' . $class_id]);
 

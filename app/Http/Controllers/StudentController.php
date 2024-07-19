@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Livewire\Student\StudentTadikaActivity;
 use App\Models\Attendance;
 use App\Models\Staffs;
 use App\Models\Students;
 use App\Models\TadikaActivity;
-use App\Models\TadikaActivityStudent;
 use App\Models\TadikaClass;
 use App\Models\TaskaActivity;
 use Carbon\Carbon;
@@ -16,28 +14,28 @@ use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
+    // function for navigating to view student profile page
     public function studentProfile(){
         $students = Students::where('user_id', Auth::user()->id)
                         ->where('is_active', 1)
                         ->with('branch')->get();
-
-                        // dd($students);
 
         return view('student.student-profile', [
             'students' => $students
         ]);
     }
 
+    // function for navigating to view student details page
     public function profileDetail($studentId){
         $student = Students::where('id', $studentId)
                             ->with('branch')->first();
-        // dd($student);
 
         return view('student.student-profile-detail', [
             'student' => $student,
         ]);
     }
 
+    // function to navigate to update student profile page
     public function updateStudent($id, Request $request){
 
         $student = Students::findOrFail($id);
@@ -68,6 +66,7 @@ class StudentController extends Controller
         return response()->json(['success' => true]);
     }
 
+    // function to navigate to to student activity page
     public function studentActivity(){
 
         $teacher = Staffs::where('user_id', Auth::user()->id)
@@ -87,12 +86,14 @@ class StudentController extends Controller
         ]);
     }
 
+    // function to return media file path
     public function preview_file($path){
         $visualPath = storage_path('app/' . $path);
 
         return response()->file($visualPath);
     }
 
+    // function to navigate to child activity page
     public function childActivity(){
         $students = Students::where('user_id', Auth::user()->id)
                         ->where('is_active', 1)
@@ -103,6 +104,7 @@ class StudentController extends Controller
         ]);
     }
 
+    // function to navigate to child activity detail page
     public function activityDetail($studentId){
         $student = Students::where('id', $studentId)
                             ->with('branch', 'assignedClass')->first();

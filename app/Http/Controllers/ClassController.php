@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ClassController extends Controller
 {
+    // function to navigate to attendance page
     public function index(){
         $teacher = Staffs::where('user_id', Auth::user()->id)->first();
         $branch = Branch::where('id', $teacher->branch_id)->first();
@@ -32,6 +33,7 @@ class ClassController extends Controller
         ]);
     }
 
+    // function to navigate to view attendance report page
     public function attendanceReport(){
         $teacher = Staffs::where('user_id', Auth::user()->id)
                         ->where('is_Admin', true)
@@ -43,7 +45,6 @@ class ClassController extends Controller
 
         $today = Carbon::now();
 
-        // dd($class);
         $attendancePercentages = [];
         $classAttendance = [];
 
@@ -51,7 +52,6 @@ class ClassController extends Controller
             $attendance = Attendance::where('date', $today->format('Y-m-d'))
                                     ->where('class_id', $cls->id)
                                     ->get();
-            // dd($attendance);
             $present = 0;
             foreach ($attendance as $attend){
                 if ($attend->status == 1){
@@ -66,10 +66,7 @@ class ClassController extends Controller
                 'present' => $present,
                 'total' => $cls->total_students,
             ];
-            // dd($attendance_percentage);
         }
-
-        // dd($attendancePercentages);
 
         return view('attendance.attendance-report', [
             'branch' => $branch,
@@ -81,16 +78,13 @@ class ClassController extends Controller
         ]);
     }
 
+    // function to navigate to attendance report detail page
     public function detailAttendanceReport($classId){
 
         $class = TadikaClass::where('id', $classId)->first();
         $today = $today = Carbon::now()->month;
 
         $months = Month::where('id', '<=', $today)->get();
-
-        // $attendance = Attendance::where('class_id', $classId)
-        //                     ->with('student')
-        //                     ->get();
 
         $attendanceRecords = Attendance::where('class_id', $classId)
                                 ->with('student')
@@ -100,20 +94,17 @@ class ClassController extends Controller
                                     return Carbon::parse($date->date)->format('Y-m');
                                 });
         
-        // dd($attendanceRecords);
         $students = Students::where('class_id', $classId)->orderBy('full_name')->get();
-
-        // dd($students);
 
         return view('attendance.attendance-report-detail',[
             'class' => $class,
             'months' => $months,
-            // 'attendance' => $attendance
             'attendanceRecords' => $attendanceRecords,
             'students' => $students,
         ]);
     }
 
+    // function to navigate to view class page
     public function studentClass(){
 
         $admin = User::where('user_type', 1)
@@ -121,7 +112,6 @@ class ClassController extends Controller
                             $query->where('user_id', Auth::user()->id);
                         })->first();
         
-                        // dd($admin);
         $teacher = Staffs::where('user_id', Auth::user()->id)->first();
 
         if($teacher->branch_id == 1){
@@ -130,7 +120,6 @@ class ClassController extends Controller
             $classes = TadikaClass::where('branch', 2)->get();
         }
 
-        // dd($class);
         return view('student.student-class', [
             'classes' => $classes,
             'teacher' => $teacher,
@@ -161,11 +150,6 @@ class ClassController extends Controller
                             title="Kemaskini" onclick="Livewire.emit(\'editClass\', '. $cls->id .')">
                             <i class="fas fa-pen-to-square mx-1" style="font-size: 10px;"></i>
                         </button>';
-
-            // $edit_btn = '<button type="button" class="btn btn-primary me-3 px-2 pb-1 pt-0" 
-            //                 title="Kemaskini" onclick="editClass('.  $cls->id . ');">
-            //                 <i class="fas fa-pen-to-square mx-1" style="font-size: 10px;"></i>
-            //             </button>';
 
             $class_list[] = [
                 'class' => $cls->age . ' ' . $cls->class_name,
@@ -222,8 +206,6 @@ class ClassController extends Controller
     public function datatable_student_list(Request $request){
         $students = Students::where('class_id', $request->class_id)->get();
 
-        // dd($request->all());
-
         $student_list = [];
 
         foreach($students as $student){
@@ -231,7 +213,6 @@ class ClassController extends Controller
             $today = new DateTime();
             $dob = new DateTime($student->dob);
             $diff = $dob->diff($today);
-            // $age = $dob->diff($today)->y;
             $age = $today->format('Y') - $dob->format('Y');
             if ($age > 0){
                 $age_display = $age . ' Tahun';        
@@ -272,7 +253,6 @@ class ClassController extends Controller
             $today = new DateTime();
             $dob = new DateTime($student->dob);
             $diff = $dob->diff($today);
-            // $age = $dob->diff($today)->y;
             $age = $today->format('Y') - $dob->format('Y');
             if ($age > 0){
                 $age_display = $age . ' Tahun';        
@@ -293,6 +273,7 @@ class ClassController extends Controller
         return datatables()->of($student_list)->addIndexColumn()->make();
     }
 
+    // function to assign student to class
     public function addStudentToClass(Request $request){
         $student_id = $request->student_id;
         $class_id = $request->class_id;
@@ -313,6 +294,7 @@ class ClassController extends Controller
         return response()->json(['success' => 'Murid telah dimasukkan dalam senarai kelas']);
     }
 
+    // function to remove student from class
     public function removeStudentFromClass(Request $request){
         $student_id = $request->student_id;
         $class_id = $request->class_id;

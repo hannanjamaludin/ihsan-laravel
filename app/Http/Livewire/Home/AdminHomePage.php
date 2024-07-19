@@ -36,8 +36,6 @@ class AdminHomePage extends Component
         $weeklyActiveUsers = User::activeUsers(7)->count();
         $monthlyActiveUsers = User::activeUsers(30)->count();
 
-        // dd($activeUsers, $totalUsers);
-
         return view('livewire.home.admin-home-page', [
             'user' => $user,
             'users' => $users,

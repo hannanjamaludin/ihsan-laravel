@@ -24,9 +24,6 @@ class ParentHomePage extends Component
         $students = Students::whereHas('user', function($query) use ($user) {
                                 $query->where('id', $user->id);
                             })
-                            // ->whereHas('applicationStatus', function($query){
-                            //     $query->where('status', NULL);
-                            // }) 
                             ->orderBy('updated_at', 'desc')   
                             ->take(3)
                             ->get();

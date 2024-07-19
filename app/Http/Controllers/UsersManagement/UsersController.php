@@ -11,10 +11,10 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Log;
 
 class UsersController extends Controller
 {
+    // function to navigate to users page
     public function index(){
 
         $user = User::find(Auth::user()->id);
@@ -22,7 +22,6 @@ class UsersController extends Controller
         $user_role = null;
 
         if ($user->user_type == 1 || $user->user_type == 2){
-            // $user_role = User::where('id', $user->id)->with('staffs')->first();
             $user_role = User::where('id', $user->id)->with(['staffs.branch', 'staffs.assignedClass'])->first();
 
         } elseif ($user->user_type == 3){
@@ -39,28 +38,12 @@ class UsersController extends Controller
             $user_role = User::where('id', $user->id)->with('staffs')->first();
         }
 
-        // dd($user, $user_role, $user_role->parents);
-        // dd($user_role->staffs->branch, $user_role->staffs->assignedClass);
-
         return view('user.user-index', [
             'user' => $user_role,
         ]);
     }
 
-    // protected function validator(Request $request){
-    //     return $request->validate([
-    //         'name' => 'required|string|max:255',
-    //         'email' => 'required|string|email|max:255|unique:users',
-    //         'password' => 'required|string|min:8|confirmed', 
-    //         'staffID' => 'required|string|min:8',
-    //         'user_type' => 'required|integer',
-    //     ],[
-    //         'password.required' => 'Kata laluan perlu diisi.',
-    //         'password.min' => 'Kata laluan mestilah sekurang-kurangnya :min karakter.',
-    //         'password.confirmed' => 'Pengesahan kata laluan tidak serasi.',
-    //     ]);    
-    // }
-
+    // function to navigate to update profile page
     public function updateProfile(Request $request){
 
         $user = User::find($request->user_id);
@@ -110,6 +93,7 @@ class UsersController extends Controller
         return response()->json(['success' => true, 'message' => 'Profil telah dikemas kini']);
     }
 
+    // function to navigate to update profile page by admin
     public function updateProfileAdmin(Request $request){
 
         $user = User::find($request->user_id);
@@ -171,19 +155,18 @@ class UsersController extends Controller
         return response()->json(['success' => true, 'message' => 'Profil telah dikemas kini']);
     }
 
+    // function to navigate to user profile page for admin view
     public function indexAdmin(){
         return view('user.user-admin');
     }
 
+    // function to update user profile by admin
     public function updateUser($id){
         $user = User::find($id);
-
-        // dd($user);
 
         $user_role = null;
 
         if ($user->user_type == 3){
-            // dd('masuk');
             $user_role = User::where('id', $user->id)
                             ->whereHas('parents', function($query){
                                 $query->where('role_id', 2);
@@ -193,7 +176,6 @@ class UsersController extends Controller
                             ->whereHas('parents', function($query){
                                 $query->where('role_id', 1);
                             })->first();
-            // dd($user_role, $user_role->parents);
         } else {
             $user_role = User::where('id', $user->id)->with('staffs')->first();
         }
@@ -202,46 +184,8 @@ class UsersController extends Controller
 
     }
 
-    // public function deleteUser(Request $request) {
-    // public function deleteUserOld($id) {
-    //     // dd($request->user_id);
-    //     // try {
-    //         // $user = User::findOrFail($request->user_id);
-    //         $user = User::findOrFail($id);
-    //         // $student = Students::where('user_id', $request->user_id)->get();
-    //         $student = Students::where('user_id', $id)->get();
-    //         // $parents = Parents::where('user_id', $request->user_id)->get();
-    //         $parents = Parents::where('user_id', $id)->get();
-
-    //         // dd($user);
-    //         if ($parents) {
-    //             foreach ($parents as $p) {
-    //                 $p->delete();
-    //             }
-    //         } 
-
-    //         if ($student) {
-
-    //             foreach ($student as $s){
-    //                 $s->delete();
-    //             }
-    //         }
-            
-    //         if ($user) {
-    //             $user->delete();
-    
-    //             return response()->json(['success' => true, 'message' => 'Pengguna telah dibuang']);
-    //         }
-    //          else {
-    //             return response()->json(['success' => false, 'message' => 'Pengguna gagal dibuang']);
-    //         }
-    //     // } catch (\Exception $e) {
-    //     //     return response()->json(['success' => false, 'message' => 'Ralat: ' . $e->getMessage()], 500);
-    //     // }
-    // }
-
+    // function to delete user
     public function deleteUser(Request $request) {
-        // dd($request->user_id);
         try {
              $user = User::findOrFail($request->user_id);
 
@@ -250,7 +194,6 @@ class UsersController extends Controller
                 $student = Students::where('user_id', $request->user_id)->get();
                 $parents = Parents::where('user_id', $request->user_id)->get();
      
-                // dd($user);
                 if ($parents) {
                    foreach ($parents as $p) {
                        $p->delete();
@@ -285,14 +228,10 @@ class UsersController extends Controller
 
     public function datatable_user_list(){
         $users = User::where('user_type', '!=', 1)->with('staffs', 'parents')->get();
-
-        // dd($users);
-
         $user_data = [];
 
         $name = null;
         $user_type = null;
-        // $action = null;
 
         foreach ($users as $user) {
             if ($user->user_type == 2){
@@ -326,7 +265,6 @@ class UsersController extends Controller
                 
                 }
                 
-                // dd($name);
             }
 
             if ($user->user_type == 3){
@@ -356,11 +294,6 @@ class UsersController extends Controller
                                 <i class="fas fa-pen-to-square text-light mx-1" style="font-size: 10px;"></i>
                             </a>';
 
-            // $delete_btn = '<a href="'. route('pengguna.buang_pengguna', ['userId' => $user->id]) .'" class="btn btn-primary me-3 px-2 pb-1 pt-0" 
-            //                     title="Buang pengguna">
-            //                     <i class="fas fa-trash mx-1" style="font-size: 10px;"></i>
-            //                 </a>';
-
             $delete_btn = '<button type="button" class="btn btn-primary me-3 px-2 pb-1 pt-0" 
                                 title="Buang pengguna" onclick="delete_user('.  $user->id . ');">
                                 <i class="fas fa-trash mx-1" style="font-size: 10px;"></i>
@@ -378,13 +311,12 @@ class UsersController extends Controller
         return datatables()->of($user_data)->addIndexColumn()->make();
     }
 
+    // function to navigate to create new user page
     public function createUser() {
-
-        // session()->flash('success_message', 'Pengguna berjaya ditambah!');
-
         return view('user.create-user');
     }
 
+    // function to store new user in database
     public function saveNewUser(Request $request){
         $request->validate([
             'name' => 'required|string|max:255',

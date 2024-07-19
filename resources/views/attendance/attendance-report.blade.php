@@ -6,7 +6,6 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb mx-3">
                 <li class="breadcrumb-item active" aria-current="page"><a href="{{ route('kehadiran.rekod_kehadiran') }}" class="text-primary" style="text-decoration: none">Rekod Kehadiran</a></li>
-                {{-- <li class="breadcrumb-item active" aria-current="page">{{ $class->age }} {{ $class->class_name }}</li> --}}
             </ol>
         </nav>
 
@@ -70,7 +69,6 @@
                                         <div class="col-1">
                                             <div class="container d-flex align-items-center justify-content-end m-0 pt-1">
                                                 <a 
-                                                {{-- href="{{ route('pembayaran.yuran_student', ['studentId' => $s->id]) }}"  --}}
                                                 class="btn btn-link text-decoration-none" style="font-size: 24px;">
                                                     <i class="fas fa-chevron-right"></i>
                                                 </a>

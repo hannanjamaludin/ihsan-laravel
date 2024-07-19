@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class PaymentController extends Controller
 {
+    // function to navigate to payment index page
     public function index(){
 
         $students = Students::where('user_id', Auth::user()->id)
@@ -21,6 +22,7 @@ class PaymentController extends Controller
         ]);
     }
 
+    // function to navigate to payment page by student
     public function paymentByStudent($id){
 
         $student = Students::selectRaw('YEAR(enroll_date) AS enroll_year, class_id, full_name')->find($id);
@@ -54,6 +56,7 @@ class PaymentController extends Controller
         ]);
     }
 
+    // function to download payment receipt
     public function downloadReceipt($paymentId){
         $payment = StripePayment::where('payment_intent_id', $paymentId)
                                 ->with('students.user.parents', 'months', 'students.branch')

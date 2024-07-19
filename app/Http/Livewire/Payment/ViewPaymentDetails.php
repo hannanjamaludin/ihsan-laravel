@@ -3,7 +3,6 @@
 namespace App\Http\Livewire\Payment;
 
 use App\Models\StripePayment;
-use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class ViewPaymentDetails extends Component
@@ -17,8 +16,6 @@ class ViewPaymentDetails extends Component
         $this->payment = StripePayment::where('payment_intent_id', $paymentIntentId)
                                     ->with('students.user.parents', 'students.branch', 'months')
                                     ->first();
-
-                                    // dd($this->payment);
 
         $this->dispatchBrowserEvent('show-payment-modal');
     }

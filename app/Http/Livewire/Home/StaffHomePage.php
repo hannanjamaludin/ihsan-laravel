@@ -16,23 +16,17 @@ class StaffHomePage extends Component
     public function render()
     {
         $user = User::with('staffs.branch', 'staffs.assignedClass')->findOrFail(Auth::user()->id);
-        // dd($user);
 
         $students = Students::whereHas('branch', function($query) use ($user) {
                                 $query->where('id', $user->staffs->branch_id);
-                                // dd('masuk');
                             })
                             ->whereHas('applicationStatus', function($query){
                                 $query->where('status', NULL);
-                                // $query->where('status', 1);
                             })
-                            // ->with('mom', 'dad', 'branch', 'applicationStatus')
                             ->with('mom', 'dad', 'branch')
                             ->orderBy('updated_at', 'desc')
                             ->take(3)
                             ->get();
-
-        // dd($students);
 
         $boysCount = Students::whereHas('branch', function($query) use ($user) {
                                 $query->where('id', $user->staffs->branch_id);
@@ -58,7 +52,6 @@ class StaffHomePage extends Component
 
         $today = Carbon::now();
 
-        // dd($class);
         $attendancePercentages = [];
         $classAttendance = [];
 
@@ -66,7 +59,6 @@ class StaffHomePage extends Component
             $attendance = Attendance::where('date', $today->format('Y-m-d'))
                                     ->where('class_id', $cls->id)
                                     ->get();
-            // dd($attendance);
             $present = 0;
             foreach ($attendance as $attend){
                 if ($attend->status == 1){

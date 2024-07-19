@@ -10,6 +10,7 @@ use Stripe\StripeClient;
 
 class StripeController extends Controller
 {
+    // function to navigate to stripe payment page
     public function session(Request $request){
 
         $stripe = new StripeClient(env('STRIPE_SECRET'));
@@ -53,6 +54,7 @@ class StripeController extends Controller
         return redirect()->away($session->url);
     }
     
+    // function to handle successful payment
     public function status($id, $year, $month, Request $request){
         
         $session = session('stripe_session');
@@ -89,6 +91,7 @@ class StripeController extends Controller
         }
     }
 
+    // function to generate transaction number
     private function generateTransactionNumber() {
         $timestamp = time();
         $randomString = substr(str_shuffle("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 8);

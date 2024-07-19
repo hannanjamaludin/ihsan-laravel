@@ -115,43 +115,4 @@ class BotManController extends Controller
         $botman->listen();
     }
 
-    // public function askName($botman){
-    //     $botman->ask('Waalaikumussalam, siapakah nama anda?', function(Answer $answer, $conversation){
-    //         $name = $answer->getText();
-
-    //         if (empty($name)) {
-    //             $conversation->repeat();
-    //             return;
-    //         }
-
-    //         $conversation->store('name', $name);
-
-    //         $conversation->say('Selamat datang ' . $name);
-
-    //         $conversation->ask('Adakah pertanyaan anda mengenai Taska Ihsan atau Tadika Ihsan?', function(Answer $answer, $conversation) {
-    //             $branch = strtolower($answer->getText());
-
-    //             if (strpos($branch, 'taska') !== false) {
-    //                 $this->taskaConversation($conversation);
-    //             } else {
-    //                 $conversation->say('Maaf, saya hanya boleh membantu mengenai Taska Ihsan atau Tadika Ihsan.');
-    //             }
-    //         });
-    //     });
-    // }
-
-    // public function taskaConversation($botman) {
-    //     $botman->ask('Apakah yang anda ingin tahu mengenai Taska Ihsan?', function(Answer $answer, $conversation) {
-    //         $question = strtolower($answer->getText());
-
-    //         // Process the question and provide relevant information
-    //         if (strpos($question, 'waktu operasi') !== false) {
-    //             $conversation->say('Waktu operasi Taska Ihsan adalah seperti berikut:
-    //                 Ahad - Rabu: 7.30 pagi - 5.30 petang
-    //                 Khamis: 7.30 pagi - 4.00 petang');
-    //         } else {
-    //             $conversation->say('Maaf, saya tidak dapat membantu dengan pertanyaan tersebut. Anda boleh hantarkan pertanyaan melalui e-mel kepada rahmawatul@utm.my');
-    //         }
-    //     });
-    // }
 }
