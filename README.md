@@ -135,8 +135,8 @@ Navigate through the Dashboard to access various features such as Child Manageme
 For any inquiries or further information, you can reach me at:
 
 Email: hannanjamaludin37@gmail.com  
-LinkedIn: Nur Hannan Jamaludin
+LinkedIn: [Nur Hannan Jamaludin](https://www.linkedin.com/in/nur-hannan-jamaludin/).  
 
 ## Acknowledgments
-UTM Faculty of Computing for guidance and support.
+UTM Faculty of Computing for guidance and support.  
 Open-source contributors for the libraries and tools that made this project possible.
